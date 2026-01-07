@@ -37,8 +37,8 @@ allowfullscreen>
 ---
 
 ## 🚁 Tools & Approach
-- **Drone:** (DJI model)
-- **Editing:** DaVinci Resolve / Premiere Pro
+- **Drone:** (DJI Air 2s)
+- **Editing:** iMovie
 - **Philosophy:** Smooth camera motion, deliberate framing, minimal grading
 
 ➡️ More videos on  
