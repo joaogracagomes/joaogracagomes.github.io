@@ -12,7 +12,7 @@ A creative hobby where I combine technology, travel, and storytelling through ae
 <iframe
   width="100%"
   height="400"
-  src="https://youtu.be/7kVD8xP0I3Q?si=7OULrhUy0GkZ18E9"
+  src="https://www.youtube.com/embed/7kVD8xP0I3Q"
   title="ERICEIRA FROM ABOVE 🇵🇹"
   frameborder="0"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -28,10 +28,14 @@ A creative hobby where I combine technology, travel, and storytelling through ae
 ### 🌆 Shanghai, China
 *Exploring scale, geometry, and contrast in one of the world’s most dynamic cities.*
 
-<iframe width="100%" height="420"
-src="https://www.youtube.com/watch?v=hDQDM5csvCg"
-frameborder="0"
-allowfullscreen>
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/hDQDM5csvCg"
+  title="Exploring the Majestic Shanghai Financial Center"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
 </iframe>
 
 **Location:** Shanghai, China  
