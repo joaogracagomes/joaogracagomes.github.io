@@ -31,10 +31,11 @@ extra:
   # Custom navigation
 nav:
   - Resume: Resume.md
-  - Consultancy: Consultancy.md
   - Articles: Articles.md
+  - Conferences: Conferences.md
   - Studies: Studies.md
   - Teaching: Teaching.md
+  - Consultancy: Consultancy.md
   - Hobbies: Hobbies.md
 
 
