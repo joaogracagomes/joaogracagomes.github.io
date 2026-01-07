@@ -9,10 +9,14 @@ A creative hobby where I combine technology, travel, and storytelling through ae
 ### 🌊 Ericeira, Portugal
 *Aerial views of the Atlantic coast — cliffs, waves, and natural light.*
 
-<iframe width="100%" height="420"
-src="https://www.youtube.com/watch?v=7kVD8xP0I3Q"
-frameborder="0"
-allowfullscreen>
+<iframe
+  width="100%"
+  height="400"
+  src="https://youtu.be/7kVD8xP0I3Q?si=7OULrhUy0GkZ18E9"
+  title="ERICEIRA FROM ABOVE 🇵🇹"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
 </iframe>
 
 **Location:** Ericeira, Mafra, Portugal  
