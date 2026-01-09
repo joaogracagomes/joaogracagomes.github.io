@@ -17,7 +17,7 @@ Below is a curated list of these events, which I strive to keep updated regularl
   *Engineering for Enhanced Energy Resilience — A Case Study of Solar PV with Battery Energy Storage Systems*  
   *(under the PhD scholarship FCT 2023.04622.BD)*  
   Future Energy Leaders Romania  
-  **05 Jun 2025** · Romania
+  **05 Jun 2025** · Bucharest, Romania
 
 - **Energy in Debate: The Energetic Potential of Forest Biomass**  
   *Opening Speech*  
