@@ -33,10 +33,13 @@ Below is a curated list of these events, which I strive to keep updated regularl
   **27 Oct 2023** · Shanghai, China  
   [Event link](https://lcc.sjtu.edu.cn/En/Data/View/3613)
 
+- **New Energy Systems: Smart Communities Development**  
+  Shanghai Jiao Tong University  
+  **27 Oct 2023** · Shanghai, China
+
 - **International Conference on Carbon Neutrality**  
   Shanghai Jiao Tong University; University of Oxford  
   **22 Oct 2023** · Shanghai, China  
-  [Event link](https://iccn-2023.sjtu.edu.cn)
 
 - **International Conference on Low Carbon in Asia**  
   *Speaker & Head of Sustainability*  
@@ -95,14 +98,6 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 ---
 
-### 🧑‍🏫 Guest Lecturer
-
-- **New Energy Systems: Smart Communities Development**  
-  Shanghai Jiao Tong University  
-  **27 Oct 2023** · Shanghai, China
-
----
-
 ### 🎤 Interviewer
 
 - **Huawei–State Grid Smart Cities Demonstration**  
@@ -112,10 +107,6 @@ Below is a curated list of these events, which I strive to keep updated regularl
 ---
 
 ### 🤝 Guest Participant
-
-- **Portuguese National Day**  
-  Portuguese Consulate-General in Shanghai  
-  **10 Jun 2023** · Shanghai, China
 
 - **European Climate Pact: Together in Action**  
   European Union  
