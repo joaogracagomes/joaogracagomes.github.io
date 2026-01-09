@@ -176,11 +176,14 @@ Portuguese (Native) · English (IELTS 7.5) · Chinese (HSK 3)
 - **Member, Studies Standing Committee** — World Energy Council  (2023-Present)
   Performed long‐term energy planning studies on the worldwide energy sector.	Organised, prepared and moderated several high‐level discussions on the future of the energy sector. 
 
-  - **Board Member, Future Energy Leaders Portugal** — Portuguese Energy Association (2021 – 2024)  
+- **Board Member, Future Energy Leaders Portugal** — Portuguese Energy Association (2021 – 2024)  
   Collaborated with energy experts to advance energy knowledge in Portugal. Published, edited and managed several opinion articles and white papers on the integration of renewable energy sources into the power grid. Establishing and managing collaborations with media outlets to promote initiatives, enhance visibility, and support communication strategies.
 
 - **European Climate Pact Ambassador** — European Commission (2022-2023)
   Promoting climate action and sustainability initiatives across communities, engaging citizens and stakeholders, and supporting projects aligned with the European Green Deal.
+
+- **Co-founder and Coordinator** — Student Union of the Confucius Institute of the University of Lisbon (2016-2018)
+  Promotion of Sino-Portuguese cultural exchange, support for Chinese students learning Portuguese and Portuguese students learning Mandarin. Provide support to students' concerns and needs.
 
 - **Member of the Pedagogical Council** — Faculty of Sciences, University of Lisbon (2010–2012)
   Participated in the development and review of academic programs, curricula, and teaching policies, contributing to the strategic planning and quality assurance of the faculty's educational offerings.
