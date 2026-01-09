@@ -8,16 +8,49 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 ### 🎤 Speaker / Lecturer
 
+- **Scenarios and Trends in the Oil and Natural Gas Sector**  
+  *Opening Speech*  
+  Portuguese Diaspora Council  
+  **12 Dec 2025** · Online
+
 - **Powering Net Zero 2025 (PNZ)**  
   *Strategic Real Options and Flexibility Analysis for Solar PV Power Plants*  
   *(under the PhD scholarship FCT 2023.04622.BD)*  
   **25–26 Nov 2025** · Glasgow, United Kingdom
+
+- **Powering Net Zero 2025 (PNZ)**  
+  *Strategic Real Options and Flexibility Analysis for Solar PV Power Plants*  
+  *(under the PhD scholarship FCT 2023.04622.BD)*  
+  **25–26 Nov 2025** · Glasgow, United Kingdom
+
+- **EurAfrica Forum**  
+  *Transforming Tomorrow – Bridging Global Partnerships to Meet the 2063 Agenda*  
+  **25–26 Jul 2025** · Cascais, Portugal  
+  [Event link](https://www.eurafricanforum.org/)
 
 - **Future Energy Leaders Romania Yearly Summit 2025**  
   *Engineering for Enhanced Energy Resilience — A Case Study of Solar PV with Battery Energy Storage Systems*  
   *(under the PhD scholarship FCT 2023.04622.BD)*  
   Future Energy Leaders Romania  
   **05 Jun 2025** · Bucharest, Romania
+
+- **EuroAmericas Forum 2024**  
+  *Moderator: Transatlantic Energy – Collaborating for a Sustainable, Secure and Affordable Future*  
+  **17–18 Dec 2024** · Cascais, Portugal
+
+- **One-week, one-class workshop**  
+  *Mastering Scientific Writing: Tips and Strategies for Successful Paper Publication*  
+  Shanghai Investigation, Design and Research Institute  
+  **30 May 2024** · Shanghai, China
+
+- **World Energy Congress**  
+  *Co-creating the future and a new generation of leadership*  
+  **25 April 2024** · Rotterdam, Netherlands
+
+- **Understanding Growth Opportunities for Portuguese Companies in Asia**  
+  *Opening Speech*  
+  Portuguese Diaspora Council  
+  **21 Mar 2024** · Online
 
 - **Energy in Debate: The Energetic Potential of Forest Biomass**  
   *Opening Speech*  
@@ -71,7 +104,13 @@ Below is a curated list of these events, which I strive to keep updated regularl
   Sino-Portuguese Centre for New Energy Technologies  
   **20 Sep 2023** · Shanghai, China
 
+- **Supply Chains of Green Hydrogen in China: Economic Assessment and Greenhouse Gas Footprint**  
+  *Presentation*  
+  Eletrobras  
+  **07 Sep 2023** · Shanghai, Chin
+
 - **Portuguese Overseas Council Summer Event**  
+  *EU-China Cooperation in Scientific Research*
   Portuguese Overseas Council  
   **12 Jun 2023** · Lisbon, Portugal
 
