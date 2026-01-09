@@ -8,15 +8,16 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 ### 🎤 Speaker / Lecturer
 
+- **Industrial Consortium Meeting 2025**  
+  *Learning Under Uncertainty: A Serious Game for Generation Capacity Expansion Planning Decisions*  
+  *(under the PhD scholarship FCT 2023.04622.BD)*  
+  Sargent Centre for Process Systems Engineering  
+  **04–05 Dec 2025** · London, United Kingdom
+
 - **Scenarios and Trends in the Oil and Natural Gas Sector**  
   *Opening Speech*  
   Portuguese Diaspora Council  
   **12 Dec 2025** · Online
-
-- **Powering Net Zero 2025 (PNZ)**  
-  *Strategic Real Options and Flexibility Analysis for Solar PV Power Plants*  
-  *(under the PhD scholarship FCT 2023.04622.BD)*  
-  **25–26 Nov 2025** · Glasgow, United Kingdom
 
 - **Powering Net Zero 2025 (PNZ)**  
   *Strategic Real Options and Flexibility Analysis for Solar PV Power Plants*  
