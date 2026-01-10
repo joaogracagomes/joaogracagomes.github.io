@@ -110,7 +110,7 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 - **10 Years of the Belt and Road Initiative**  
  *Forging Bridges: Advancing Sino-Portuguese Scientific Collaboration Insights  from the China Three Gorges Corporation and EDP Partnership*  
- Silk Road Friendship Association; Confucius Institute of the University of Aveiro; Portuguese Science and Technology Foundation; University of Aveiro  
+ Silk Road Friendship Association; Confucius Institute of the University of Aveiro; Portuguese Science and Technology Foundation; University of Aveiro
   **28 Nov 2023** · Aveiro, Portugal (online)  
   [Event link](https://www.ua.pt/pt/iconfucio/belt-and-road-conferences)
 
@@ -157,7 +157,12 @@ Below is a curated list of these events, which I strive to keep updated regularl
 - **Supply Chains of Green Hydrogen in China: Economic Assessment and Greenhouse Gas Footprint**  
   *Presentation*  
   Eletrobras  
-  **07 Sep 2023** · Shanghai, Chin
+  **07 Sep 2023** · Shanghai, China
+
+- **China–Portugal R&D Forum: Energy Digitalisation — Shaping the Future of Power**  
+  *Moderator*  
+  Sino-Portuguese Centre for New Energy Technologies  
+  **11 Jul 2023** · Shanghai, China
 
 - **Portuguese Overseas Council Summer Event**  
   *EU-China Cooperation in Scientific Research*
@@ -251,18 +256,6 @@ Below is a curated list of these events, which I strive to keep updated regularl
   IET; Shanghai Jiao Tong University 
   **March 2019** · Shanghai, China
   
----
-
-### 🎙️ Moderator
-
-- **China–Portugal R&D Forum: Energy Digitalisation — Shaping the Future of Power**  
-  Sino-Portuguese Centre for New Energy Technologies  
-  **11 Jul 2023** · Shanghai, China
-
-- **China–Portugal R&D Forum: Floating Solar PV**  
-  Sino-Portuguese Centre for New Energy Technologies  
-  **11 Apr 2023** · Shanghai, China
-
 ---
 
 ### 🎤 Video Interviews
