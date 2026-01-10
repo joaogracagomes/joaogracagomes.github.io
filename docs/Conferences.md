@@ -92,7 +92,7 @@ Below is a curated list of these events, which I strive to keep updated regularl
   Portuguese Diaspora Council  
   **21 Mar 2024** · Online
 
-  - **Unlocking the Power of Business Digitalisation: A Key Driver for Enhancing Sino-Portuguese Scientific Collaboration**  
+- **Unlocking the Power of Business Digitalisation: A Key Driver for Enhancing Sino-Portuguese Scientific Collaboration**  
   *Class: Digital Technologies for Business*  
   ISCTE – Instituto Universitário de Lisboa  
   **08 Feb 2024** · Lisbon, Portugal (Online)
