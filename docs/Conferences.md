@@ -35,14 +35,53 @@ Below is a curated list of these events, which I strive to keep updated regularl
   Future Energy Leaders Romania  
   **05 Jun 2025** · Bucharest, Romania
 
+- **Spring Conferences**  
+  *China’s Strategy for Energy Security*  
+  Macau Scientific and Cultural Centre  
+  **27 Mar 2025** · Lisbon, Portugal
+
+- **Batteries: The New Gold of the Energy Transition?**  
+  *Opening Speech*  
+  Portuguese Overseas Council  
+  **06 Mar 2025** · Online
+
+ - **ESG in Tech Bootcamp Open Day**  
+  *Judge*  
+  Tech4GoodAfrica  
+  **15 Feb 2025** · Onine
+
 - **EuroAmericas Forum 2024**  
   *Moderator: Transatlantic Energy – Collaborating for a Sustainable, Secure and Affordable Future*  
   **17–18 Dec 2024** · Cascais, Portugal
 
+- **Hydrogen Role in the Energy Revolution**  
+  *Opening Speech*  
+  Portuguese Overseas Council  
+  **Dec 2024** · Online
+
+- **Portugal–China Economic and Commercial Seminar & Promotion Conference for the 2nd China International Supply Chain Expo (CISCE)**  
+  *Invited Talk: Portugal–China Scientific Collaboration*  
+  **22 Jul 2024** · Lisbon, Portugal
+
+- **Sino-Portuguese Network Lunch**  
+  *EU–China Cooperation in Scientific Research*  
+  Associação Amigos da Nova Rota da Seda  
+  **09 Jul 2024** · Lisbon, Portugal
+
+- **China Energy Tea Session – Green Power Market**  
+  *Moderator & Opening/Closing Speech*  
+  World Energy Council  
+  **20 Jun 2024** · Shanghai, China
+  
 - **One-week, one-class workshop**  
   *Mastering Scientific Writing: Tips and Strategies for Successful Paper Publication*  
   Shanghai Investigation, Design and Research Institute  
   **30 May 2024** · Shanghai, China
+
+- **China–Portugal R&D Forum: Elevating the Potential of Hydropower**  
+  *Moderator*  
+  Sino-Portuguese Centre for New Energy Technologies (Shanghai) Co., Ltd  
+  **23 May 2024** · Online
 
 - **World Energy Congress**  
   *Co-creating the future and a new generation of leadership*  
