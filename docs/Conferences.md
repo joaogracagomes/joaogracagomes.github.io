@@ -92,6 +92,16 @@ Below is a curated list of these events, which I strive to keep updated regularl
   Portuguese Diaspora Council  
   **21 Mar 2024** · Online
 
+  - **Unlocking the Power of Business Digitalisation: A Key Driver for Enhancing Sino-Portuguese Scientific Collaboration**  
+  *Class: Digital Technologies for Business*  
+  ISCTE – Instituto Universitário de Lisboa  
+  **08 Feb 2024** · Lisbon, Portugal (Online)
+
+ - **China–Portugal R&D Forums: Green Hydrogen in Power Systems**  
+  *Moderator*  
+  Sino-Portuguese Centre for New Energy Technologies  
+  **12 Dec 2023** · Online
+
 - **Energy in Debate: The Energetic Potential of Forest Biomass**  
   *Opening Speech*  
   Portuguese Energy Association; Future Energy Leaders Portugal  
@@ -124,7 +134,7 @@ Below is a curated list of these events, which I strive to keep updated regularl
   **27 Oct 2023** · Shanghai, China
 
 - **International Conference on Carbon Neutrality**  
- *Towards Energy Autonomy: A Systematic Approach for Design and Optimization of  the Energy System of Industrial Parks*
+ *Towards Energy Autonomy: A Systematic Approach for Design and Optimisation of  the Energy System of Industrial Parks*
   Shanghai Jiao Tong University; University of Oxford  
   **22 Oct 2023** · Shanghai, China  
 
@@ -161,12 +171,86 @@ Below is a curated list of these events, which I strive to keep updated regularl
   **21 Apr 2023** · Shanghai, China  
   [Event link](https://euraxess.ec.europa.eu/worldwide/china/events/meeting-european-researchers-stem-fields-china)
 
+- **China–Portugal R&D Forums: Exploring the Opportunities and Challenges in Floating Solar PV Technology**  
+  *Moderator*  
+  Sino-Portuguese Centre for New Energy Technologies  
+  **11 Apr 2023** · Online
+
 - **Future Energy Leaders Conference**  
- *Mobilizing the Right Stakeholders: The Importance of China-European Collaboration on Climate Change*
+ *Mobilising the Right Stakeholders: The Importance of China-European Collaboration on Climate Change*
   PwC France; World Energy Council; French Energy Association  
   **09 Feb 2023** · Paris, France  
   [Event link](https://www.pwc.com/gx/en/industries/energy-utilities-resources/future-energy.html)
 
+- **First Industrial Lecture, China–UK Low Carbon College**  
+  *Comprehensive Development of Renewable Energy in China*  
+  Shanghai Jiao Tong University  
+  **21 Oct 2022** · Shanghai, China
+
+- **One-week, one-class workshop**  
+  *European Union Energy Policy*  
+  Shanghai Investigation, Design and Research Institute  
+  **24 Jun 2022** · Shanghai, China
+
+- **ISOPE 2022: The 32nd International Ocean and Polar Engineering Conference**  
+  *Review of Offshore Wind Project Status – New Approach of Floating Turbines*  
+  **05–10 Jun 2022** · Shanghai, China
+
+- **Visionary Future Energy Leaders Project**  
+  *How Will Renewable Energy Evolve?*  
+  World Energy Council  
+  **June 2022** · Online
+
+- **Portugal–China Scientific Research Cooperation**  
+  *Sino–Portuguese Scientific and Industrial Collaboration: A Case Study of EDP & CTG*  
+  Amigos Rota da Seda; Macau Association for Scientific Cooperation  
+  **06–07 Dec 2021** · Lisbon, Portugal (online)
+
+- **The 5th Sustainable Process Integration Laboratory (SPIL 2021) Scientific Conference**  
+  *Planning and Optimisation of a 100% Renewable Energy System*  
+  Brno University of Technology  
+  **04–05 Nov 2021** · Brno, Czech Republic (online)
+
+- **New Energy Systems**  
+  *Integration of Renewable Power Plants with Battery Storage*  
+  Shanghai Jiao Tong University  
+  **Oct 2021** · Shanghai, China
+
+- **7th International Conference on Low Carbon in Asia & Beyond (ICLCA 2021)**  
+  *Optimal Operation Scheduling of a Hybrid PV-Wind-Storage System in a Liberalized Electricity Market*  
+  University of Technology Malaysia  
+  **18–19 Oct 2021** · Johor Bahru, Malaysia (online)
+
+- **2021 Shanghai International Conference on Wind Energy Technology & 2021 Shanghai International Summit on Innovation and Development of Offshore Wind Power Industry**  
+  *Chinese Developments on Wind Offshore*
+  SeaHow 
+  **07 Jul 2021** · Shanghai, China
+
+- **Energy in Debate: The Potential of Distributed Solar Energy**  
+  *Moderator*
+  Future Energy Leaders Portugal; Portuguese Energy Association  
+  **30 Jun 2021** · Online
+
+- **6th International Conference on Low Carbon in Asia (ICLCA 2020)**  
+  *Optimisation of a Hybrid Solar-Wind System with Battery Energy Storage for a Remote Island*  
+  Shanghai Jiao Tong University  
+  **01–02 Sep 2020** · Shanghai, China (Online)
+
+- **IET Presents Around the World: China Final**  
+  *The Potential of Nuclear Power to Decarbonise the World*  
+  IET; Communication University of China  
+  **May 2019** · Beijing, China
+
+- **IET Presents Around the World: SJTU Final**  
+  *The Potential of Nuclear Power to Decarbonise the World*  
+  IET; Shanghai Jiao Tong University 
+  **April 2019** · Shanghai, China
+
+- **IET Presents Around the World: SJTU Semi-Final**  
+  *The Potential of Nuclear Power to Decarbonise the World*  
+  IET; Shanghai Jiao Tong University 
+  **March 2019** · Shanghai, China
+  
 ---
 
 ### 🎙️ Moderator
@@ -181,11 +265,31 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 ---
 
-### 🎤 Interviewer
+### 🎤 Video Interviews
 
 - **Huawei–State Grid Smart Cities Demonstration**  
   Huawei; State Grid  
   **06 Sep 2023** · Xi’an, China
+  [Watch the interview video](https://www.facebook.com/HuaweiAPAC/videos/power-grids-are-vital-in-tackling-carbon-emissions-and-climate-challenges-follow/383661217318395/)
+
+- **Science, Where Are You Going? (Ciência, onda andas tu?)**  
+  *Interview*  
+  Faculty of Science, University of Lisbon  
+  **31 May 2022** · Lisbon, Portugal
+
+- **Interview with China Three Gorges International**  
+  *Interview: Experiences Working and Studying in China*  
+  Celebrating the 10th Anniversary of CTG Europe  
+  **Sep 2021** · Online
+
+- **Interview with the Shanghai Government**  
+  *Interview: Experiences Living and Working in Shanghai*  
+  Part of a municipal program to attract foreign talent  
+  **Jun 2020** · Shanghai, China
+
+- **Celebration of the Anniversary of the Faculty of Sciences, University of Lisbon**  
+  *Interview: Experiences Studying at FCUL*  
+  **Apr 2019** · Lisbon, Portugal (Online)
 
 ---
 
@@ -224,6 +328,11 @@ Below is a curated list of these events, which I strive to keep updated regularl
   European Union  
   **01 Feb 2023** · Brussels, Belgium  
   [Event link](https://climate-pact.europa.eu/news-and-events/events/european-climate-pact-together-action-2023-02-01_en)
+
+- **REN21 Academy & REN21 Academy Young Professionals Day**  
+  *REN21*  
+  **Jun 2021** · Online
+
 
 
 
