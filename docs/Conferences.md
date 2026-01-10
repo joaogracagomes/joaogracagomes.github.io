@@ -260,6 +260,11 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 ### 🎤 Video Interviews
 
+- **The 24th Conference on the Electric Power Supply Industry (第24届亚太电协大会)**  
+  *Interview: Green Energy Development*  
+  CCTV (中央電視台)  
+  **21 Oct 2023** · Xiamen, China  
+  
 - **Huawei–State Grid Smart Cities Demonstration**  
   Huawei; State Grid  
   **06 Sep 2023** · Xi’an, China
@@ -274,6 +279,11 @@ Below is a curated list of these events, which I strive to keep updated regularl
   *Interview: Experiences Working and Studying in China*  
   Celebrating the 10th Anniversary of CTG Europe  
   **Sep 2021** · Online
+
+- **Chinese New Year Celebration**  
+  *Interview: Foreigner Experiences in China*
+  Shanghai TV  
+  **Feb 2021** · Shanghai, China
 
 - **Interview with the Shanghai Government**  
   *Interview: Experiences Living and Working in Shanghai*  
