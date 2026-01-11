@@ -68,18 +68,27 @@ This list is regularly updated. A full and up-to-date record is also available o
     🗓️ 2021<br>
     👥 <strong>J. Graça Gomes</strong>, J. Telhada, H. Xu, A. Sá da Costa, C. Zhao<br>
     📰 <em>IET Renewable Power Generation</em><br>
+    🔗 <a href="https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/rpg2.12014" target="_blank">View Article</a><br>
     🏷️ Journal Article · ✔️ Published
   </div>
 </div>
 
 ---
 
-### **Modeling and Planning of the Electricity Energy System with a High Share of Renewable Supply for Portugal**
-- 🗓️ **2020**
-- 👥 J. Graça Gomes, J. M. Pinto, H. Xu, C. Zhao, H. Hashim
-- 🏷️ *Journal Article* · **Published**
-- 📰 **Energy**
-- 📄 Volume 211 · Article 118713
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/Energy_logo.jpg" alt="Energy Journal Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Modeling and Planning of the Electricity Energy System with a High Share of Renewable Supply for Portugal</strong><br>
+    🗓️ 2020<br>
+    👥 <strong>J. Graça Gomes</strong>, J. M. Pinto, H. Xu, C. Zhao, H. Hashim<br>
+    📰 <em>Energy</em><br>
+    🔗 <a href="https://www.sciencedirect.com/science/article/pii/S0360544220318211" target="_blank">View Article</a><br>
+    🏷️ Journal Article · ✔️ Published
+  </div>
+</div>
+
 
 ---
 
