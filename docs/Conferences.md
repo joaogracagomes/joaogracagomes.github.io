@@ -149,6 +149,11 @@ Below is a curated list of these events, which I strive to keep updated regularl
   **18 Oct 2023** · Beijing, China (online)  
   [Event link](https://mp.weixin.qq.com/s/m5LjBGH_c2dpgx3z7b0QIQ)
 
+- **Research Methods and MSc Thesis**  
+ *Mastering Academic Research and Building Your Professional Network*
+  Faculty of Sciences of the University of Lisbon 
+  **21 Sep 2023** · Lisbon, Portugal (Online)
+
 - **China–Portugal International R&D Seminar**  
  *Sustainable Communities Planning and Optimisation*
   Sino-Portuguese Centre for New Energy Technologies  
