@@ -59,12 +59,18 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
-### **Optimal Operation Scheduling of a Pump Hydro Storage System Coupled with a Wind Farm**
-- 🗓️ **2021**
-- 👥 J. Graça Gomes, J. Telhada, H. Xu, A. Sá da Costa, C. Zhao
-- 🏷️ *Journal Article* · **Published**
-- 📰 **IET Renewable Power Generation**
-- 📄 Volume 15 (1) · Pages 173–192
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/IET_logo.webp" alt="IET Journal Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Optimal Operation Scheduling of a Pump Hydro Storage System Coupled with a Wind Farm</strong><br>
+    🗓️ 2021<br>
+    👥 <strong>J. Graça Gomes</strong>, J. Telhada, H. Xu, A. Sá da Costa, C. Zhao<br>
+    📰 <em>IET Renewable Power Generation</em><br>
+    🏷️ Journal Article · ✔️ Published
+  </div>
+</div>
 
 ---
 
