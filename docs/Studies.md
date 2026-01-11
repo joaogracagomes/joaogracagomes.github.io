@@ -43,21 +43,19 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
-### **Strategic Planning for a Resilient and Sustainable Energy Future: Analysis of a 100% Renewable Energy System for Portugal in 2050**
-- 🗓️ **2023**
-- 👥 J. Graça Gomes, T. Yang, J. Jiang, Y. Lin
-- 🏷️ *Journal Article* · **Published**
-- 📰 **Chemical Engineering Transactions**
-- 📄 Volume 106 · Pages 403–408
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/Energy_logo.jpg" alt="Energy Journal Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
 
----
-
-### **An Optimization Study on a Typical Renewable Microgrid Energy System with Energy Storage**
-- 🗓️ **2021**
-- 👥 J. Graça Gomes, H. J. Xu, Q. Yang, C. Y. Zhao
-- 🏷️ *Journal Article* · **Published**
-- 📰 **Energy**
-- 📄 Volume 234 · Article 121210
+  <div>
+    <strong>An Optimization Study on a Typical Renewable Microgrid Energy System with Energy Storage</strong><br>
+    🗓️ 2021<br>
+    👥 <strong>J. Graça Gomes</strong>, H. J. Xu, Q. Yang, C. Y. Zhao<br>
+    📰 <em>Energy</em><br>
+    🔗 <a href="https://www.sciencedirect.com/science/article/pii/S0360544221014584" target="_blank">View Article</a><br>
+    🏷️ Journal Article · ✔️ Published
+  </div>
+</div>
 
 ---
 
