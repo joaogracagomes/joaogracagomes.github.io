@@ -19,7 +19,7 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
-| <a href="https://www.sciencedirect.com/science/article/pii/S0360544222029292" target="_blank"><img src="images/journals/energy.png" alt="Energy Journal Logo" width="90" style="border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;"></a> | **Hybrid Solar PV–Wind–Battery System Bidding Optimisation: A Case Study for the Iberian and Italian Liberalised Electricity Markets**  <br> 🗓️ **2023** <br> 👥 **J. Graça Gomes**, J. Jiang, C. T. Chong, J. Telhada, X. Zhang, S. Sammarchi, *et al.* <br> 📰 *Energy*  <br> 🔗 [View Article](https://www.sciencedirect.com/science/article/pii/S0360544222029292) <br> 🏷️ `Journal Article` · ✔️ `Published` |
+| <a href="https://www.sciencedirect.com/science/article/pii/S0360544222029292" target="_blank"><img src="assets/Energy_logo.png" alt="Energy Journal Logo" width="90" style="border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;"></a> | **Hybrid Solar PV–Wind–Battery System Bidding Optimisation: A Case Study for the Iberian and Italian Liberalised Electricity Markets**  <br> 🗓️ **2023** <br> 👥 **J. Graça Gomes**, J. Jiang, C. T. Chong, J. Telhada, X. Zhang, S. Sammarchi, *et al.* <br> 📰 *Energy*  <br> 🔗 [View Article](https://www.sciencedirect.com/science/article/pii/S0360544222029292) <br> 🏷️ `Journal Article` · ✔️ `Published` |
 |:--|:--|
 
 ---
