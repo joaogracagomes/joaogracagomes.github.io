@@ -20,7 +20,7 @@ This list is regularly updated. A full and up-to-date record is also available o
 ---
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
-  <img src="docs/assets/Energy_logo.jpg" alt="Energy Journal Logo" 
+  <img src="https://joaogracagomes.github.io/assets/Energy_logo.jpg" alt="Energy Journal Logo" 
        style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
 
   <div>
