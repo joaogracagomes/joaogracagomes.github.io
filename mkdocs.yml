@@ -25,6 +25,9 @@ theme:
     - toc.follow
     - content.code.annotate
 
+extra_css:
+  - css/extra.css
+
 extra:
   homepage: https://joaogracagomes.github.io/
 
