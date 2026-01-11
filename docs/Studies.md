@@ -19,12 +19,14 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
-<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:20px;">
-  <img src="assets/Energy_logo.jpg" alt="Energy Journal Logo" style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="assets/Energy_logo.jpg" alt="Energy Journal Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
   <div>
     <strong>Hybrid Solar PV–Wind–Battery System Bidding Optimisation: A Case Study for the Iberian and Italian Liberalised Electricity Markets</strong><br>
     🗓️ 2023<br>
-    👥 J. Graça Gomes, J. Jiang, C. T. Chong, J. Telhada, X. Zhang, S. Sammarchi, <em>et al.</em><br>
+    👥 <strong>J. Graça Gomes</strong>, J. Jiang, C. T. Chong, J. Telhada, X. Zhang, S. Sammarchi, <em>et al.</em><br>
     📰 <em>Energy</em><br>
     🔗 <a href="https://www.sciencedirect.com/science/article/pii/S0360544222029292" target="_blank">View Article</a><br>
     🏷️ Journal Article · ✔️ Published
