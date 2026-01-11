@@ -1,0 +1,5 @@
+table.publications td {
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+    background: none !important;
+}
