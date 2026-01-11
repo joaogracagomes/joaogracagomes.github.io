@@ -20,7 +20,6 @@ This list is regularly updated. A full and up-to-date record is also available o
 ---
 
 | ![Journal Logo](assets/Energy_logo.jpg){ width=90 } | **Hybrid Solar PV–Wind–Battery System Bidding Optimisation: A Case Study for the Iberian and Italian Liberalised Electricity Markets**  <br> 🗓️ **2023** <br> 👥 **J. Graça Gomes**, J. Jiang, C. T. Chong, J. Telhada, X. Zhang, S. Sammarchi, *et al.* <br> 📰 *Energy* <br> 🏷️ `Journal Article` · `Published` |
-|:--|:--|
 
 ---
 
