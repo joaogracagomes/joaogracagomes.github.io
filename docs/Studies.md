@@ -8,14 +8,22 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
-## 📘 Journal Articles
+## 📘 Journal Papers
 
-### **Maximising Sustainability: Planning and Optimization Strategies for Achieving 100% Renewable Energy Communities in Remote Islands — A Case Study of Corvo Island, Portugal**
-- 🗓️ **2025**
-- 👥 J. Graça Gomes, S. Sammarchi, Q. Yang, T. Yang, C. T. Chong, A. M. Sousa, J. S. Lim, *et al.*
-- 🏷️ *Journal Article* · **Published**
-- 📰 **Energy**
-- 📄 Article DOI: [134802](https://doi.org/10.1016/j.energy.2025.134802)
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/Energy_logo.jpg" alt="Energy Journal Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Maximising Sustainability: Planning and Optimization Strategies for Achieving 100% Renewable Energy Communities in Remote Islands — A Case Study of Corvo Island, Portugal</strong><br>
+    🗓️ 2025<br>
+    👥 <strong>J. Graça Gomes</strong>, S. Sammarchi, Q. Yang, T. Yang, C. T. Chong, A. M. Sousa, J. S. Lim, <em>et al.</em><br>
+    📰 <em>Energy</em><br>
+    🔗 <a href="https://doi.org/10.1016/j.energy.2025.134802" target="_blank">View Article</a><br>
+    🏷️ Journal Article · ✔️ Published
+  </div>
+</div>
+
 
 ---
 
