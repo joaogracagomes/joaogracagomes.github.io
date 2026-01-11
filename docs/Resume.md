@@ -27,6 +27,14 @@ AI-enabled immersive technologies for energy system design under deep uncertaint
 International Student Award: Graduation with Honors (Top 1% in China)
 Feasibility of Distributed Generation-based Microgrid System using Battery Storage
 
+**Summer Course on Applied Energy**  
+*Beijing Jiao Tong University* — 2019
+Course organised by the Electrical Engineering Department of Beijing Jiao Tong and the journal Applied Energy
+
+**Summer Course on Chinese Language and Culture**  
+*Tianjin Foreign Studies University* — 2015  
+Course organised by the Confucius Institute of the University of Lisbon and Tianjin Foreign Studies University
+
 **MSc in Energy and Environmental Engineering**  
 *University of Lisbon* — 2012–2015  
 Top 5% · Thesis grade: 95% (Top of class)
