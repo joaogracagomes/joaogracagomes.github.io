@@ -32,8 +32,8 @@ Below is a curated list of these events, which I strive to keep updated regularl
 - **SEADS Lunch & Learn Series**  
   *Strategic Engineering: An Emerging Paradigm for Sustainable and Resilient Energy Infras-
 tructure Systems and a Case Study in Coupled Battery Storage PV Solar Systems*
-  National Renewable Energy Laboratory
-  *(under the PhD scholarship FCT 2023.04622.BD)*  
+National Renewable Energy Laboratory
+*(under the PhD scholarship FCT 2023.04622.BD)*  
   **08 Jul 2025** · Colorado, USA (Online) 
 
 - **Future Energy Leaders Romania Yearly Summit 2025**  
