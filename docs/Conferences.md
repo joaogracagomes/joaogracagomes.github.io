@@ -29,6 +29,12 @@ Below is a curated list of these events, which I strive to keep updated regularl
   **25–26 Jul 2025** · Cascais, Portugal  
   [Event link](https://www.eurafricanforum.org/)
 
+- **SEADS Lunch & Learn Series**  
+  *Strategic Engineering: An Emerging Paradigm for Sustainable and Resilient Energy Infras-
+tructure Systems and a Case Study in Coupled Battery Storage PV Solar Systems*  
+  National Renewable Energy Laboratory
+  **08 Jul 2025** · Colorado, USA (Online) 
+
 - **Future Energy Leaders Romania Yearly Summit 2025**  
   *Engineering for Enhanced Energy Resilience — A Case Study of Solar PV with Battery Energy Storage Systems*  
   *(under the PhD scholarship FCT 2023.04622.BD)*  
