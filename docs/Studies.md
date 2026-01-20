@@ -170,7 +170,7 @@ This list is regularly updated. A full and up-to-date record is also available o
     🗓️ 2021<br>
     👥 <strong>J. Graça Gomes</strong>, J. Jiang, C. T. Chong, X. Zhang, S. Sammarchi, S. Wang, <em>et al.</em><br>
     📰 <em>7th International Conference on Low Carbon in Asia</em><br>
-    🔗 <a href="#" target="_blank">View Paper</a><br>
+    🔗 <a href="https://www.cetjournal.it/index.php/cet/issue/archive" target="_blank">View Paper</a><br>
     🏷️ Conference Paper · ✔️ Published
   </div>
 </div>
@@ -197,22 +197,34 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ## 🧾 Patents
 
-### **Pile Foundation for Offshore Wind Farms**
-- 🗓️ **2022**
-- 👥 Z. Xu, B. Cai, D. Hong, J. Graça Gomes, J. Wang
-- 🏷️ *Patent*
-- 📜 **CN Patent ZL202220786743.6**
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/patent.png" alt="China Patent Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Pile Foundation for Offshore Wind Farms</strong><br>
+    🗓️ 2022<br>
+    👥 Z. Xu, B. Cai, D. Hong, <strong>J. Graça Gomes</strong>, J. Wang<br>
+    🏷️ <em>Patent</em><br>
+    📜 <strong>CN Patent ZL202220786743.6</strong><br>
+    🏷️ Patent · ✔️ Granted
+  </div>
+</div>
+
 
 ---
 
-### **Design of a New Solar Photovoltaic Inverter**
-- 🗓️ **2022**
-- 👥 X. Zhang, J. Graça Gomes, J. Jiang
-- 🏷️ *Patent*
-- 📜 **CN Patent ZL202230092482.3**
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/patent.png" alt="China Patent Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
 
----
-
-## 🔗 Academic Profiles
-- 🎓 **Google Scholar**: https://scholar.google.com/citations?user=9rfu638AAAAJ&hl=en
+  <div>
+    <strong>Design of a New Solar Photovoltaic Inverter</strong><br>
+    🗓️ 2022<br>
+    👥 X. Zhang, <strong>J. Graça Gomes</strong>, J. Jiang<br>
+    🏷️ <em>Patent</em><br>
+    📜 <strong>CN Patent ZL202230092482.3</strong><br>
+    🏷️ Patent · ✔️ Granted
+  </div>
+</div>
 
