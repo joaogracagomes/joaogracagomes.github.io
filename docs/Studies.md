@@ -94,12 +94,19 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ## 📚 Book Chapters & Reports
 
-### **Supply Chains of Green Hydrogen Based on Liquid Organic Carriers Inside China: Economic Assessment and Greenhouse Gas Footprint**
-- 🗓️ **2024**
-- 👥 J. Godinho, J. Graça Gomes, J. Jiang, A. Sousa, A. Gomes, B. H. Santos, H. A. Matos, *et al.*
-- 🏷️ *Book Chapter*
-- 📘 **Green Hydrogen in Power Systems**
-- 📄 Pages 245–300
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/green_hydrogen.webp" alt="Green Hydrogen Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Supply Chains of Green Hydrogen Based on Liquid Organic Carriers Inside China: Economic Assessment and Greenhouse Gas Footprint</strong><br>
+    🗓️ 2024<br>
+    👥 J. Godinho, <strong>J. Graça Gomes</strong>, J. M. Pinto, H. Xu, C. Zhao, H. Hashim<br>
+    📰 <em>Green Hydrogen in Power Systems</em><br>
+    🔗 <a href="https://link.springer.com/book/10.1007/978-3-031-52429-5" target="_blank">View Chapter</a><br>
+    🏷️ Book Chapter · ✔️ Published
+  </div>
+</div>
 
 ---
 
