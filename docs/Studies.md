@@ -153,7 +153,7 @@ This list is regularly updated. A full and up-to-date record is also available o
     🗓️ 2022<br>
     👥 <strong>J. Graça Gomes</strong>, Y. Lin, J. Jiang, N. Yan, S. Dai, T. Yang<br>
     📰 <em>5th International Conference on Power and Energy Applications (ICPEA)</em><br>
-    🔗 <a href="#" target="_blank">View Paper</a><br>
+    🔗 <a href="https://ieeexplore.ieee.org/abstract/document/10052213" target="_blank">View Paper</a><br>
     🏷️ Conference Paper · ✔️ Published
   </div>
 </div>
