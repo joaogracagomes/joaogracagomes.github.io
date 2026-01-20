@@ -119,39 +119,63 @@ This list is regularly updated. A full and up-to-date record is also available o
     🗓️ 2023<br>
     👥 A. Sousa, B. H. Santos, F. Carlos, H. Pombeiro, <strong>J. Graça Gomes</strong>, M. Gonçalves, <em>et al.</em><br>
     📰 <em>Towards Climate Neutrality: Economic Impacts, Opportunities and Risks</em><br>
-    🔗 <a href="#" target="_blank">View Chapter</a><br>
+    🔗 <a href="https://www.apgads.lu.lv/en/izdevumi/brivpieejas-izdevumi/gramatas/towards-climate-neutrality/" target="_blank">View Chapter</a><br>
     🏷️ Book Chapter · ✔️ Published
   </div>
 </div>
 
 ---
 
-
----
-
 ## 📄 Conference Papers
 
-### **Review of Offshore Wind Projects Status: New Approach of Floating Turbines**
-- 🗓️ **2022**
-- 👥 J. Graça Gomes, Y. Lin, J. Jiang, N. Yan, S. Dai, T. Yang
-- 🏷️ *Conference Paper*
-- 🎤 **5th International Conference on Power and Energy Applications (ICPEA)**
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/green_hydrogen.webp" alt="Green Hydrogen Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Review of Offshore Wind Projects Status: New Approach of Floating Turbines</strong><br>
+    🗓️ 2022<br>
+    👥 <strong>J. Graça Gomes</strong>, Y. Lin, J. Jiang, N. Yan, S. Dai, T. Yang<br>
+    📰 <em>5th International Conference on Power and Energy Applications (ICPEA)</em><br>
+    🔗 <a href="#" target="_blank">View Paper</a><br>
+    🏷️ Conference Paper · ✔️ Published
+  </div>
+</div>
+
 
 ---
 
-### **Optimal Operation Scheduling of a Hybrid PV–Wind–Storage System in a Liberalized Electricity Market**
-- 🗓️ **2021**
-- 👥 J. Graça Gomes, J. Jiang, C. T. Chong, X. Zhang, S. Sammarchi, S. Wang, *et al.*
-- 🏷️ *Conference Paper*
-- 🎤 **7th International Conference on Low Carbon in Asia**
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/green_hydrogen.webp" alt="Green Hydrogen Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Optimal Operation Scheduling of a Hybrid PV–Wind–Storage System in a Liberalized Electricity Market</strong><br>
+    🗓️ 2021<br>
+    👥 <strong>J. Graça Gomes</strong>, J. Jiang, C. T. Chong, X. Zhang, S. Sammarchi, S. Wang, <em>et al.</em><br>
+    📰 <em>7th International Conference on Low Carbon in Asia</em><br>
+    🔗 <a href="#" target="_blank">View Paper</a><br>
+    🏷️ Conference Paper · ✔️ Published
+  </div>
+</div>
+
 
 ---
 
-### **Semi-Spar Floating Ocean Wind Turbine: A New Approach for Classic Spar Foundation**
-- 🗓️ **2023**
-- 👥 Y. Lin, J. Graça Gomes, S. Dai, Y. Nie, P. Chen, J. Jiang
-- 🏷️ *Conference Paper*
-- 🎤 **ISOPE International Ocean and Polar Engineering Conference**
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/green_hydrogen.webp" alt="Green Hydrogen Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Semi-Spar Floating Ocean Wind Turbine: A New Approach for Classic Spar Foundation</strong><br>
+    🗓️ 2023<br>
+    👥 Y. Lin, <strong>J. Graça Gomes</strong>, S. Dai, Y. Nie, P. Chen, J. Jiang<br>
+    📰 <em>ISOPE International Ocean and Polar Engineering Conference</em><br>
+    🔗 <a href="https://onepetro.org/ISOPEIOPEC/proceedings/ISOPE23/ISOPE23/ISOPE-I-23-078/524490" target="_blank">View Paper</a><br>
+    🏷️ Conference Paper · ✔️ Published
+  </div>
+</div>
+
 
 ---
 
