@@ -126,6 +126,22 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/eulaw.jpeg" alt="EU Law Cover" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Renewable Energy in Portugal</strong><br>
+    🗓️ 2016<br>
+    👥 José Medeiros Pinto, Susana Serôdio, <strong>J. Graça Gomes</strong><br>
+    📰 <em>EU Energy Law (Volume 2)</em><br>
+    🔗 <a href="https://books.google.co.uk/books/about/EU_Energy_Law_Volume_2.html?id=UzjADwAAQBAJ&redir_esc=y" target="_blank">View Book</a><br>
+    🏷️ Book Chapter · ✔️ Published
+  </div>
+</div>
+
+---
+
 ## 📄 Conference Papers
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
