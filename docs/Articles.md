@@ -1,7 +1,8 @@
-Explore my opinion and technical articles on decarbonization, Portugal’s energy transition, 
-  and the Mediterranean’s sustainable development. These pieces reflect my vision, 
-  priorities, and the topics I consider most urgent.
+## Articles
 
+Welcome to my article collection — where I share my perspective on decarbonization, Portugal’s future, and the broader Western development landscape.  These writings capture the ideas and issues that drive my work and shape my vision.
+
+Below is a curated list of these articles. If you’d like to collaborate, feel free to get in touch.
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
   <img src="https://joaogracagomes.github.io/assets/media_east_is_green.webp" alt="The East Is Green" 
