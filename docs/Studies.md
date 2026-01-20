@@ -110,12 +110,19 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
-### **Life Cycle Assessment of Renewable Energy Sources Towards Climate Neutrality – Portuguese Case Study**
-- 🗓️ **2023**
-- 👥 A. Sousa, B. H. Santos, F. Carlos, H. Pombeiro, J. Graça Gomes, M. Gonçalves, *et al.*
-- 🏷️ *Book Chapter*
-- 📘 **Towards Climate Neutrality: Economic Impacts, Opportunities and Risks**
-- 📄 Pages 180–198
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/climate.jpg" alt="Climate Book Logo" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Life Cycle Assessment of Renewable Energy Sources Towards Climate Neutrality – Portuguese Case Study</strong><br>
+    🗓️ 2023<br>
+    👥 A. Sousa, B. H. Santos, F. Carlos, H. Pombeiro, <strong>J. Graça Gomes</strong>, M. Gonçalves, <em>et al.</em><br>
+    📰 <em>Towards Climate Neutrality: Economic Impacts, Opportunities and Risks</em><br>
+    🔗 <a href="#" target="_blank">View Chapter</a><br>
+    🏷️ Book Chapter · ✔️ Published
+  </div>
+</div>
 
 ---
 
