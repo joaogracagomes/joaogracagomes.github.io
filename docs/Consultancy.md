@@ -8,22 +8,22 @@ Due to confidentiality agreements, I cannot disclose client names or share full 
 
 ---
 
-## What I Offer
+## 💼 What I Offer
 
-- **Strategic Energy & Decarbonisation Advisory** — grounded in academic research and field experience.
-- **Carbon Neutrality & Net Zero Pathways** — realistic, measurable, and aligned with policy and market drivers.
-- **Techno-Economic Modelling & Feasibility Studies** — to support investment decisions and policy design.
-- **Tailored Workshops & Executive Briefings** — clear, actionable briefings for boards and leadership teams.
+- 🧠 **Strategic Energy & Decarbonisation Advisory** — grounded in academic research and field experience.
+- ♻️ **Carbon Neutrality & Net Zero Pathways** — realistic, measurable, and aligned with policy and market drivers.
+- 📈 **Techno-Economic Modelling & Feasibility Studies** — to support investment decisions and policy design.
+- 📋 **Tailored Workshops & Executive Briefings** — clear, actionable briefings for boards and leadership teams.
 
 ---
 
-## Why Work With Me
+## 🛠️ Why Work With Me
 
 Clients choose me because I don’t just diagnose, I help build **practical pathways** from where you are to where you want to be. I leverage a blend of academic rigour, international research leadership, and real-world project experience to inform decisions that matter.
 
 ---
 
-## Let’s Talk
+## 🤝 Let’s Talk
 
 Interested in exploring a project, collaboration, or energy transition challenge?
 
