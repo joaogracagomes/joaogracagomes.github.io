@@ -103,6 +103,46 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
     </div>
   </div>
 
+    <!-- Article 7 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/interview.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://eco.sapo.pt/entrevista/china-e-a-europa-bem-posicionadas-para-uma-colideranca-global-nas-renovaveis/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>China e a Europa “bem posicionadas” para uma “coliderança global nas renováveis”</strong>
+      </a>
+    </div>
+  </div>
+
+    <!-- Article 8 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/train.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://www.publico.pt/2024/05/27/p3/cronica/china-comboios-alta-velocidade-catalisadores-ascensao-economica-portugal-2091137#" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Na China, comboios de alta velocidade foram catalisadores da ascensão económica. E em Portugal?”</strong>
+      </a>
+    </div>
+  </div>
+
+    <!-- Article 9 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/train.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://executivedigest.sapo.pt/o-grau-de-complexidade-deste-desafio-atraiu-me-joao-graca-gomes/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Entrevista: “O grau de complexidade deste desafio atraiu-me””</strong>
+      </a>
+    </div>
+  </div>
+
+      <!-- Article 10 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/train.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://cnnportugal.iol.pt/apagao/energia/e-melhor-instalar-paineis-solares-ou-baterias-para-onde-foi-a-energia-produzida-no-apagao-respostas-a-estas-e-a-outras-perguntas-aqui/20250502/6814b0bed34ef72ee4456e1a" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>”Para onde foi a energia produzida no apagão?”</strong>
+      </a>
+    </div>
+  </div>
+
 </div>
 
 
