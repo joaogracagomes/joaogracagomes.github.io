@@ -1,10 +1,3 @@
----
-title: "O Oriente é Verde: A Perspetiva Chinesa para a Neutralidade Carbónica"
-layout: default
-permalink: /oriente-verde/
-robots: noindex
----
-
 # O Oriente é Verde: A Perspetiva Chinesa para a Neutralidade Carbónica
 
 **João Graça Gomes¹², Henrique Pombeiro²³, Yang Tianqi⁴, Jiang Juan¹**
