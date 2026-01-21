@@ -211,6 +211,57 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
+## 📄 Reports
+
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/FELPT.jpeg" alt="FELPT" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>O impacto ambiental da descarbonização do sistema elétrico português: Avaliação do Ciclo de Vida</strong><br>
+    🗓️ 2022<br>
+    👥 A. Sousa, B. H. Santos, F. Botelho Carlos, H. Pombeiro, </strong>J. Graça Gomes</strong>, M. Gonçalves, M. Iten, N. Carvalho<br>
+    📰 <em>Future Energy Leaders Portugal</em><br>
+    🔗 <a href="https://apenergia.pt/wp-content/uploads/2022/04/White-Paper-FELPT_Analise-do-Ciclo-de-Vida_Final.pdf" target="_blank">View Report</a><br>
+    🏷️ White Paper/Report · ✔️ Published
+  </div>
+</div>
+
+---
+
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/FELPT.jpeg" alt="FELPT" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Biomassa Florestal: Potencial energético dos resíduos em Portugal</strong><br>
+    🗓️ 2022<br>
+    👥  A. Carvalho, A. R. Gomes, F. Lima, H. Pombeiro,<strong> . Graça Gomes</strong>, M. Figueiredo, N. Alija, V. Zeferina<br>
+    📰 <em>Future Energy Leaders Portugal</em><br>
+    🔗 <a href="https://apenergia.pt/wp-content/uploads/2023/11/White-Paper-FELPT_Biomassa-Florestal_Potencial-energetico-dos-residuos-em-Portugal_FINAL.pdf" target="_blank">View Report</a><br>
+    🏷️ White Paper/Report · ✔️ Published
+  </div>
+</div>
+
+---
+
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/FELPT.jpeg" alt="FELPT" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Trilema Energético: Segurança – Equidade – Sustentabilidade uma perspetiva nacional</strong><br>
+    🗓️ 2021<br>
+    👥  A. Sousa, H. Pombeiro, <strong>J. Graça Gomes</strong> et al.<br>
+    📰 <em>Future Energy Leaders Portugal</em><br>
+    🔗 <a href="https://apenergia.pt/wp-content/uploads/2022/03/FELPT2021_TrilemaEnergetico.pdf" target="_blank">View Report</a><br>
+    🏷️ White Paper/Report · ✔️ Published
+  </div>
+</div>
+
+---
+
+
 ## 🧾 Patents
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
