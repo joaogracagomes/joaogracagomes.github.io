@@ -2,7 +2,7 @@
 
 Welcome to my article collection — where I share my perspective on decarbonization, Portugal’s future, and the broader Western development landscape.  These writings capture the ideas and issues that drive my work and shape my vision.
 
-Below is a curated list of these articles. If you’d like to collaborate, feel free to get in touch.
+Below is a curated list of these articles, written in Portuguese and English. If you’d like to collaborate, feel free to get in touch.
 
 <style>
   .articles-grid {
