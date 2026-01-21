@@ -148,10 +148,51 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
     <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://worldenergycongress.org/news-list/future-power-systems" target="_blank" style="text-decoration:none; color:#000;">
-        <strong>”Future power systems”</strong>
+        <strong>Future power systems: Planning for uncertainty in the long-run and designing for strategic flexibility</strong>
       </a>
     </div>
   </div>
+
+        <!-- Article 12 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://www.power-technology.com/sponsored/game-changing-the-digitalisation-trends-solving-the-energy-sectors-biggest-challenges/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Game-changing: The digitalisation trends solving the energy sector’s biggest challenges</strong>
+      </a>
+    </div>
+  </div>
+
+        <!-- Article 13 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://hojemacau.com.mo/2024/09/10/hidrogenio-analista-recomenda-analises-de-custo-beneficio-antes-de-investimento/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Hidrogénio | Analista recomenda análises de custo-benefício antes de investimento</strong>
+      </a>
+    </div>
+  </div>
+
+        <!-- Article 14 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://hojemacau.com.mo/2024/07/10/joao-graca-gomes-engenheiro-e-membro-do-conselho-mundial-de-energia-macau-podia-ser-um-caso-de-teste/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Macau podia ser um caso de teste</strong>
+      </a>
+    </div>
+  </div>
+
+        <!-- Article 15 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://greensavers.sapo.pt/felpt-china-descarboniza-a-economia-atraves-do-hidrogenio-verde/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>China descarboniza a economia através do Hidrogénio Verde</strong>
+      </a>
+    </div>
+  </div>
+  
 
 </div>
 
