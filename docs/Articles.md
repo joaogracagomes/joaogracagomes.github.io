@@ -155,7 +155,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
         <!-- Article 12 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/huawei.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://www.power-technology.com/sponsored/game-changing-the-digitalisation-trends-solving-the-energy-sectors-biggest-challenges/" target="_blank" style="text-decoration:none; color:#000;">
         <strong>Game-changing: The digitalisation trends solving the energy sector’s biggest challenges</strong>
@@ -165,7 +165,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
         <!-- Article 13 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/macau.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://hojemacau.com.mo/2024/09/10/hidrogenio-analista-recomenda-analises-de-custo-beneficio-antes-de-investimento/" target="_blank" style="text-decoration:none; color:#000;">
         <strong>Hidrogénio | Analista recomenda análises de custo-benefício antes de investimento</strong>
@@ -175,7 +175,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
         <!-- Article 14 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/macau.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://hojemacau.com.mo/2024/07/10/joao-graca-gomes-engenheiro-e-membro-do-conselho-mundial-de-energia-macau-podia-ser-um-caso-de-teste/" target="_blank" style="text-decoration:none; color:#000;">
         <strong>Macau podia ser um caso de teste</strong>
@@ -185,7 +185,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
         <!-- Article 15 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/h2.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://greensavers.sapo.pt/felpt-china-descarboniza-a-economia-atraves-do-hidrogenio-verde/" target="_blank" style="text-decoration:none; color:#000;">
         <strong>China descarboniza a economia através do Hidrogénio Verde</strong>
