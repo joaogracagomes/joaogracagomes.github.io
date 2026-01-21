@@ -92,7 +92,7 @@ This list is regularly updated. A full and up-to-date record is also available o
 
 ---
 
-## 📚 Book Chapters & Reports
+## 📚 Book Chapters
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
   <img src="https://joaogracagomes.github.io/assets/EU.jpg" alt="Book cover" 
@@ -246,7 +246,7 @@ This list is regularly updated. A full and up-to-date record is also available o
 ---
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
-  <img src="https://joaogracagomes.github.io/assets/FELPT.jpeg" alt="FELPT" 
+  <img src="https://joaogracagomes.github.io/assets/trilema.png" alt="FELPT" 
        style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
 
   <div>
