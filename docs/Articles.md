@@ -75,7 +75,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
   <!-- Article 4 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/media_article4.webp" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/dji_fly_20230122_154418_568_1674403348256_photo 3.JPG" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://www.publico.pt/2022/10/04/p3/cronica/revisitando-acordo-climatico-glasgow-novos-desafios-2022705" target="_blank" style="text-decoration:none; color:#000;">
         <strong>Revisitando o Acordo Climático de Glasgow: os novos desafios</strong>
@@ -95,7 +95,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
     <!-- Article 6 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/europa.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/europe.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://greensavers.sapo.pt/a-posicao-da-europa-na-economia-global-um-desafio-crescente/" target="_blank" style="text-decoration:none; color:#000;">
         <strong>A posição da Europa na economia global: um desafio crescente</strong>
