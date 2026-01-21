@@ -95,6 +95,22 @@ This list is regularly updated. A full and up-to-date record is also available o
 ## 📚 Book Chapters & Reports
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/EU.jpg" alt="Book cover" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>EU Climate Pact Ambassadors: For a Sustainable World</strong><br>
+    🗓️ 2024<br>
+    👥 <strong>J. Graça Gomes</strong>, Thaddeus Anim-Somuah<br>
+    📰 <em>Sustainable Use of Natural Resources, Respect for the Planet's Biophysical Limits: A Holistic Approach</em><br>
+    🔗 <a href="https://climate-pact.europa.eu/eu-climate-action-academy/resources/sustainable-world_en#main-content" target="_blank">View Chapter</a><br>
+    🏷️ Book Chapter · ✔️ Published
+  </div>
+</div>
+
+---
+
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
   <img src="https://joaogracagomes.github.io/assets/green_hydrogen.webp" alt="Green Hydrogen Logo" 
        style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
 
