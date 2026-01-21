@@ -135,7 +135,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
       <!-- Article 10 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/train.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/cnn_portugal.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://cnnportugal.iol.pt/apagao/energia/e-melhor-instalar-paineis-solares-ou-baterias-para-onde-foi-a-energia-produzida-no-apagao-respostas-a-estas-e-a-outras-perguntas-aqui/20250502/6814b0bed34ef72ee4456e1a" target="_blank" style="text-decoration:none; color:#000;">
         <strong>”Para onde foi a energia produzida no apagão?”</strong>
