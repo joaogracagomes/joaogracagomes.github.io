@@ -45,30 +45,30 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
   <!-- Article 1 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/media_east_is_green.webp" alt="The East Is Green">
+    <img src="https://joaogracagomes.github.io/assets/sustainable.png" alt="The East Is Green">
     <div style="margin-top:12px;">
-      <a href="https://your-article-link.com" target="_blank" style="text-decoration:none; color:#000;">
-        <strong>The East Is Green: The Chinese Perspective for Carbon Neutrality</strong>
+      <a href="https://illuminem.com/illuminemvoices/sustainable-use-of-natural-resources-respect-for-the-planets-biophysical-limits-a-holistic-approach" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Sustainable use of natural resources, respect for the planet’s biophysical limits: a holistic approach</strong>
       </a>
     </div>
   </div>
 
   <!-- Article 2 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/media_article2.webp" alt="Article 2">
+    <img src="https://joaogracagomes.github.io/assets/minerals.png" alt="Article 2">
     <div style="margin-top:12px;">
-      <a href="https://your-article-link2.com" target="_blank" style="text-decoration:none; color:#000;">
-        <strong>Article Title 2</strong>
+      <a href="https://illuminem.com/illuminemvoices/the-future-of-energy-geopolitics-and-the-essential-minerals-of-the-21st-century" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>The future of energy: Geopolitics and the essential minerals of the 21st century</strong>
       </a>
     </div>
   </div>
 
   <!-- Article 3 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/media_article3.webp" alt="Article 3">
+    <img src="https://joaogracagomes.github.io/assets/leadership.png" alt="Article 3">
     <div style="margin-top:12px;">
-      <a href="https://your-article-link3.com" target="_blank" style="text-decoration:none; color:#000;">
-        <strong>Article Title 3</strong>
+      <a href="https://illuminem.com/illuminemvoices/cocreating-the-future-and-a-new-generation-of-leadership" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Co-creating the future and a new generation of leadership</strong>
       </a>
     </div>
   </div>
