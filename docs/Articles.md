@@ -125,7 +125,7 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
 
     <!-- Article 9 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/train.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/interview2.png" alt="Article 4">
     <div style="margin-top:12px;">
       <a href="https://executivedigest.sapo.pt/o-grau-de-complexidade-deste-desafio-atraiu-me-joao-graca-gomes/" target="_blank" style="text-decoration:none; color:#000;">
         <strong>Entrevista: “O grau de complexidade deste desafio atraiu-me””</strong>
@@ -139,6 +139,16 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
     <div style="margin-top:12px;">
       <a href="https://cnnportugal.iol.pt/apagao/energia/e-melhor-instalar-paineis-solares-ou-baterias-para-onde-foi-a-energia-produzida-no-apagao-respostas-a-estas-e-a-outras-perguntas-aqui/20250502/6814b0bed34ef72ee4456e1a" target="_blank" style="text-decoration:none; color:#000;">
         <strong>”Para onde foi a energia produzida no apagão?”</strong>
+      </a>
+    </div>
+  </div>
+
+      <!-- Article 11 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/wec.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://worldenergycongress.org/news-list/future-power-systems" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>”Future power systems”</strong>
       </a>
     </div>
   </div>
