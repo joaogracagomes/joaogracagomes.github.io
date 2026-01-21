@@ -185,14 +185,36 @@ Below is a curated list of these articles, written in Portuguese and English. If
 
         <!-- Article 15 -->
   <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/h2.png" alt="Article 4">
+    <img src="https://joaogracagomes.github.io/assets/h2.png" alt="Article 15">
     <div style="margin-top:12px;">
       <a href="https://greensavers.sapo.pt/felpt-china-descarboniza-a-economia-atraves-do-hidrogenio-verde/" target="_blank" style="text-decoration:none; color:#000;">
         <strong>China descarboniza a economia através do Hidrogénio Verde</strong>
       </a>
     </div>
   </div>
+
+          <!-- Article 16 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/instalador.jpg" alt="Article 16">
+    <div style="margin-top:12px;">
+      <a href="https://www.interempresas.net/FlipBooks/BI/299/68/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>O expectável, o possível e o viável: roteiro para a neutralidade carbónica num contexto nacional</strong>
+      </a>
+    </div>
+  </div>
   
+  <!-- Article 17 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/ordem.jpg" alt="Article 17">
+  
+    <div style="margin-top:12px;">
+      <a href="article17.md" style="text-decoration:none; color:#000;">
+        <strong>
+          The East is Green: The Chinese Perspective for Carbon Neutrality
+        </strong>
+      </a>
+    </div>
+  </div>
 
 </div>
 
