@@ -1,11 +1,6 @@
 # O Oriente é Verde: A Perspetiva Chinesa para a Neutralidade Carbónica
 
-**João Graça Gomes¹², Henrique Pombeiro²³, Yang Tianqi⁴, Jiang Juan¹**
-
-¹ Sino-Portuguese Centre for New Energy Technologies / Shanghai Investigation, Design and Research Institute  
-² Future Energy Leaders Portugal / Associação Portuguesa de Energia  
-³ Watt-IS  
-⁴ University of Leeds  
+**João Graça Gomes, Henrique Pombeiro, Yang Tianqi, Jiang Juan**
 
 ---
 
