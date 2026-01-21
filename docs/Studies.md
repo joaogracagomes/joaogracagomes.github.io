@@ -269,7 +269,7 @@ This list is regularly updated. A full and up-to-date record is also available o
     <strong>Renewables 21: Global Status Report </strong><br>
     🗓️ 2021<br>
     👥  REN21, <strong>China Contributor: J. Graça Gomes</strong><br>
-    📰 <em>Future Energy Leaders Portugal</em><br>
+    📰 <em>REN21</em><br>
     🔗 <a href="https://www.ren21.net/wp-content/uploads/2019/05/GSR2021_Full_Report.pdf" target="_blank">View Report</a><br>
     🏷️ Report · ✔️ Published
   </div>
@@ -278,7 +278,7 @@ This list is regularly updated. A full and up-to-date record is also available o
 ---
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
-  <img src="https://joaogracagomes.github.io/assets/ren20.png" alt="ren20 
+  <img src="https://joaogracagomes.github.io/assets/ren20.png" alt="ren20" 
        style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
 
   <div>
