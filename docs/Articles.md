@@ -73,6 +73,36 @@ Below is a curated list of these articles. If you’d like to collaborate, feel 
     </div>
   </div>
 
+  <!-- Article 4 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/media_article4.webp" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://www.publico.pt/2022/10/04/p3/cronica/revisitando-acordo-climatico-glasgow-novos-desafios-2022705" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Revisitando o Acordo Climático de Glasgow: os novos desafios</strong>
+      </a>
+    </div>
+  </div>
+
+    <!-- Article 5 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/china.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://www.publico.pt/2023/01/15/p3/cronica/economia-digital-novo-motor-desenvolvimento-china-2034938" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>Economia digital: o novo motor de desenvolvimento da China</strong>
+      </a>
+    </div>
+  </div>
+
+    <!-- Article 6 -->
+  <div class="article-card">
+    <img src="https://joaogracagomes.github.io/assets/europa.png" alt="Article 4">
+    <div style="margin-top:12px;">
+      <a href="https://greensavers.sapo.pt/a-posicao-da-europa-na-economia-global-um-desafio-crescente/" target="_blank" style="text-decoration:none; color:#000;">
+        <strong>A posição da Europa na economia global: um desafio crescente</strong>
+      </a>
+    </div>
+  </div>
+
 </div>
 
 
