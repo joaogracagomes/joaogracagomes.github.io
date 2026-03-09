@@ -26,7 +26,7 @@ Um primeiro argumento reside na redução da intensidade carbónica. Entre 2005 
 
 Em segundo lugar, a China tem ultrapassado consistentemente os objetivos internacionais de integração de energias renováveis. Nos três últimos Planos Quinquenais, registaram-se elevadas taxas de crescimento da potência instalada em fontes de baixo carbono (renováveis + nuclear).
 
-![Metas](assets/targets2.png){ width="800" style="display:block; margin:auto;" }
+![Metas](assets/targets1.png)
 
 *Fig. 2: Metas de integração de energias de baixo carbono no setor elétrico vs. valores obtidos, República Popular da China.*
 
