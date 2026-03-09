@@ -10,7 +10,6 @@ On this site, you’ll find:
 - **Resume** – My academic and professional journey  
 - **Articles** – Opinions, reflections, and ideas I’m passionate about  
 - **Studies** – Summaries of my research and projects
-- 
 - **Conferences** – Summaries of conferences participation
 - **Teaching** – Materials, courses, and mentoring experiences  
 - **Consultancy** – How I can help with energy and tech projects  
