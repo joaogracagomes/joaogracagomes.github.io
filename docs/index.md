@@ -7,6 +7,7 @@ I'm a Postgraduate Researcher at Imperial College London's Dyson School of Desig
 I’m fascinated by the intersection of **energy, economy, and policy**, and I love turning complex research into insights that actually make a difference in the real world.  
 
 On this site, you’ll find:  
+
 - **Resume** – My academic and professional journey  
 - **Articles** – Opinions, reflections, and ideas I’m passionate about  
 - **Studies** – Summaries of my research and projects
