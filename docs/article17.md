@@ -3,6 +3,7 @@
 **João Graça Gomes, Henrique Pombeiro, Yang Tianqi, Jiang Juan**
 
 ---
+*Este artigo foi originalmente publicado na revista Ingenium da Ordem dos Engenheiros*
 
 Desde a reforma económica de 1978, a República Popular da China tem verificado um rápido desenvolvimento socioeconómico, que se traduziu num crescimento médio do PIB de 9% ao ano, numa melhoria considerável dos serviços e infraestruturas do país e numa redução acentuada dos índices de pobreza. Não obstante, o crescimento económico exponencial chinês originou uma série de desafios no setor energético: entre 1978 e 2021, o consumo energético primário cresceu 845%, de 4.632 TWh para 43.791 TWh, e várias previsões apontam para que esta trajetória se mantenha nas próximas décadas.
 
