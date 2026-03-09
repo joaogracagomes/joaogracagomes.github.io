@@ -38,7 +38,7 @@ Em segundo lugar, a China tem ultrapassado consistentemente os objetivos interna
 
 A potência instalada cresceu **1.010%** em 11 anos, passando de 29,6 GW para 328,48 GW. Em 2020, foram instalados 72,3 GW, correspondendo a **63% da potência eólica global instalada nesse ano**.
 
-![wind](assets/wind3.png)
+![wind](assets/wind1.png)
 
 *Fig. 3: Evolução da potência eólica (2012–2021), República Popular da China.*
 
