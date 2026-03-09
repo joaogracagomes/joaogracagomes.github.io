@@ -8,6 +8,8 @@ Desde a reforma económica de 1978, a República Popular da China tem verificado
 
 Como expectável, o elevado consumo energético provocou um aumento das emissões de gases de efeito de estufa: no mesmo período, as emissões passaram de 1,49 mil milhões de toneladas de CO₂e para 11,47 mil milhões de toneladas de CO₂e, em grande parte devido às emissões dos setores de produção de eletricidade e calor, e à enorme preponderância do carvão.
 
+![Emissões de CO₂ na China](assets/Emissions1.jpg)
+
 *Fig. 1: Emissões de CO₂e por combustível e indústria (destacando produção de cimento), em 2021, República Popular da China. Unidades: toneladas.*
 
 ---
@@ -24,6 +26,7 @@ Um primeiro argumento reside na redução da intensidade carbónica. Entre 2005 
 
 Em segundo lugar, a China tem ultrapassado consistentemente os objetivos internacionais de integração de energias renováveis. Nos três últimos Planos Quinquenais, registaram-se elevadas taxas de crescimento da potência instalada em fontes de baixo carbono (renováveis + nuclear).
 
+![Metas](assets/targets2.png)
 *Fig. 2: Metas de integração de energias de baixo carbono no setor elétrico vs. valores obtidos, República Popular da China.*
 
 ---
@@ -34,6 +37,7 @@ Em segundo lugar, a China tem ultrapassado consistentemente os objetivos interna
 
 A potência instalada cresceu **1.010%** em 11 anos, passando de 29,6 GW para 328,48 GW. Em 2020, foram instalados 72,3 GW, correspondendo a **63% da potência eólica global instalada nesse ano**.
 
+![wind](assets/wind3.png)
 *Fig. 3: Evolução da potência eólica (2012–2021), República Popular da China.*
 
 ---
@@ -42,6 +46,7 @@ A potência instalada cresceu **1.010%** em 11 anos, passando de 29,6 GW para 32
 
 Até ao final de 2021, a China detinha mais de **35% da potência solar fotovoltaica mundial**. Entre 2012 e 2021, a capacidade aumentou quase **7.200%**, de 4,2 GW para 306,56 GW. Cerca de **60% das fábricas de células fotovoltaicas** estão localizadas na China.
 
+![solar(assets/solarPV4.png)
 *Fig. 4: Evolução da potência solar fotovoltaica (2012–2021), República Popular da China.*
 
 ---
