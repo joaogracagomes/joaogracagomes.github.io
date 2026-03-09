@@ -66,7 +66,8 @@ Entre 2012 e 2021, a potência hídrica cresceu de 250 GW para 370 GW, incluindo
 
 Apesar destes progressos, as energias de baixo carbono representam **menos de um terço da produção elétrica** e apenas **12,4% do consumo energético total**, quando se consideram transportes, aquecimento e arrefecimento.
 
-![electricity demand](assets/electricity1.png) ![overall demand](assets/demand1.png)
+![electricity demand](assets/electricity.png){ width="600" style="display:block; margin:auto;" }
+![overall demand](assets/demand.png){ width="600" style="display:block; margin:auto;" }
 
 *Fig. 6: a) Consumo elétrico b) Consumo energético primário, 2021, República Popular da China.*
 
