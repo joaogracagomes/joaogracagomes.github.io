@@ -203,18 +203,15 @@ Below is a curated list of these articles, written in Portuguese and English. If
     </div>
   </div>
   
-  <!-- Article 17 -->
-  <div class="article-card">
-    <img src="https://joaogracagomes.github.io/assets/ordem.jpg" alt="Article 17">
-  
-    <div style="margin-top:12px;">
-      <a href="../article17.md" style="text-decoration:none; color:#000;">
-        <strong>
-          The East is Green: The Chinese Perspective for Carbon Neutrality
-        </strong>
-      </a>
+          <!-- Article 17 -->
+      <div class="article-card">
+        <img src="/assets/ordem.jpg" alt="Article 17">
+        <div style="margin-top:12px;">
+          <a href="../article17/" style="text-decoration:none; color:#000;">
+            <strong>The East is Green: The Chinese Perspective for Carbon Neutrality</strong>
+          </a>
+      </div>
     </div>
-  </div>
 
 </div>
 
