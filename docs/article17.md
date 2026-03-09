@@ -27,6 +27,7 @@ Um primeiro argumento reside na redução da intensidade carbónica. Entre 2005 
 Em segundo lugar, a China tem ultrapassado consistentemente os objetivos internacionais de integração de energias renováveis. Nos três últimos Planos Quinquenais, registaram-se elevadas taxas de crescimento da potência instalada em fontes de baixo carbono (renováveis + nuclear).
 
 ![Metas](assets/targets2.png)
+
 *Fig. 2: Metas de integração de energias de baixo carbono no setor elétrico vs. valores obtidos, República Popular da China.*
 
 ---
@@ -38,6 +39,7 @@ Em segundo lugar, a China tem ultrapassado consistentemente os objetivos interna
 A potência instalada cresceu **1.010%** em 11 anos, passando de 29,6 GW para 328,48 GW. Em 2020, foram instalados 72,3 GW, correspondendo a **63% da potência eólica global instalada nesse ano**.
 
 ![wind](assets/wind3.png)
+
 *Fig. 3: Evolução da potência eólica (2012–2021), República Popular da China.*
 
 ---
@@ -46,7 +48,8 @@ A potência instalada cresceu **1.010%** em 11 anos, passando de 29,6 GW para 32
 
 Até ao final de 2021, a China detinha mais de **35% da potência solar fotovoltaica mundial**. Entre 2012 e 2021, a capacidade aumentou quase **7.200%**, de 4,2 GW para 306,56 GW. Cerca de **60% das fábricas de células fotovoltaicas** estão localizadas na China.
 
-![solar(assets/solarPV4.png)
+![solar](assets/solarPV4.png)
+
 *Fig. 4: Evolução da potência solar fotovoltaica (2012–2021), República Popular da China.*
 
 ---
@@ -55,11 +58,15 @@ Até ao final de 2021, a China detinha mais de **35% da potência solar fotovolt
 
 Entre 2012 e 2021, a potência hídrica cresceu de 250 GW para 370 GW, incluindo **32 GW de capacidade de bombagem**, essencial para a integração de eletricidade renovável variável.
 
+![solar(assets/hydro5.png)
+
 *Fig. 5: Evolução da potência hídrica (2012–2021), República Popular da China.*
 
 ---
 
 Apesar destes progressos, as energias de baixo carbono representam **menos de um terço da produção elétrica** e apenas **12,4% do consumo energético total**, quando se consideram transportes, aquecimento e arrefecimento.
+
+![electricity demand](assets/electricity1.png) ![overall demand](assets/demand1.png)
 
 *Fig. 6: a) Consumo elétrico b) Consumo energético primário, 2021, República Popular da China.*
 
