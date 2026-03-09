@@ -8,7 +8,7 @@ Desde a reforma económica de 1978, a República Popular da China tem verificado
 
 Como expectável, o elevado consumo energético provocou um aumento das emissões de gases de efeito de estufa: no mesmo período, as emissões passaram de 1,49 mil milhões de toneladas de CO₂e para 11,47 mil milhões de toneladas de CO₂e, em grande parte devido às emissões dos setores de produção de eletricidade e calor, e à enorme preponderância do carvão.
 
-![Emissões de CO₂ na China](assets/Emissions1.jpg)
+![Emissões de CO₂ na China](assets/Emissions1.jpg){ width="600" style="display:block; margin:auto;" }
 
 *Fig. 1: Emissões de CO₂e por combustível e indústria (destacando produção de cimento), em 2021, República Popular da China. Unidades: toneladas.*
 
@@ -26,7 +26,7 @@ Um primeiro argumento reside na redução da intensidade carbónica. Entre 2005 
 
 Em segundo lugar, a China tem ultrapassado consistentemente os objetivos internacionais de integração de energias renováveis. Nos três últimos Planos Quinquenais, registaram-se elevadas taxas de crescimento da potência instalada em fontes de baixo carbono (renováveis + nuclear).
 
-![Metas](assets/targets1.jpg)
+![Metas](assets/targets1.jpg){ width="600" style="display:block; margin:auto;" }
 
 *Fig. 2: Metas de integração de energias de baixo carbono no setor elétrico vs. valores obtidos, República Popular da China.*
 
@@ -38,7 +38,7 @@ Em segundo lugar, a China tem ultrapassado consistentemente os objetivos interna
 
 A potência instalada cresceu **1.010%** em 11 anos, passando de 29,6 GW para 328,48 GW. Em 2020, foram instalados 72,3 GW, correspondendo a **63% da potência eólica global instalada nesse ano**.
 
-![wind](assets/wind1.png)
+![wind](assets/wind1.png){ width="600" style="display:block; margin:auto;" }
 
 *Fig. 3: Evolução da potência eólica (2012–2021), República Popular da China.*
 
