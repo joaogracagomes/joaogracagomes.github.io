@@ -48,7 +48,7 @@ A potência instalada cresceu **1.010%** em 11 anos, passando de 29,6 GW para 32
 
 Até ao final de 2021, a China detinha mais de **35% da potência solar fotovoltaica mundial**. Entre 2012 e 2021, a capacidade aumentou quase **7.200%**, de 4,2 GW para 306,56 GW. Cerca de **60% das fábricas de células fotovoltaicas** estão localizadas na China.
 
-![solar](assets/solarPV4.png)
+![solar](assets/solarPV.png){ width="600" style="display:block; margin:auto;" }
 
 *Fig. 4: Evolução da potência solar fotovoltaica (2012–2021), República Popular da China.*
 
@@ -58,7 +58,7 @@ Até ao final de 2021, a China detinha mais de **35% da potência solar fotovolt
 
 Entre 2012 e 2021, a potência hídrica cresceu de 250 GW para 370 GW, incluindo **32 GW de capacidade de bombagem**, essencial para a integração de eletricidade renovável variável.
 
-![solar(assets/hydro5.png)
+![solar(assets/hydro.png){ width="600" style="display:block; margin:auto;" }
 
 *Fig. 5: Evolução da potência hídrica (2012–2021), República Popular da China.*
 
