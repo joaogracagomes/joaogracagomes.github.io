@@ -90,7 +90,7 @@ Top 5%
 - **IET Renewable Power Generation (2021)** – Pumped hydro & wind optimisation  
 - **Springer (2023)** – Green hydrogen supply chains (Book chapter)
 
-👉 Full list available in the [Publications / Studies](/Studies.md) section.
+👉 Full list available in the [Publications / Studies](Studies.md) section.
 
 ---
 
