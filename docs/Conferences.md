@@ -8,6 +8,12 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 ### 🎤 Speaker / Lecturer
 
+- **ESG in Tech 2.0 – Green Leaders Edition**  
+  *Judge*
+  Tech 4 Good AFRICA  
+  **07 Mar 2026** · Online
+  [Event link](https://www.linkedin.com/company/tech4goodafrica/)
+
 - **Industrial Consortium Meeting 2025**  
   *Learning Under Uncertainty: A Serious Game for Generation Capacity Expansion Planning Decisions*  
   *(under the PhD scholarship FCT 2023.04622.BD)*  
