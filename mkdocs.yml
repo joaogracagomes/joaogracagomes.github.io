@@ -49,9 +49,9 @@ plugins:
 
 markdown_extensions:
   - attr_list
-  - pymdownx.arithmatex:
-    generic: true
   - meta
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.highlight:
       anchor_linenums: false
   - pymdownx.inlinehilite
