@@ -28,8 +28,15 @@ I teach and mentor students and professionals across topics related to energy sy
 
 ✏️ CAD 2D Basics
 
-<iframe width="100%" height="400" src="https://youtu.be/ROwdluIHvtg" title="Master SOLIDWORKS 2D Sketching" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
-Institution: Dyson School of Design Engineering, Imperial College London
+<iframe width="100%" height="400" 
+        src="https://www.youtube.com/embed/ROwdluIHvtg" 
+        title="Master SOLIDWORKS 2D Sketching" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+
+🏫 Institution: Dyson School of Design Engineering, Imperial College London
 
 ---
 
