@@ -161,6 +161,22 @@ This list is regularly updated. A full and up-to-date record is also available o
 ## 📄 Conference Papers
 
 <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
+  <img src="https://joaogracagomes.github.io/assets/IET.png" alt="ICEAP" 
+       style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
+
+  <div>
+    <strong>Strategic real options and flexibility analysis for solar PV power plants</strong><br>
+    🗓️ 2025<br>
+    👥 <strong>J. Graça Gomes</strong>, M-A. Cardin, B. Wu<br>
+    📰 <em>IET Powering Net Zero (PNZ 2025)</em><br>
+    🔗 <a href="https://digital-library.theiet.org/doi/abs/10.1049/icp.2025.4893" target="_blank">View Paper</a><br>
+    🏷️ Conference Paper · ✔️ Published
+  </div>
+</div>
+
+---
+
+<div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:30px;">
   <img src="https://joaogracagomes.github.io/assets/ICEAP.png" alt="ICEAP" 
        style="width:90px; border:2px solid #444; border-radius:5px; padding:3px; background-color:#fff;">
 
