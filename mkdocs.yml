@@ -34,9 +34,7 @@ nav:
   - Conferences: Conferences.md
   - Studies: Studies.md
   - Teaching: Teaching.md
-  - Consultancy: 
-    - Consultancy.md
-    - LCOE Simulator: Consultancy/lcoe-simulator.md    # ← Add this line
+  - Consultancy: Consultancy.md
   - Hobbies: Hobbies.md
 
 
