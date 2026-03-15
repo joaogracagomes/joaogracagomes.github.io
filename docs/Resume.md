@@ -24,7 +24,7 @@ AI-enabled immersive technologies for energy system design under deep uncertaint
 
 **MSc in Power Engineering**  
 *Shanghai Jiao Tong University* — 2018–2021
-International Student Award: Graduation with Honors (Top 1% in China)
+International Student Award: Graduation with Honours (Top 1% in China)
 Feasibility of Distributed Generation-based Microgrid System using Battery Storage
 
 **Summer Course on Applied Energy**  
@@ -90,7 +90,7 @@ Top 5%
 - **IET Renewable Power Generation (2021)** – Pumped hydro & wind optimisation  
 - **Springer (2023)** – Green hydrogen supply chains (Book chapter)
 
-👉 Full list available in the [Publications / Studies](studies.md) section.
+👉 Full list available in the [Publications / Studies](Studies.md) section.
 
 ---
 
@@ -100,7 +100,7 @@ Top 5%
 Python, MATLAB, C#, R, Xpress-Mosel, EnergyPlan, PSCAD, PVSYST
 
 **Data & Visualisation**  
-GIS, Origin, CAD
+Unity, GIS, Origin, CAD, SolidWorks
 
 **Languages**  
 Portuguese (Native) · English (IELTS 7.5) · Chinese (HSK 3)
@@ -133,7 +133,7 @@ Portuguese (Native) · English (IELTS 7.5) · Chinese (HSK 3)
 
 - **Merit Award — Shanghai Jiao Tong University China-UK Low Carbon College 2020 Postgraduate Academic Forum** (2020)  
   *Shanghai, China*  
-  Recognized for outstanding academic presentation at the forum.
+  Recognised for outstanding academic presentation at the forum.
 
 - **Best Position Paper** — Shanghai Jiao Tong University United Nations Model Conference (2019)  
   *Shanghai, China*  
@@ -144,7 +144,7 @@ Portuguese (Native) · English (IELTS 7.5) · Chinese (HSK 3)
 
 - **China Three Gorges Scholarship** — China Three Gorges Corporation (August 2018)  
   *Portugal*  
-  Awarded to 2 students among approximately 50,000 candidates.
+  Awarded yearly to 2 students among approximately 50,000 students.
 
 - **Best Electrical Engineering Internship** — Portuguese Engineers Society (November 2017)  
   *Portugal*  
@@ -156,7 +156,7 @@ Portuguese (Native) · English (IELTS 7.5) · Chinese (HSK 3)
 
 - **Merit Award** - Faculty of Sciences of the University of Lisbon (2012)  
   *Lisbon, Portugal*  
-  Recognized for achieving a yearly GPA higher than 16/20.
+  Recognised for achieving a yearly GPA higher than 16/20.
 
 - **Euroscola Winner** — European Commission (2009)  
   *European Union*  
