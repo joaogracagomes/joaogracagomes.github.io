@@ -13,7 +13,7 @@ As an example of tools that can be developed from my research and consultancy wo
 
 It allows a rapid **economic feasibility test** by incorporating parameters such as system degradation, solar irradiation conditions, and historical grid disruption patterns. This type of tool can support early-stage decision making before conducting detailed techno-economic studies.
 
-👉 **[Open the LCOE Simulator](assets/lcoe_simulator.html)**
+👉 **[Open the LCOE Simulator](assets/SolarPV_BESS_LCOE_Simulator.html)**
 ---
 
 ## 💼 What I Offer
