@@ -17,6 +17,16 @@ It allows a rapid **economic feasibility test** by incorporating parameters such
 
 ---
 
+## Electricity Load Forecaster
+
+As an example of tools that can be developed from my research and consultancy work, the interactive calculator below estimates the **Electricity Load Forecaster** for power generation projects.
+
+It allows a rapid **economic feasibility test** by incorporating parameters such as system degradation, solar irradiation conditions, and historical grid disruption patterns. This type of tool can support early-stage decision making before conducting detailed techno-economic studies.
+
+👉 **[Open the Electricity Load Forecaster](assets/Load_Forecasting_Simulator.html)**
+
+---
+
 ## Pumped Hydro and Wind Coupling Study
 
 Another relevant example comes from 👉 **[this paper](https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/rpg2.12014)**  The study explores the revenue dynamics between wind generation and pumped-hydro storage, highlighting the additional financial value that can be achieved when storage is integrated with variable renewable energy sources.
