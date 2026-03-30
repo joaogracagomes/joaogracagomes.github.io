@@ -19,9 +19,9 @@ It allows a rapid **economic feasibility test** by incorporating parameters such
 
 ## Electricity Load Forecaster
 
-As an example of tools that can be developed from my research and consultancy work, the interactive calculator below estimates the **Electricity Load Forecaster** for power generation projects.
+Based on 👉 **[this paper](https://doi.org/10.1016/j.energy.2025.134802)**, I developed a simple **Electricity Load Forecaster** for European countries. 
 
-It allows a rapid **economic feasibility test** by incorporating parameters such as system degradation, solar irradiation conditions, and historical grid disruption patterns. This type of tool can support early-stage decision making before conducting detailed techno-economic studies.
+It takes into consideration temperature, historical demand, and period of the year to estimate the daily electricity consumption. This is an example of what I can develop via machine learning using historical data. It showcases the type of services I can provide to governments and institutions looking to analyse the impact of specific geopolitical or technological disruptions on future demand.
 
 👉 **[Open the Electricity Load Forecaster](assets/Load_Forecasting_Simulator.html)**
 
