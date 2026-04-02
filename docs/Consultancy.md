@@ -7,6 +7,13 @@ I help organisations, from public institutions to corporates and investors, solv
 Due to confidentiality agreements, I cannot disclose client names or share full reports, but you can get a strong sense of my skills and approach by exploring the studies and publications available on this site.
 
 ---
+## Energy Trilemma Dashboard
+
+Based on my work as a board member of the World Energy Council's Future Energy Leaders programme, this interactive dashboard visualises the WEC Trilemma Index 2024 across 70+ countries. Explore trade-offs between energy security, equity, and environmental sustainability, simulate policy scenarios, and compare countries head-to-head.
+
+👉 **[Open the Energy Trilemma Dashboard](/assets/Energy_Trilemma_Dashboard_5.html)**
+
+---
 ## LCOE Feasibility Simulator
 
 As an example of tools that can be developed from my research and consultancy work, the interactive calculator below estimates the **Levelized Cost of Electricity (LCOE)** for power generation projects.
