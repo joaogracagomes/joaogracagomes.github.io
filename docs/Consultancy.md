@@ -43,6 +43,14 @@ The analysis was performed using an in-house optimisation algorithm, providing a
 
 ---
 
+## LFP Battery Degradation Explorer
+
+Based on the work of Schimpe et al. (2018) 👉 **[this paper]([https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/rpg2.12014](https://iopscience.iop.org/article/10.1149/2.1181714jes)** developed a simple battery degradation explorer that allows you to adjust temperature, state of charge and cycling to see how a 3 Ah LiFePO4 cell loses capacity over time. Pin scenarios to compare them side by side.
+
+👉 **[Open the Battery Degradation Explorer](assets/)**
+
+---
+
 ## 💼 What I Offer
 
 - 🧠 **Strategic Energy & Decarbonisation Advisory** — grounded in academic research and field experience.
