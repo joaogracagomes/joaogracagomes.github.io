@@ -48,6 +48,7 @@ The analysis was performed using an in-house optimisation algorithm, providing a
 Based on the work of Schimpe et al. (2018) 👉 **[this paper](https://iopscience.iop.org/article/10.1149/2.1181714jes)** developed a simple battery degradation explorer that allows you to adjust temperature, state of charge and cycling to see how a 3 Ah LiFePO4 cell loses capacity over time. Pin scenarios to compare them side by side.
 
 👉 **[Open the Battery Degradation Explorer](assets/index-2.html)**
+
 👉 **[Trial](assets/Battery_Swapping_Simulator.html)**
 ---
 
