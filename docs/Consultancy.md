@@ -50,6 +50,7 @@ Based on the work of Schimpe et al. (2018) 👉 **[this paper](https://iopscienc
 👉 **[Open the Battery Degradation Explorer](assets/index-2.html)**
 
 👉 **[Trial](assets/Battery_Swapping_Simulator.html)**
+
 ---
 
 ## 💼 What I Offer
