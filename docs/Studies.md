@@ -5,7 +5,7 @@ My academic work focuses on **low-carbon energy systems**, **power system planni
 Below you can find a curated list of my **journal articles**, **conference papers**, **book chapters**, and **patents**.  
 This list is regularly updated. A full and up-to-date record is also available on  
 👉 [Google Scholar](https://scholar.google.com/citations?user=9rfu638AAAAJ&hl=en)
-A PhD study prototype is available at: 👉 [RECAP](assets/RECAP_final.html)
+A PhD study prototype is available at: 👉 [RECAP](assets/RECAP_last.html)
 
 ---
 
