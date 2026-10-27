@@ -8,6 +8,16 @@ Below is a curated list of these events, which I strive to keep updated regularl
 
 ### 🎤 Speaker / Lecturer
 
+- **AI for Africa**  
+  *Debate*  
+  Africa Sustainable Energy Centre  
+  **7 Oct 2026** · Online
+
+- **Strategic Engineering a new alternative for Power Infrastructure Development**  
+  *Opening Speech*  
+  Portuguese Diaspora Council  
+  **25 Mar 2026** · Online
+
 - **ESG in Tech 2.0 – Green Leaders Edition**  
   *Judge*
   Tech 4 Good AFRICA  
