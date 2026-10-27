@@ -18,6 +18,10 @@ My work combines **energy system modelling, optimisation, and AI-based methods**
 
 ## Education
 
+**Research Exchange**  
+*Massachusetts Institute of Technology* — 2026  
+AI-enabled immersive technologies for energy system design under deep uncertainty
+
 **PhD in Design Engineering**  
 *Imperial College London* — 2024–2028  
 AI-enabled immersive technologies for energy system design under deep uncertainty
