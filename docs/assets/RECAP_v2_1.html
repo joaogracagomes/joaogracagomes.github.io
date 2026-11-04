@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RECAP v2.1: fixed or flexible?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F3;--surface:#FFFFFF;--ink:#15202A;--muted:#5B6873;--line:#D3DADF;--soft:#E6EBEE;
+  --you:#C46F00;--youSoft:rgba(242,164,58,.15);--agent:#3E4CD0;--fixed:#36424D;
+  --short:#D33B3B;--idle:#8FA1AE;--fan:#15202A;--scrim:rgba(238,241,243,.86);
+  --font:"Archivo",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0D141A;--surface:#141E26;--ink:#E5ECF1;--muted:#97A6B3;--line:#2B3844;--soft:#1D2933;
+  --you:#F0A23A;--youSoft:rgba(240,162,58,.13);--agent:#929EFF;--fixed:#BAC6D0;
+  --short:#FF6B6B;--idle:#62737F;--fan:#E5ECF1;--scrim:rgba(13,20,26,.86);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0D141A;--surface:#141E26;--ink:#E5ECF1;--muted:#97A6B3;--line:#2B3844;--soft:#1D2933;
+  --you:#F0A23A;--youSoft:rgba(240,162,58,.13);--agent:#929EFF;--fixed:#BAC6D0;
+  --short:#FF6B6B;--idle:#62737F;--fan:#E5ECF1;--scrim:rgba(13,20,26,.86);color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.45;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+
+/* header */
+.top{display:flex;align-items:center;gap:12px 24px;flex-wrap:wrap;padding:12px 22px;padding-top:calc(12px + env(safe-area-inset-top,0px));
+  background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.1}
+.brand .mark{font-stretch:75%;font-weight:800;font-size:24px;letter-spacing:.02em}
+.brand .sub{font-size:12.5px;color:var(--muted)}
+.where{font-size:14px;color:var(--muted);display:flex;align-items:center;flex-wrap:wrap}
+.where b{color:var(--ink);font-weight:700}
+.where .sep{display:inline-block;width:1px;height:15px;background:var(--line);margin:0 12px}
+.dials{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.dial{min-width:150px;padding:6px 11px 8px;border:1px solid var(--line);border-radius:8px}
+.dial .n,.dc .n{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted)}
+.dial .v{font-weight:700;font-size:14px;margin:1px 0 5px}
+.meter{display:flex;gap:3px}
+.meter i{flex:1;height:4px;border-radius:2px;background:var(--soft)}
+.meter i.on{background:var(--ink)}
+.changed{border-color:var(--you)!important;box-shadow:inset 0 0 0 1px var(--you)}
+.tag{color:var(--you);font-weight:700}
+
+/* stage */
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;padding:18px 22px 28px;max-width:1500px;margin:0 auto;align-items:start}
+.boardWrap{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 12px 6px;min-width:0}
+.boardHead{display:flex;align-items:baseline;justify-content:space-between;gap:6px 18px;flex-wrap:wrap;margin:0 6px 6px}
+.boardHead h1{margin:0;font-stretch:75%;font-weight:800;font-size:28px;letter-spacing:-.005em;line-height:1.1}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+#board{display:block;width:100%;height:auto}
+.side{display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 16px 14px}
+.panel h2{margin:0 0 2px;font-stretch:75%;font-weight:800;font-size:22px;line-height:1.15}
+.note{color:var(--muted);font-size:13.5px;margin:4px 0 10px}
+.small{font-size:12.5px}
+.muted{color:var(--muted)}
+.ag{color:var(--agent)}
+.facts{display:grid;grid-template-columns:1fr auto;gap:5px 12px;font-size:14px;margin:10px 0 14px}
+.facts dt{color:var(--muted);display:flex;align-items:center}
+.facts dd{margin:0;text-align:right;font-weight:650}
+.buildRow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:12px}
+.buildRow label{font-weight:700}
+.bigNum{font-stretch:75%;font-weight:800;font-size:38px;line-height:1;color:var(--you)}
+input[type=range]{width:100%;margin:10px 0 2px;accent-color:var(--you);height:28px}
+.scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.nudges{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 12px}
+.cost{display:grid;grid-template-columns:1fr auto;gap:5px 12px;font-size:14px;margin:0}
+.cost dt{color:var(--muted)}
+.cost dd{margin:0;text-align:right;font-weight:650}
+.env{grid-column:1/-1;display:flex;height:6px;border-radius:3px;background:var(--soft);overflow:hidden;margin-top:3px}
+.env i{background:var(--ink)}
+.env b{background:var(--you)}
+
+/* buttons */
+.btn{appearance:none;font:inherit;font-weight:650;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;padding:9px 14px;cursor:pointer;transition:border-color .15s,opacity .15s}
+.btn:hover{border-color:var(--ink)}
+.btn:focus-visible,input[type=range]:focus-visible{outline:3px solid var(--agent);outline-offset:2px}
+.btn.ghost{padding:7px 0;font-size:13.5px}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.btn.primary:hover{opacity:.88}
+.btn.you{background:var(--you);border-color:var(--you);color:#1B1203}
+.btn.you:hover{opacity:.9}
+.btn.wide{width:100%;margin-top:14px;padding:12px;font-size:16px}
+.btn.block{width:100%;margin-top:6px}
+
+/* score and sheets */
+.score{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.who{display:flex;align-items:center;font-size:13px;color:var(--muted)}
+.score .val{font-stretch:75%;font-weight:800;font-size:30px;line-height:1.1;margin-top:2px}
+.score .you .val{color:var(--you)}
+.score .agent .val{color:var(--agent)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;flex:none;background:var(--muted)}
+.dot.you{background:var(--you)}
+.dot.agent{background:var(--agent)}
+.dot.fixed{background:var(--fixed)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--soft)}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:650;color:var(--muted);border-bottom-color:var(--line)}
+td.y,th.y{color:var(--you);font-weight:700}
+td.a,th.a{color:var(--agent);font-weight:700}
+th.fx{color:var(--fixed)}
+th.fl{color:var(--agent)}
+tr.now td{background:var(--youSoft)}
+tr.tot td{font-weight:800;border-top:1px solid var(--line);border-bottom:none}
+.sheetT td:nth-child(2){color:var(--muted);text-align:left}
+.agentMove{display:flex;align-items:baseline;margin:10px 0 12px}
+.agentMove p{margin:3px 0 0;font-size:13.5px;color:var(--muted)}
+
+/* overlay sheets */
+.overlay{position:fixed;inset:0;z-index:40;overflow-y:auto;background:var(--scrim);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  padding:max(5vh,calc(16px + env(safe-area-inset-top,0px))) 16px calc(5vh + env(safe-area-inset-bottom,0px))}
+.overlay[hidden]{display:none}
+.sheetBox{margin:0 auto;max-width:1000px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:30px 34px 26px}
+.sheetBox.narrow{max-width:780px}
+.sheetBox h2{margin:0 0 12px;font-stretch:75%;font-weight:800;font-size:44px;line-height:1.02;letter-spacing:-.01em}
+.sheetBox h3{margin:22px 0 6px;font-size:15px;font-weight:750}
+.sheetBox p{max-width:70ch}
+.kick{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.lead{font-size:17.5px;line-height:1.5;margin:0 0 18px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:20px 0}
+.rule{border-top:2px solid var(--ink);padding-top:8px}
+.rule b{display:block;font-stretch:75%;font-weight:800;font-size:22px;line-height:1.1;margin-bottom:4px}
+.rule span{font-size:13.5px;color:var(--muted)}
+.dialCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:6px 0 4px}
+.dc{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.dc .v{font-stretch:75%;font-weight:800;font-size:26px;margin:2px 0 7px}
+.dc p{margin:10px 0 0;font-size:13.5px}
+.actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:24px}
+.actions .btn{padding:11px 18px;font-size:15.5px}
+.debriefGrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:start}
+.debriefGrid.one{grid-template-columns:1fr}
+#curves{display:block;width:100%;height:auto}
+.balance{list-style:none;padding:0;margin:4px 0 0}
+.balance li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--soft);font-size:14px}
+.balance li b{font-weight:650;text-align:right;white-space:nowrap}
+.balance li.flip b{color:var(--you)}
+.flipTag{display:block;font-size:12px;font-weight:700;color:var(--you)}
+.tableScroll{overflow-x:auto}
+.sumT td:nth-child(2){text-align:left;color:var(--muted)}
+.ledger th,.ledger td,.statT th,.statT td{white-space:nowrap}
+.ledger td:first-child,.statT td:first-child{white-space:normal}
+.sumT td:nth-child(n+3){white-space:nowrap}
+.sumT th:nth-child(2){text-align:left}
+.btnRow{display:grid;gap:8px;margin-top:14px}
+.btnRow .btn{width:100%;padding:11px;font-size:15px}
+.btn.small{padding:5px 10px;font-size:13px}
+.sumT td{vertical-align:top}
+#board .demP{fill:var(--ink);stroke:var(--surface);stroke-width:1.2}
+#curves .cY{fill:none;stroke:var(--you);stroke-width:3;stroke-linejoin:round}
+#curves .dY{fill:var(--you);stroke:var(--surface);stroke-width:2}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* the board */
+#board text,#curves text{font-family:var(--font)}
+#board .grid,#curves .grid{stroke:var(--soft);stroke-width:1}
+#board .ax,#curves .ax{fill:var(--muted);font-size:12.5px}
+#board .tick,#curves .tick{stroke:var(--line);stroke-width:1}
+#board .dec{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+#board .mv{fill:var(--muted);font-size:12.5px}
+#board .mv.on{fill:var(--ink);font-weight:700}
+#board .block{fill:var(--youSoft)}
+#board .fc{fill:none;stroke:var(--muted);stroke-width:1.3;stroke-dasharray:5 5;opacity:.75}
+#board .fan{fill:var(--fan);opacity:.075}
+#board .short{fill:var(--short);opacity:.5}
+#board .idle{fill:var(--idle);opacity:.28}
+#board .dem{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round}
+#board .youL{fill:none;stroke:var(--you);stroke-width:3.4;stroke-linejoin:round}
+#board .youP{fill:none;stroke:var(--you);stroke-width:3.4;stroke-dasharray:8 6}
+#board .agentL{fill:none;stroke:var(--agent);stroke-width:2.4;stroke-linejoin:round}
+#board .fixedL{fill:none;stroke:var(--fixed);stroke-width:2.2;stroke-dasharray:10 6}
+#board .hit{fill:transparent}
+#board .el,#curves .lab{font-size:12.5px;font-weight:700;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+#board .lyou{fill:var(--you)}
+#board .lagent{fill:var(--agent)}
+#board .ldem{fill:var(--ink)}
+#board .lfixed{fill:var(--fixed)}
+#board.narrow .ax,#board.narrow .mv,#board.narrow .el{font-size:17px}
+#curves .pl{stroke:var(--line);stroke-dasharray:3 4}
+#curves .pt{fill:var(--muted);font-size:11.5px}
+#curves .cF{fill:none;stroke:var(--fixed);stroke-width:2.4;stroke-dasharray:8 4;stroke-linejoin:round}
+#curves .cA{fill:none;stroke:var(--agent);stroke-width:2.8;stroke-linejoin:round}
+#curves .mF{stroke:var(--fixed);stroke-width:1.2;stroke-dasharray:2 3}
+#curves .mA{stroke:var(--agent);stroke-width:1.2;stroke-dasharray:2 3}
+#curves .youM{stroke:var(--you);stroke-width:3}
+#curves .dF{fill:var(--surface);stroke:var(--fixed);stroke-width:2.5}
+#curves .dA{fill:var(--surface);stroke:var(--agent);stroke-width:2.5}
+#curves .lF{fill:var(--fixed)}
+#curves .lA{fill:var(--agent)}
+#curves .lY{fill:var(--you)}
+
+@media (max-width:1060px){
+  .stage{grid-template-columns:1fr}
+  .side{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .dials{margin-left:0;width:100%}
+  .dial{flex:1 1 150px}
+}
+@media (max-width:760px){
+  .debriefGrid{grid-template-columns:1fr}
+  .dialCards{grid-template-columns:1fr}
+  .sheetBox{padding:22px 18px}
+  .sheetBox h2{font-size:33px}
+}
+@media (max-width:560px){
+  .top{padding:10px 14px}
+  .stage{padding:12px 10px 20px;gap:12px}
+  .side{display:flex}
+  .boardWrap{position:sticky;top:0;z-index:5}
+  .boardHead h1{font-size:23px}
+  .dial{min-width:0;flex:1 1 30%;padding:5px 8px 7px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="mark">RECAP</span><span class="sub">Mozcon Power, 20-year concession</span></div>
+  <div class="where" id="where"></div>
+  <div class="dials" id="dials" aria-label="This match’s conditions"></div>
+</header>
+<main class="stage">
+  <section class="boardWrap" aria-label="Planning board">
+    <div class="boardHead"><h1 id="boardTitle"></h1><div class="legend" id="legend"></div></div>
+    <svg id="board" viewBox="0 0 960 520" role="img" aria-label="Planning board"></svg>
+  </section>
+  <aside class="side">
+    <section class="panel" id="movePanel"></section>
+    <section class="panel" id="scorePanel"></section>
+    <section class="panel" id="sheetPanel"></section>
+  </aside>
+</main>
+<p id="live" class="sr" aria-live="polite"></p>
+<div class="overlay" id="overlay" hidden><div class="sheetBox" id="sheet" role="dialog" aria-modal="true"></div></div>
+<script>
+/* RECAP v2: economics engine (pure, no DOM). Shared by the game and the calibration scripts.
+   Units: demand and capacity in MW of solar (1 MW serves cf x 8,760 MWh a year); money in £m. */
+(function (root) {
+  'use strict';
+
+  // ---------- seeded RNG ----------
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function gauss(rand) {
+    let u = 0; while (u === 0) u = rand();
+    const v = rand();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+
+  // ---------- shared economics (identical in every match) ----------
+  const BASE = {
+    years: 20,
+    moves: [0, 5, 10, 15],      // decision points (start of years 1, 6, 11, 16)
+    cf: 0.20,                   // solar capacity factor
+    price: 120,                 // £/MWh delivered
+    penalty: 500,               // £/MWh of unmet demand, on top of the lost sale
+    plantCost: 0.9,             // £m per MW at today's prices; no economies of scale (solar)
+    connection: 60,             // £m per build: grid connection, permits, mobilisation
+    assetLife: 25,              // years; residual = book value at year 20
+    d1: 100, growth: 0.05,      // official forecast: MW-equivalent demand in year 1, growth per year
+    envelope: 1000,             // £m capital envelope over the concession (nominal); never binds for sensible plans
+    maxBuild: 500, step: 5,     // MW per move, slider step
+    nFutures: 2000
+  };
+  const E = BASE.cf * 8760;     // MWh per MW per year (1,752)
+
+  // ---------- demand: multiplicative random walk around the forecast (median path = forecast) ----------
+  function forecast(t) { return BASE.d1 * Math.pow(1 + BASE.growth, t - 1); }
+  function samplePath(world, rand) {
+    const D = [forecast(0)];
+    let x = 0;
+    for (let t = 1; t <= BASE.years; t++) { x += world.sigma * gauss(rand); D.push(forecast(t) * Math.exp(x)); }
+    return D;   // D[0] = reference level at year 0; D[1..20] = realised years
+  }
+  function futures(world) {
+    const rand = mulberry32(world.seed), out = [];
+    for (let i = 0; i < BASE.nFutures; i++) out.push(samplePath(world, rand));
+    return out;
+  }
+  // quantile z of demand in year t, seen from an observed point (t0, d0)
+  function fanAt(world, t0, d0, t, z) {
+    return d0 * forecast(t) / forecast(t0) * Math.exp(z * world.sigma * Math.sqrt(t - t0));
+  }
+
+  // ---------- costs: solar gets cheaper with time (learning), each build pays a connection cost ----------
+  function costFactor(world, year) { return Math.pow(1 - world.lr, year || 0); }
+  function plantCost(world, mw, year) { return mw > 0 ? BASE.plantCost * mw * costFactor(world, year) : 0; }
+  function capex(world, mw, year) { return mw > 0 ? BASE.connection + plantCost(world, mw, year) : 0; }
+  function costPerMW(world, mw, year) { return mw > 0 ? capex(world, mw, year) / mw : 0; }
+  // largest build (multiple of the step) whose capex fits the remaining envelope
+  function maxAffordable(world, budget, year) {
+    const per = BASE.plantCost * costFactor(world, year);
+    if (budget < BASE.connection + per * BASE.step) return 0;
+    let mw = Math.min(BASE.maxBuild, Math.floor((budget - BASE.connection) / per / BASE.step + 1e-9) * BASE.step);
+    while (mw > 0 && capex(world, mw, year) > budget + 1e-9) mw -= BASE.step;
+    return mw;
+  }
+  function df(world, t) { return Math.pow(1 + world.rate, -t); }
+
+  // ---------- one path, one (possibly contingent) schedule ----------
+  // decide(moveIndex, {year, capacity, lastDemand}) -> MW to add
+  function play(world, path, decide) {
+    const r = world.rate;
+    let K = 0, npv = 0, spent = 0, pvRev = 0, pvPen = 0, pvCapex = 0;
+    const plants = [], years = [], builds = [];
+    for (let t = 1; t <= BASE.years; t++) {
+      const yStart = t - 1, mi = BASE.moves.indexOf(yStart);
+      if (mi >= 0) {
+        let add = Math.max(0, decide(mi, { year: yStart, capacity: K, lastDemand: path[yStart] }));
+        add = Math.min(add, maxAffordable(world, BASE.envelope - spent, yStart));
+        const cx = capex(world, add, yStart);
+        spent += cx; builds.push(add); K += add;
+        if (add > 0) plants.push({ mw: add, capex: cx, year: yStart });
+        const pv = cx * Math.pow(1 + r, -yStart);
+        pvCapex += pv; npv -= pv;
+      }
+      const d = path[t], delivered = Math.min(K, d), short = Math.max(0, d - K), idle = Math.max(0, K - d);
+      const rev = BASE.price * E * delivered / 1e6, pen = BASE.penalty * E * short / 1e6, f = Math.pow(1 + r, -t);
+      pvRev += rev * f; pvPen += pen * f; npv += (rev - pen) * f;
+      years.push({ t, demand: d, capacity: K, delivered, short, idle, rev, pen, npvToDate: npv });
+    }
+    let resid = 0;
+    plants.forEach(p => { resid += p.capex * Math.max(0, BASE.assetLife - (BASE.years - p.year)) / BASE.assetLife; });
+    const pvResid = resid * Math.pow(1 + r, -BASE.years);
+    npv += pvResid;
+    return { npv, pvRev, pvPen, pvCapex, pvResid, resid, builds, years, finalCapacity: K };
+  }
+  const fixedSchedule = sched => (mi => sched[mi] || 0);
+
+  // ---------- the Flex Agent: WP1's four EA-threshold regimes, re-keyed to demand utilisation ----------
+  // Trigger: last year's utilisation u = demand / capacity. Size: cover demand at the end of the next block
+  // in a set share of futures (fan quantile). Tighter systems buy more cover. Year 0 uses the high regime.
+  const AGENT = { tiers: [{ u: 1.00, q: 0.90 }, { u: 0.90, q: 0.80 }, { u: 0.80, q: 0.70 }], startQ: 0.90, startH: 5, expandH: 5 };
+  const roundStep = mw => Math.max(0, Math.round(mw / BASE.step) * BASE.step);
+  function zOf(p) {   // inverse standard normal (Acklam)
+    const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+    const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+    const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+    const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    const pl = 0.02425; let q, r;
+    if (p < pl) { q = Math.sqrt(-2 * Math.log(p)); return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1); }
+    if (p <= 1 - pl) { q = p - 0.5; r = q * q; return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q / (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1); }
+    q = Math.sqrt(-2 * Math.log(1 - p)); return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  }
+  function agentReason(world, mi, s) {
+    const y = BASE.moves[mi];
+    let q, tier, u = null, H;
+    if (mi === 0) { q = AGENT.startQ; tier = 'start'; H = AGENT.startH; }
+    else {
+      u = s.lastDemand / s.capacity;
+      const t = AGENT.tiers.find(x => u >= x.u);
+      if (!t) return { add: 0, u, tier: 'hold', q: null, target: null, horizon: null };
+      q = t.q; tier = t.u >= 1 ? 'high' : t.u >= 0.9 ? 'mid' : 'low'; H = AGENT.expandH;
+    }
+    const horizon = Math.min(y + H, BASE.years);
+    const target = fanAt(world, y, s.lastDemand, horizon, zOf(q));
+    return { add: roundStep(target - s.capacity), u, tier, q, target, horizon };
+  }
+  function agentFor(world) { return (mi, s) => agentReason(world, mi, s).add; }
+
+  // ---------- benchmarks over the Monte Carlo futures ----------
+  function stats(vals) {
+    const v = vals.slice().sort((a, b) => a - b), n = v.length;
+    const q = p => { const i = (n - 1) * p, lo = Math.floor(i), hi = Math.ceil(i); return v[lo] + (v[hi] - v[lo]) * (i - lo); };
+    return { mean: v.reduce((a, b) => a + b, 0) / n, p10: q(0.1), p50: q(0.5), p90: q(0.9), min: v[0], max: v[n - 1], sorted: v };
+  }
+  function fixedNPV(world, path, k, dfs) {   // fast path: one plant at year 0, no later moves
+    let npv = -capex(world, k, 0);
+    const pE = BASE.price * E / 1e6, qE = BASE.penalty * E / 1e6;
+    for (let t = 1; t <= BASE.years; t++) { const d = path[t]; npv += (d < k ? pE * d : pE * k - qE * (d - k)) * dfs[t]; }
+    return npv + capex(world, k, 0) * Math.max(0, BASE.assetLife - BASE.years) / BASE.assetLife * dfs[BASE.years];
+  }
+  function discounts(world) { const a = []; for (let t = 0; t <= BASE.years; t++) a.push(Math.pow(1 + world.rate, -t)); return a; }
+  function bestFixed(world, futs) {   // the single year-0 size with the highest ENPV (within the envelope)
+    const dfs = discounts(world), kMax = maxAffordable(world, BASE.envelope, 0);
+    let best = null; const curve = [];
+    for (let k = 0; k <= kMax; k += BASE.step) {
+      let s = 0; for (const p of futs) s += fixedNPV(world, p, k, dfs);
+      const e = s / futs.length; curve.push({ k, enpv: e });
+      if (!best || e > best.enpv) best = { k, enpv: e };
+    }
+    return { k: best.k, enpv: best.enpv, curve };
+  }
+  function evaluate(world) {
+    const futs = futures(world);
+    const fx = bestFixed(world, futs);
+    const fixedVals = futs.map(p => play(world, p, fixedSchedule([fx.k])).npv);
+    const agentVals = futs.map(p => play(world, p, agentFor(world)).npv);
+    const F = stats(fixedVals), A = stats(agentVals);
+    let w = 0; for (let i = 0; i < futs.length; i++) if (agentVals[i] > fixedVals[i]) w++;
+    return { futs, fixedK: fx.k, fixedCurve: fx.curve, fixed: F, agent: A, vof: A.mean - F.mean,
+             flexWinsShare: w / futs.length, fixedVals, agentVals };
+  }
+
+  // the player's own curve: replay their cushion, read as a rule.
+  // Year 0: the same build in every future. A later move where they built: rebuild to the same capacity-to-demand
+  // ratio they chose. A later move where they held: hold, unless cover falls below the trigger their moves reveal
+  // (halfway between the lowest cover they accepted and the highest cover at which they still chose to build);
+  // then top up to their average post-build ratio. If they never built after year 0, they never do.
+  function cushionFor(builds, playedPath) {
+    const ms = BASE.moves;
+    let K = 0; const pre = [], post = [];
+    builds.forEach((b, mi) => { const D = playedPath[ms[mi]]; pre.push(K / D); K += b; post.push(K / D); });
+    const B = [], H = [];
+    for (let mi = 1; mi < builds.length; mi++) (builds[mi] > 0 ? B : H).push(mi);
+    const b0 = builds[0] || 0;
+    if (!B.length) return mi => (mi === 0 ? b0 : 0);
+    const S = B.reduce((a, mi) => a + post[mi], 0) / B.length;
+    const lo = Math.max(...B.map(mi => pre[mi])), hi = H.length ? Math.min(...H.map(mi => post[mi])) : null;
+    const trig = hi === null ? null : Math.min(hi, (lo + hi) / 2);   // never above a cover they accepted, so the played path replays exactly
+    return (mi, s) => {
+      if (mi === 0) return b0;
+      if (builds[mi] > 0) return roundStep(post[mi] * s.lastDemand - s.capacity);
+      return trig !== null && s.capacity / s.lastDemand < trig ? roundStep(S * s.lastDemand - s.capacity) : 0;
+    };
+  }
+  function cushionSimple(builds, playedPath) {   // holds always hold (kept for comparison in the session data)
+    let K = 0;
+    const cover = builds.map((b, mi) => { K += b; return mi > 0 && b > 0 ? K / playedPath[BASE.moves[mi]] : null; });
+    return (mi, s) => mi === 0 ? (builds[0] || 0) : (cover[mi] == null ? 0 : roundStep(cover[mi] * s.lastDemand - s.capacity));
+  }
+  function distribution(world, futs, decide) { return stats(futs.map(p => play(world, p, decide).npv)); }
+
+  const API = { BASE, E, AGENT, mulberry32, gauss, forecast, samplePath, futures, fanAt, capex, plantCost, costFactor, costPerMW, maxAffordable, df, cushionFor, cushionSimple, distribution,
+                play, fixedSchedule, fixedNPV, discounts, agentFor, agentReason, zOf, stats, bestFixed, evaluate };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.ENGINE = API;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+/* RECAP v2.1: game layer (DOM). Depends on window.ENGINE. */
+(function () {
+'use strict';
+const E = window.ENGINE, B = E.BASE;
+const $ = id => document.getElementById(id);
+const REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const MINUS = '\u2212';
+const fmtM = (v, dp = 1) => (v < 0 ? MINUS : '') + '£' + Math.abs(v).toFixed(dp) + 'm';
+const fmtD = (v, dp = 1) => (v >= 0 ? '+' : MINUS) + '£' + Math.abs(v).toFixed(dp) + 'm';
+const fmtMW = v => Math.round(v).toLocaleString('en-GB') + '\u00a0MW';
+const pct = v => Math.round(v * 100) + '%';
+const sum = a => a.reduce((x, y) => x + y, 0);
+const r2 = v => Math.round(v * 100) / 100;
+const r3 = v => Math.round(v * 1000) / 1000;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const WORDS = ['none', 'one', 'two', 'three', 'four', 'five', 'six'];
+const word = n => WORDS[n] || String(n);
+const listJoin = a => a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' or ' + a[a.length - 1];
+const Z10 = 1.2816, Z25 = 0.6745;
+const statOf = s => ({ mean: r2(s.mean), p10: r2(s.p10), p90: r2(s.p90) });
+
+// ---------- the three dials and the calibrated matches ----------
+const DIALS = {
+  sigma: { name: 'Demand uncertainty', levels: [[0.01, 'low'], [0.04, 'moderate'], [0.08, 'high']] },
+  lr:    { name: 'Solar cost decline', levels: [[0, 'none'], [0.03, 'slow'], [0.09, 'fast']] },
+  rate:  { name: 'Cost of capital', levels: [[0.02, 'cheap'], [0.05, 'normal'], [0.12, 'expensive']] }
+};
+const KEYS = ['sigma', 'lr', 'rate'];
+// counterfactual setting used in each debrief ("what moved the balance")
+const ALT = { sigma: v => (v >= 0.06 ? 0.01 : 0.08), lr: v => (v >= 0.06 ? 0 : 0.09), rate: v => (v >= 0.1 ? 0.05 : 0.12) };
+// path = index of the played future among the 2,000 (fixed so every participant plays the same demand)
+const WORLDS = [
+  { id: 'p0', practice: true, title: 'Practice match', sigma: 0.02, lr: 0.02, rate: 0.08, seed: 4409, path: 1243,
+    brief: 'A warm-up that does not count. Use it to learn the board, the moves and the debrief.' },
+  { id: 'm1', title: 'Uncertain demand', sigma: 0.08, lr: 0, rate: 0.05, seed: 1101, path: 440,
+    brief: 'Nobody can say whether the island’s new industry will arrive, so demand could land far from the forecast. Solar prices have stalled: a plant costs the same in year 15 as today.' },
+  { id: 'm2', title: 'Steady demand', sigma: 0.01, lr: 0, rate: 0.05, seed: 2203, path: 298,
+    brief: 'Same island, same flat solar prices. This time demand tracks the forecast closely.' },
+  { id: 'm3', title: 'Falling solar costs', sigma: 0.01, lr: 0.09, rate: 0.05, seed: 3307, path: 1515,
+    brief: 'Demand is still steady, but solar now gets 9% cheaper every year.' }
+];
+
+function level(k, v) {
+  const L = DIALS[k].levels; let b = 0;
+  for (let i = 1; i < L.length; i++) if (Math.abs(L[i][0] - v) < Math.abs(L[b][0] - v)) b = i;
+  return { idx: b, label: L[b][1] };
+}
+function meter(idx) { return `<div class="meter" aria-hidden="true">${[0, 1, 2].map(j => `<i class="${j <= idx ? 'on' : ''}"></i>`).join('')}</div>`; }
+function dialLine(k, w) {
+  if (k === 'sigma') {
+    const mid = E.forecast(20), s = w.sigma * Math.sqrt(20);
+    return `In 8 of 10 futures, year-20 demand lands between ${Math.round(mid * Math.exp(-Z10 * s))} and ${Math.round(mid * Math.exp(Z10 * s))} MW. The forecast says ${Math.round(mid)} MW.`;
+  }
+  if (k === 'lr') return w.lr > 0
+    ? `Solar costs fall ${Math.round(w.lr * 100)}% a year: a plant built in year 10 costs ${Math.round(100 * (1 - Math.pow(1 - w.lr, 10)))}% less per MW than one built today.`
+    : 'Solar costs stay flat: a plant costs the same per MW in year 15 as today.';
+  return `Money costs ${Math.round(w.rate * 100)}% a year: £100m spent in year 10 is worth £${Math.round(100 * Math.pow(1 + w.rate, -10))}m today.`;
+}
+
+// ---------- options from the URL (facilitator / experimental arms) ----------
+// ?agent=live|debrief|off  ?curves=0  ?debrief=0  ?practice=0  ?matches=1,2,3  ?pid=P017  ?speed=2
+const Q = new URLSearchParams(location.search);
+const OPT = {
+  agent: ['live', 'debrief', 'off'].includes(Q.get('agent')) ? Q.get('agent') : 'live',
+  curves: Q.get('curves') !== '0',
+  debrief: Q.get('debrief') !== '0',
+  practice: Q.get('practice') !== '0',
+  pid: (Q.get('pid') || '').replace(/[^\w.-]/g, '').slice(0, 64) || null,
+  speed: Math.min(8, Math.max(0.25, parseFloat(Q.get('speed')) || 1))
+};
+const SCORED = WORLDS.filter(w => !w.practice), PRACTICE = WORLDS.filter(w => w.practice);
+const pick = (Q.get('matches') || '').split(',').map(x => parseInt(x, 10)).filter(n => n >= 1 && n <= SCORED.length);
+const CHAIN = !pick.length;
+const ORDER = (OPT.practice ? PRACTICE : []).concat(pick.length ? pick.map(n => SCORED[n - 1]) : SCORED);
+const NSCORED = ORDER.filter(w => !w.practice).length;
+const agentOn = () => OPT.agent !== 'off';
+function scoredNo(i) { let n = 0; for (let j = 0; j <= i; j++) if (!ORDER[j].practice) n++; return n; }
+function labelHTML(i) { return ORDER[i].practice ? '<b>Practice match</b>' : `<b>Match ${scoredNo(i)}</b>&nbsp;of ${NSCORED}`; }
+function labelText(i) { return ORDER[i].practice ? 'the practice match' : `match ${scoredNo(i)}`; }
+function prevScoredIdx(i) { if (ORDER[i].practice) return -1; for (let j = i - 1; j >= 0; j--) if (!ORDER[j].practice) return j; return -1; }
+function prevScored(i) { const j = prevScoredIdx(i); return j >= 0 ? ORDER[j] : null; }
+
+let LOG = null, M = null, HISTORY = [], RETURN = null;
+function newLog() {
+  return { game: 'RECAP v2.1: fixed or flexible?', build: '2.1-prototype', pid: OPT.pid,
+    options: { agent: OPT.agent, curves: OPT.curves, debrief: OPT.debrief, practice: OPT.practice, matches: ORDER.map(w => w.id) },
+    startedAt: new Date().toISOString(), userAgent: navigator.userAgent,
+    economics: JSON.parse(JSON.stringify(B)), agentRule: JSON.parse(JSON.stringify(E.AGENT)), matches: [] };
+}
+
+// ---------- match lifecycle ----------
+function setupMatch(i) {
+  if (M && M.timer) clearTimeout(M.timer);
+  const w = ORDER[i];
+  const path = E.futures(w)[w.path];
+  const agentRun = E.play(w, path, E.agentFor(w));
+  const reasons = []; let K = 0;
+  B.moves.forEach((y, mi) => {
+    const r = E.agentReason(w, mi, { capacity: K, lastDemand: path[y] });
+    r.add = agentRun.builds[mi]; reasons.push(r); K += agentRun.builds[mi];
+  });
+  M = { i, w, path, agentRun, reasons, ev: null, fixedRun: null, cf: {}, builds: [], move: 0, revealed: 0,
+        phase: 'brief', slider: 0, sl: null, maxMW: 0, decisions: [], ended: false, timer: null, token: {},
+        startedAt: new Date().toISOString(), youFinal: null, own: null, record: null, debriefSeen: false, reviewing: false };
+  // axis from ex-ante information only, so the scale never hints at the future
+  M.ymax = Math.max(200, Math.ceil(E.fanAt(w, 0, path[0], B.years, 1.96) * 1.05 / 50) * 50);
+}
+function evalMain() { if (M.ev) return; M.ev = E.evaluate(M.w); M.fixedRun = E.play(M.w, M.path, E.fixedSchedule([M.ev.fixedK])); }
+function computeCF(k) {
+  if (M.cf[k]) return;
+  const w2 = Object.assign({}, M.w, { [k]: ALT[k](M.w[k]) });
+  const ev = E.evaluate(w2);
+  M.cf[k] = { value: w2[k], vof: r2(ev.vof), flexAhead: r3(ev.flexWinsShare) };
+}
+function ensureAll() { evalMain(); if (OPT.debrief) KEYS.forEach(computeCF); }
+function scheduleBackground() {   // heavy Monte Carlo runs while the player thinks
+  const tok = M.token;
+  const jobs = [evalMain].concat(OPT.debrief ? KEYS.map(k => () => computeCF(k)) : []);
+  jobs.forEach((job, n) => setTimeout(() => { if (M && M.token === tok && !M.ended) job(); }, 400 + n * 600));
+}
+function youRun() { return E.play(M.w, M.path, E.fixedSchedule(M.builds)); }
+function capAfter(run, n) { return n ? run.years[5 * n - 1].capacity : 0; }
+function spentOn(builds) { return sum(builds.map((b, mi) => E.capex(M.w, b, B.moves[mi]))); }
+function npvSoFar(run, nMoves, revealed) {
+  const r = M.w.rate; let v = 0;
+  for (let t = 1; t <= revealed; t++) { const yr = run.years[t - 1]; v += (yr.rev - yr.pen) * Math.pow(1 + r, -t); }
+  for (let mi = 0; mi < nMoves; mi++) v -= E.capex(M.w, run.builds[mi], B.moves[mi]) * Math.pow(1 + r, -B.moves[mi]);
+  return v;
+}
+function agentVisibleMoves() {
+  if (!agentOn()) return 0;
+  if (OPT.agent === 'live') return M.builds.length;
+  return M.ended ? B.moves.length : 0;
+}
+function say(t) { const el = $('live'); if (el) el.textContent = t; }
+
+function boot() {
+  LOG = newLog(); HISTORY = []; RETURN = null;
+  setupMatch(0); M.phase = 'intro';
+  renderAll();
+  openSheet(introHTML(), 'narrow');
+  $('goStart').onclick = () => { closeSheet(); showBriefing(); };
+}
+function showBriefing() {
+  M.phase = 'brief'; renderAll();
+  openSheet(briefHTML(), 'narrow');
+  $('goBoard').onclick = () => { closeSheet(); startMove(); scheduleBackground(); };
+  const lb = $('lookBack'); if (lb) lb.onclick = () => reviewMatch(+lb.dataset.idx, showBriefing, `Back to ${labelText(M.i)}`);
+}
+function beginMatch(i) { setupMatch(i); showBriefing(); }
+function startMove() {
+  M.phase = 'move'; M.slider = 0; M.sl = { changes: 0, min: 0, max: 0 }; M.moveT0 = performance.now();
+  renderAll();
+  say(`Move ${M.move + 1} of 4, year ${B.moves[M.move]}.`);
+  const s = $('slider'); if (s) s.focus({ preventScroll: true });
+}
+function commit() {
+  if (!M || M.phase !== 'move') return;
+  const w = M.w, y = B.moves[M.move], s = M.slider;
+  const run = youRun(), Kb = capAfter(run, M.move), cx = E.capex(w, s, y);
+  M.decisions.push({ move: M.move + 1, year: y, built: s, capexNominal: r3(cx), capexPV: r3(cx * Math.pow(1 + w.rate, -y)),
+    capacityBefore: Kb, capacityAfter: Kb + s, demandLastYear: y ? r2(M.path[y]) : null,
+    msToDecide: Math.round(performance.now() - M.moveT0), sliderMoves: M.sl.changes, sliderMin: M.sl.min, sliderMax: M.sl.max,
+    agentBuilt: agentOn() ? M.agentRun.builds[M.move] : null, agentShownAfterCommit: OPT.agent === 'live', at: new Date().toISOString() });
+  M.builds.push(s);
+  M.phase = 'play';
+  renderAll();
+  playBlock();
+}
+function playBlock() {
+  const tok = M.token, end = Math.min(B.moves[M.move] + 5, B.years);
+  const dt = REDUCED ? 0 : 430 / OPT.speed;
+  if (!dt) { M.revealed = end; afterBlock(); return; }
+  const tick = () => {
+    if (!M || M.token !== tok || M.phase !== 'play') return;
+    M.revealed++;
+    drawBoard(); renderScore(); updatePlayNote();
+    M.timer = setTimeout(M.revealed < end ? tick : afterBlock, M.revealed < end ? dt : Math.min(450, dt * 1.2));
+  };
+  M.timer = setTimeout(tick, Math.min(300, dt));
+}
+function skipBlock() {
+  if (!M || M.phase !== 'play') return;
+  clearTimeout(M.timer); M.timer = null;
+  M.revealed = Math.min(B.moves[M.move] + 5, B.years);
+  afterBlock();
+}
+function afterBlock() {
+  if (!M || M.phase !== 'play') return;
+  M.timer = null;
+  if (M.move < B.moves.length - 1) { M.move++; startMove(); }
+  else endMatch();
+}
+function endMatch() {
+  M.phase = 'result'; M.ended = true; M.revealed = B.years;
+  ensureAll();
+  M.youFinal = youRun();
+  // the player's own curve: their moves replayed as a rule in all 2,000 futures
+  M.own = E.distribution(M.w, M.ev.futs, E.cushionFor(M.builds, M.path));
+  M.ownAlt = { simpleCushion: E.distribution(M.w, M.ev.futs, E.cushionSimple(M.builds, M.path)),
+               openLoop: E.distribution(M.w, M.ev.futs, E.fixedSchedule(M.builds)) };
+  M.ev.futs = null; M.ev.fixedVals = null; M.ev.agentVals = null;   // keep only the sorted distributions
+  M.endedAt = new Date().toISOString();
+  M.record = buildRecord();
+  LOG.matches.push(M.record);
+  HISTORY[M.i] = M;
+  renderAll();
+  say('Match complete.');
+  const b = $('debriefBtn') || $('nextBtn'); if (b) b.focus({ preventScroll: true });
+}
+function buildRecord() {
+  const w = M.w, y = M.youFinal, ev = M.ev, a = M.agentRun;
+  const tot = sum(M.builds), atot = sum(a.builds);
+  return {
+    id: w.id, practice: !!w.practice, orderIndex: M.i, title: w.title, dials: { sigma: w.sigma, lr: w.lr, rate: w.rate },
+    seed: w.seed, pathIndex: w.path, startedAt: M.startedAt, endedAt: M.endedAt, decisions: M.decisions,
+    you: { builds: M.builds.slice(), npv: r2(y.npv), pvRevenue: r2(y.pvRev), pvPenalty: r2(y.pvPen), pvCapex: r2(y.pvCapex), pvResidual: r2(y.pvResid),
+           unmetMWyears: r2(sum(y.years.map(t => t.short))), idleMWyears: r2(sum(y.years.map(t => t.idle))), upfrontShare: tot ? r3(M.builds[0] / tot) : null,
+           plan: { rule: statOf(M.own), simpleCushion: statOf(M.ownAlt.simpleCushion), openLoop: statOf(M.ownAlt.openLoop) } },
+    agent: { builds: a.builds.slice(), npv: r2(a.npv), upfrontShare: r3(a.builds[0] / atot), visibleDuringPlay: OPT.agent === 'live' },
+    fixedDesign: { mw: ev.fixedK, npvOnPath: r2(M.fixedRun.npv) },
+    benchmarks: { futures: B.nFutures, enpvFixed: r2(ev.fixed.mean), enpvFlexible: r2(ev.agent.mean), vof: r2(ev.vof), flexibleAheadShare: r3(ev.flexWinsShare),
+                  fixedP10: r2(ev.fixed.p10), fixedP90: r2(ev.fixed.p90), flexibleP10: r2(ev.agent.p10), flexibleP90: r2(ev.agent.p90) },
+    counterfactual: OPT.debrief ? JSON.parse(JSON.stringify(M.cf)) : null,
+    debriefMs: null, reviews: 0, reviewDebriefMs: 0
+  };
+}
+function openDebrief() {
+  M.phase = 'debrief'; M.debriefT0 = performance.now();
+  openSheet(debriefHTML(), 'wide');
+  if (OPT.curves) drawCurves();
+  const done = () => { const ms = Math.round(performance.now() - M.debriefT0);
+    if (M.reviewing) M.record.reviewDebriefMs += ms; else M.record.debriefMs = (M.record.debriefMs || 0) + ms;
+    M.debriefSeen = true; closeSheet(); };
+  $('boardBtn').onclick = () => { done(); M.phase = 'result'; renderAll(); };
+  const nx = $('goNext'); if (nx) nx.onclick = () => { done(); advance(); };
+  const bk = $('goBack'); if (bk) bk.onclick = () => { done(); endReview(); };
+}
+function advance() { if (M.i + 1 < ORDER.length) beginMatch(M.i + 1); else showSummary(); }
+function showSummary() {
+  LOG.finishedAt = LOG.finishedAt || new Date().toISOString();
+  openSheet(summaryHTML(), 'wide');
+  $('dlBtn').onclick = download;
+  $('againBtn').onclick = restart;
+  $('sheet').querySelectorAll('[data-review]').forEach(b => { b.onclick = () => reviewMatch(+b.dataset.review, showSummary, 'Back to the summary'); });
+}
+// look back at a finished match without disturbing the one in progress
+function reviewMatch(idx, back, backLabel) {
+  const past = HISTORY[idx]; if (!past) return;
+  RETURN = { M, back, backLabel };
+  closeSheet();
+  M = past; M.reviewing = true; M.phase = 'result'; M.record.reviews++;
+  renderAll(); window.scrollTo(0, 0);
+}
+function endReview() {
+  if (!RETURN) return;
+  M.reviewing = false; M.phase = 'result';
+  const r = RETURN; RETURN = null; M = r.M;
+  renderAll(); r.back();
+}
+function download() {
+  LOG.exportedAt = new Date().toISOString();
+  const blob = new Blob([JSON.stringify(LOG, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `recap-v2-${OPT.pid || 'session'}-${LOG.startedAt.replace(/[:.]/g, '-')}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+}
+function restart() { if (M && M.timer) clearTimeout(M.timer); closeSheet(); boot(); }
+
+function openSheet(html, cls) {
+  const o = $('overlay'), s = $('sheet');
+  s.className = 'sheetBox' + (cls ? ' ' + cls : '');
+  s.innerHTML = html; o.hidden = false; o.scrollTop = 0;
+  const p = s.querySelector('.btn.primary'); if (p) setTimeout(() => p.focus({ preventScroll: true }), 40);
+}
+function closeSheet() { $('overlay').hidden = true; $('sheet').innerHTML = ''; }
+
+// ---------- rendering: frame ----------
+function renderAll() { renderHeader(); renderLegend(); drawBoard(); renderMovePanel(); renderScore(); renderSheet(); }
+function renderHeader() {
+  const w = M.w, prev = prevScored(M.i);
+  const y0 = B.moves[M.move];
+  const state = M.reviewing ? 'Reviewing the finished match'
+    : M.phase === 'move' ? `Move ${M.move + 1} of 4, year ${y0}`
+    : M.phase === 'play' ? `Years ${y0 + 1}–${Math.min(y0 + 5, B.years)} under way`
+    : M.ended ? 'Twenty years played' : 'Briefing';
+  $('where').innerHTML = `${labelHTML(M.i)}<span class="sep" aria-hidden="true"></span>${state}`;
+  $('dials').innerHTML = KEYS.map(k => {
+    const L = level(k, w[k]), ch = prev && prev[k] !== w[k];
+    return `<div class="dial${ch ? ' changed' : ''}" title="${esc(dialLine(k, w))}"><div class="n"><span>${DIALS[k].name}</span>${ch ? '<span class="tag">changed</span>' : ''}</div><div class="v">${L.label}</div>${meter(L.idx)}</div>`;
+  }).join('');
+  $('boardTitle').textContent = w.title;
+}
+function sw(k) {
+  const L = (v, extra) => `<path d="M1 6H21" style="fill:none;stroke:var(${v});${extra}"/>`;
+  switch (k) {
+    case 'dem': return '<circle cx="6" cy="6" r="3" style="fill:var(--ink)"/><circle cx="16" cy="5" r="3" style="fill:var(--ink)"/>';
+    case 'fc': return L('--muted', 'stroke-width:1.4;stroke-dasharray:4 3');
+    case 'fan': return '<rect x="1" y="2" width="20" height="8" style="fill:var(--fan);opacity:.14"/>';
+    case 'you': return L('--you', 'stroke-width:3');
+    case 'agent': case 'flexC': return L('--agent', 'stroke-width:2.6');
+    case 'short': return '<rect x="1" y="2" width="20" height="8" style="fill:var(--short);opacity:.55"/>';
+    case 'idle': return '<rect x="1" y="2" width="20" height="8" style="fill:var(--idle);opacity:.4"/>';
+    case 'fixed': case 'fixedC': return L('--fixed', 'stroke-width:2.2;stroke-dasharray:6 3');
+    case 'youC': return L('--you', 'stroke-width:3');
+    case 'dots': return '<circle cx="4.5" cy="6" r="3.5" style="fill:var(--surface);stroke:var(--fixed);stroke-width:2"/><circle cx="11" cy="6" r="3.5" style="fill:var(--surface);stroke:var(--agent);stroke-width:2"/><circle cx="17.5" cy="6" r="3.5" style="fill:var(--you)"/>';
+  }
+  return '';
+}
+function legendItem(k, t) { return `<span><svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true">${sw(k)}</svg>${t}</span>`; }
+function renderLegend() {
+  const items = [['dem', 'Demand, each year'], ['fc', 'Official forecast'], ['fan', '8 in 10 futures ahead'], ['you', 'Your capacity']];
+  if (agentOn() && (OPT.agent === 'live' || M.ended)) items.push(['agent', 'Flex Agent']);
+  items.push(['short', 'Unmet demand'], ['idle', 'Idle capacity']);
+  if (M.ended && OPT.debrief) items.push(['fixed', 'Fixed design']);
+  $('legend').innerHTML = items.map(([k, t]) => legendItem(k, t)).join('');
+}
+
+// ---------- rendering: the board ----------
+function drawBoard() {
+  const svg = $('board'); if (!M) return;
+  const narrow = svg.clientWidth > 0 && svg.clientWidth < 620;
+  const g = narrow ? { W: 640, H: 560, l: 46, r: 92, t: 32, b: 44 } : { W: 960, H: 520, l: 54, r: 112, t: 30, b: 42 };
+  svg.setAttribute('viewBox', `0 0 ${g.W} ${g.H}`);
+  svg.classList.toggle('narrow', narrow);
+  const w = M.w, P = M.path, run = youRun(), nC = M.builds.length, hy = 5 * nC, curK = capAfter(run, nC);
+  const pending = M.phase === 'move' ? curK + M.slider : null;
+  const ha = 5 * agentVisibleMoves();
+  const showFixed = M.ended && OPT.debrief && M.ev;
+  let ymax = M.ymax;
+  const seen = [pending || 0, curK, ha ? M.agentRun.years[ha - 1].capacity : 0, showFixed ? M.ev.fixedK : 0];
+  for (let t = 1; t <= M.revealed; t++) seen.push(P[t]);
+  const peak = Math.max(...seen);
+  if (peak * 1.06 > ymax) ymax = Math.ceil(peak * 1.06 / 50) * 50;
+  const X = t => g.l + (g.W - g.l - g.r) * t / B.years;
+  const Y = v => g.H - g.b - (g.H - g.t - g.b) * Math.min(v, ymax) / ymax;
+  const f = v => v.toFixed(1);
+  let s = '';
+  const yStep = ymax <= 300 ? 50 : ymax <= 1000 ? 100 : 200;
+  for (let v = 0; v <= ymax + 1e-9; v += yStep) s += `<line class="grid" x1="${g.l}" x2="${g.W - g.r}" y1="${f(Y(v))}" y2="${f(Y(v))}"/><text class="ax" x="${g.l - 8}" y="${f(Y(v) + 4)}" text-anchor="end">${v}</text>`;
+  s += `<text class="ax" x="${g.l - 8}" y="${g.t - 14}" text-anchor="end">MW</text>`;
+  const cur = M.ended ? -1 : M.move;
+  if (cur >= 0 && (M.phase === 'move' || M.phase === 'play')) {
+    const y0 = B.moves[cur];
+    s += `<rect class="block" x="${f(X(y0))}" y="${g.t}" width="${f(X(Math.min(y0 + 5, B.years)) - X(y0))}" height="${g.H - g.t - g.b}"/>`;
+  }
+  B.moves.forEach((y, mi) => {
+    s += `<line class="dec" x1="${f(X(y))}" x2="${f(X(y))}" y1="${g.t}" y2="${g.H - g.b}"/><text class="mv${mi === cur ? ' on' : ''}" x="${f(X(y + 2.5))}" y="${g.t - 12}" text-anchor="middle">Move ${mi + 1}</text>`;
+  });
+  s += `<line class="dec" x1="${f(X(B.years))}" x2="${f(X(B.years))}" y1="${g.t}" y2="${g.H - g.b}"/>`;
+  for (let t = 0; t <= B.years; t++) s += `<line class="tick" x1="${f(X(t))}" x2="${f(X(t))}" y1="${g.H - g.b}" y2="${g.H - g.b + (t % 5 ? 3 : 7)}"/>`;
+  [0, 5, 10, 15, 20].forEach(t => { s += `<text class="ax" x="${f(X(t))}" y="${g.H - g.b + 22}" text-anchor="middle">${t ? t : 'Year 0'}</text>`; });
+  let d = '';
+  for (let k = 0; k <= 40; k++) { const t = k / 2; d += (k ? 'L' : 'M') + f(X(t)) + ',' + f(Y(E.forecast(t + 0.5))); }
+  s += `<path class="fc" d="${d}"/>`;
+  if (cur >= 0) {   // the fan, seen from the current decision point
+    const y0 = B.moves[cur], d0 = P[y0];
+    const band = (z, cls) => {
+      const pts = [[X(y0), d0, d0]];
+      for (let t = y0 + 1; t <= B.years; t++) pts.push([X(t - 0.5), E.fanAt(w, y0, d0, t, -z), E.fanAt(w, y0, d0, t, z)]);
+      pts.push([X(B.years), E.fanAt(w, y0, d0, B.years, -z), E.fanAt(w, y0, d0, B.years, z)]);
+      const up = pts.map(p => f(p[0]) + ',' + f(Y(p[2]))), dn = pts.slice().reverse().map(p => f(p[0]) + ',' + f(Y(p[1])));
+      return `<polygon class="${cls}" points="${up.concat(dn).join(' ')}"/>`;
+    };
+    s += band(Z10, 'fan') + band(Z25, 'fan');
+  }
+  for (let t = 1; t <= M.revealed; t++) {   // unmet demand and idle capacity, year by year
+    const dm = P[t], k = run.years[t - 1].capacity, x1 = X(t - 1), wd = X(t) - X(t - 1);
+    if (dm > k) s += `<rect class="short" x="${f(x1)}" y="${f(Y(dm))}" width="${f(wd)}" height="${f(Y(k) - Y(dm))}"/>`;
+    else if (k > dm) s += `<rect class="idle" x="${f(x1)}" y="${f(Y(k))}" width="${f(wd)}" height="${f(Y(dm) - Y(k))}"/>`;
+  }
+  const steps = (val, a, b) => { let p = `M${f(X(a))},${f(Y(val(a + 1)))}`; for (let t = a + 1; t <= b; t++) { p += `H${f(X(t))}`; if (t < b) p += `V${f(Y(val(t + 1)))}`; } return p; };
+  if (showFixed) s += `<path class="fixedL" d="M${f(X(0))},${f(Y(M.ev.fixedK))}H${f(X(B.years))}"/>`;
+  if (ha) s += `<path class="agentL" d="${steps(t => M.agentRun.years[t - 1].capacity, 0, ha)}"/>`;
+  if (hy) s += `<path class="youL" d="${steps(t => run.years[t - 1].capacity, 0, hy)}"/>`;
+  if (pending !== null) { const y0 = B.moves[M.move], e = Math.min(y0 + 5, B.years); s += `<path class="youP" d="M${f(X(y0))},${f(Y(curK))}V${f(Y(pending))}H${f(X(e))}"/>`; }
+  const rr = narrow ? 4.6 : 3.6;   // demand as one point per year
+  for (let t = 1; t <= M.revealed; t++) s += `<circle class="demP" cx="${f(X(t - 0.5))}" cy="${f(Y(P[t]))}" r="${rr}"/>`;
+  for (let t = 1; t <= M.revealed; t++) {
+    s += `<rect class="hit" x="${f(X(t - 1))}" y="${g.t}" width="${f(X(t) - X(t - 1))}" height="${g.H - g.t - g.b}"><title>Year ${t}: demand ${Math.round(P[t])} MW, your capacity ${Math.round(run.years[t - 1].capacity)} MW${ha >= t ? `, Flex Agent ${Math.round(M.agentRun.years[t - 1].capacity)} MW` : ''}</title></rect>`;
+  }
+  const labs = [];
+  if (pending !== null) labs.push({ x: X(Math.min(B.moves[M.move] + 5, B.years)), y: Y(pending), t: `You ${Math.round(pending)} MW`, c: 'lyou' });
+  else if (hy) labs.push({ x: X(hy), y: Y(run.years[hy - 1].capacity), t: `You ${Math.round(run.years[hy - 1].capacity)} MW`, c: 'lyou' });
+  if (ha) labs.push({ x: X(ha), y: Y(M.agentRun.years[ha - 1].capacity), t: `Agent ${Math.round(M.agentRun.years[ha - 1].capacity)} MW`, c: 'lagent' });
+  if (M.revealed) labs.push({ x: X(M.revealed), y: Y(P[M.revealed]), t: `Demand ${Math.round(P[M.revealed])} MW`, c: 'ldem' });
+  if (showFixed) labs.push({ x: X(B.years), y: Y(M.ev.fixedK), t: `Fixed ${M.ev.fixedK} MW`, c: 'lfixed' });
+  labs.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labs.length; i++) for (let j = 0; j < i; j++) if (Math.abs(labs[i].x - labs[j].x) < 60 && labs[i].y - labs[j].y < 16) labs[i].y = labs[j].y + 16;
+  labs.forEach(l => { s += `<text class="el ${l.c}" x="${f(l.x + 7)}" y="${f(l.y + 4)}">${l.t}</text>`; });
+  svg.innerHTML = s;
+  const y = M.revealed;
+  svg.setAttribute('aria-label', y ? `Planning board. Year ${y}: demand ${Math.round(P[y])} MW, your capacity ${Math.round(run.years[y - 1].capacity)} MW.`
+                                   : `Planning board. Official forecast for year 1: ${Math.round(E.forecast(1))} MW of demand.`);
+}
+
+// ---------- rendering: side column ----------
+function renderMovePanel() {
+  const el = $('movePanel');
+  if (M.phase === 'move') { el.innerHTML = moveHTML(); wireMove(); }
+  else if (M.phase === 'play') { el.innerHTML = playHTML(); $('skipBtn').onclick = skipBlock; }
+  else if (M.ended) {
+    el.innerHTML = resultHTML();
+    const db = $('debriefBtn'); if (db) db.onclick = openDebrief;
+    const nb = $('nextBtn'); if (nb) nb.onclick = advance;
+    const bb = $('backBtn'); if (bb) bb.onclick = endReview;
+  }
+  else el.innerHTML = `<h2>Move 1: year 0</h2><p class="note">Read the briefing, then make your first move.</p>`;
+}
+function moveHTML() {
+  const w = M.w, y = B.moves[M.move], end = Math.min(y + 5, B.years);
+  const run = youRun(), K = capAfter(run, M.move);
+  M.maxMW = E.maxAffordable(w, B.envelope - spentOn(M.builds), y);
+  const d0 = M.path[y], lo = E.fanAt(w, y, d0, end, -Z10), hi = E.fanAt(w, y, d0, end, Z10);
+  const rng = `${Math.round(lo)}–${Math.round(hi)}&nbsp;MW`;
+  const price = B.plantCost * E.costFactor(w, y);
+  const priceTxt = `£${price.toFixed(2)}m per MW${y && w.lr ? ` (${MINUS}${Math.round(100 * (1 - E.costFactor(w, y)))}% since year 0)` : ''}`;
+  const facts = y === 0
+    ? [['Forecast demand, year 1', fmtMW(E.forecast(1))], [`Forecast demand, year ${end}`, fmtMW(E.forecast(end))], [`8 in 10 futures, year ${end}`, rng], ['Solar price now', priceTxt]]
+    : [[`Demand in year ${y}`, fmtMW(d0)], ['Your capacity', fmtMW(K)], ['Last year’s utilisation', K ? pct(d0 / K) : 'no capacity'], [`8 in 10 futures, year ${end}`, rng], ['Solar price now', priceTxt]];
+  const runs = M.move < B.moves.length - 1 ? `; your next move comes at year ${end}` : ' to the end of the concession';
+  return `<h2>Move ${M.move + 1}: year ${y}</h2>
+    <p class="note">What you build now runs from year ${y + 1}${runs}.</p>
+    <dl class="facts">${facts.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl>
+    <div class="buildRow"><label for="slider">Build now</label><output id="buildOut" class="bigNum" for="slider">0&nbsp;MW</output></div>
+    <input type="range" id="slider" min="0" max="${M.maxMW}" step="${B.step}" value="0">
+    <div class="scale"><span>0</span><span>${M.maxMW}&nbsp;MW</span></div>
+    <div class="nudges">${[-25, -5, 5, 25].map(dl => `<button type="button" class="btn ghost" data-d="${dl}" aria-label="${dl > 0 ? 'Add' : 'Remove'} ${Math.abs(dl)} MW">${dl > 0 ? '+' : MINUS}${Math.abs(dl)}</button>`).join('')}</div>
+    <dl class="cost" id="costBox"></dl>
+    <button type="button" class="btn you wide" id="commitBtn">Build nothing this move</button>`;
+}
+function wireMove() {
+  const sl = $('slider');
+  const set = v => {
+    v = Math.max(0, Math.min(M.maxMW, Math.round(v / B.step) * B.step));
+    if (v === M.slider) { sl.value = v; return; }
+    M.slider = v; sl.value = v;
+    M.sl.changes++; M.sl.min = Math.min(M.sl.min, v); M.sl.max = Math.max(M.sl.max, v);
+    updateCost(); drawBoard();
+  };
+  sl.addEventListener('input', () => set(+sl.value));
+  sl.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); commit(); } });
+  $('movePanel').querySelectorAll('[data-d]').forEach(b => b.addEventListener('click', () => set(M.slider + Number(b.dataset.d))));
+  $('commitBtn').addEventListener('click', commit);
+  updateCost();
+}
+function updateCost() {
+  const w = M.w, y = B.moves[M.move], s = M.slider, cx = E.capex(w, s, y), sp = spentOn(M.builds);
+  $('buildOut').innerHTML = `${s}&nbsp;MW`;
+  const rows = [['Plant', fmtM(E.plantCost(w, s, y))], ['Grid connection and permits', fmtM(s ? B.connection : 0)], ['Capital cost', `<b>${fmtM(cx)}</b>`]];
+  if (y > 0) rows.push(['In today’s money', fmtM(cx * Math.pow(1 + w.rate, -y))]);
+  rows.push(['Capital committed', `${fmtM(sp + cx, 0)} of £${B.envelope.toLocaleString('en-GB')}m`]);
+  $('costBox').innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('') +
+    `<div class="env" aria-hidden="true"><i style="width:${(100 * sp / B.envelope).toFixed(2)}%"></i><b style="width:${(100 * cx / B.envelope).toFixed(2)}%"></b></div>`;
+  $('commitBtn').textContent = s ? `Build ${s} MW` : 'Build nothing this move';
+}
+function agentReasonText(r, y) {
+  const end = Math.min(y + 5, B.years);
+  if (r.tier === 'start') return `Its year-0 rule: cover year-${end} demand in ${Math.round(r.q * 10)} of 10 futures.`;
+  const u = pct(r.u);
+  if (r.tier === 'hold') return `Last year’s demand used ${u} of its capacity, under its 80% trigger, so it holds.`;
+  const base = `Last year’s demand used ${u} of its capacity, so it covers year-${end} demand in ${Math.round(r.q * 10)} of 10 futures`;
+  return r.add > 0 ? base + '.' : base + '; it is already covered.';
+}
+function playHTML() {
+  const y = B.moves[M.move], end = Math.min(y + 5, B.years), r = M.reasons[M.move];
+  const ag = OPT.agent === 'live'
+    ? `<div class="agentMove"><span class="dot agent"></span><div><b>Flex Agent built ${fmtMW(r.add)}</b><p>${agentReasonText(r, y)}</p></div></div>` : '';
+  return `<h2>Years ${y + 1}–${end}</h2><p class="note" id="playNote">The years begin</p>${ag}<button type="button" class="btn block" id="skipBtn">Skip to year ${end}</button>`;
+}
+function updatePlayNote() { const el = $('playNote'); if (el) el.textContent = `Year ${M.revealed} of ${B.years}`; }
+function nextLabel() { return M.i + 1 < ORDER.length ? `Start ${ORDER[M.i + 1].practice ? 'the practice match' : `match ${scoredNo(M.i + 1)}`}` : (OPT.debrief ? 'See the summary' : 'Finish'); }
+function resultHTML() {
+  const y = M.youFinal, a = M.agentRun, aOn = agentOn();
+  const lines = [['Revenue', r => r.pvRev], ['Unmet demand', r => -r.pvPen], ['Capital spent', r => -r.pvCapex], ['Book value at year 20', r => r.pvResid]];
+  const body = lines.map(([l, fn]) => `<tr><td>${l}</td><td>${fmtM(fn(y))}</td>${aOn ? `<td>${fmtM(fn(a))}</td>` : ''}</tr>`).join('');
+  const fixedNote = OPT.debrief ? `<p class="note">A single ${M.ev.fixedK} MW plant at year 0, the best one-off size across ${B.nFutures.toLocaleString('en-GB')} futures, would have made ${fmtM(M.fixedRun.npv)} on this path.</p>` : '';
+  let btns;
+  if (M.reviewing) btns = `${OPT.debrief ? '<button type="button" class="btn primary" id="debriefBtn">Open the debrief</button>' : ''}<button type="button" class="btn" id="backBtn">${esc(RETURN ? RETURN.backLabel : 'Back')}</button>`;
+  else if (OPT.debrief) btns = `<button type="button" class="btn primary" id="debriefBtn">${M.debriefSeen ? 'Reopen the debrief' : 'Open the debrief'}</button>${M.debriefSeen ? `<button type="button" class="btn" id="nextBtn">${nextLabel()}</button>` : ''}`;
+  else btns = `<button type="button" class="btn primary" id="nextBtn">${nextLabel()}</button>`;
+  const tag = M.w.practice ? '<p class="note"><b>Practice match:</b> this result does not count.</p>' : '';
+  return `<h2>Match complete</h2>${tag}<p class="note">Present values on the future you played, discounted at ${Math.round(M.w.rate * 100)}% a year.</p>
+    <table class="ledger"><thead><tr><th></th><th class="y">You</th>${aOn ? '<th class="a">Flex Agent</th>' : ''}</tr></thead>
+    <tbody>${body}<tr class="tot"><td>NPV</td><td class="y">${fmtM(y.npv)}</td>${aOn ? `<td class="a">${fmtM(a.npv)}</td>` : ''}</tr></tbody></table>
+    ${fixedNote}<div class="btnRow">${btns}</div>`;
+}
+function renderScore() {
+  const run = youRun();
+  const youV = M.ended ? M.youFinal.npv : npvSoFar(run, M.builds.length, M.revealed);
+  const aShown = agentOn() && (OPT.agent === 'live' || M.ended);
+  const aV = M.ended ? M.agentRun.npv : npvSoFar(M.agentRun, OPT.agent === 'live' ? M.builds.length : 0, M.revealed);
+  $('scorePanel').innerHTML = `<h2>${M.ended ? 'Final NPV' : 'NPV so far'}</h2>
+    <div class="score"><div class="you"><div class="who"><span class="dot you"></span>You</div><div class="val">${fmtM(youV)}</div></div>
+    ${agentOn() ? `<div class="agent"><div class="who"><span class="dot agent"></span>Flex Agent</div><div class="val">${aShown ? fmtM(aV) : '<span class="muted">hidden</span>'}</div></div>` : ''}</div>
+    <p class="note small">${M.ended ? 'Includes the book value of plants at year 20.' : 'Discounted cash so far, after capital spent. Book value is added at year 20.'}</p>`;
+}
+function renderSheet() {
+  const aOn = agentOn(), vis = agentVisibleMoves();
+  const rows = B.moves.map((y, mi) => {
+    const now = !M.ended && mi === M.move && (M.phase === 'move' || M.phase === 'play');
+    const yv = mi < M.builds.length ? fmtMW(M.builds[mi]) : (now ? '<span class="muted">your move</span>' : '');
+    const av = mi < vis ? fmtMW(M.agentRun.builds[mi]) : (aOn && mi < M.builds.length ? '<span class="muted">hidden</span>' : '');
+    return `<tr class="${now ? 'now' : ''}"><td>${mi + 1}</td><td>Year ${y}</td><td class="y">${yv}</td>${aOn ? `<td class="a">${av}</td>` : ''}</tr>`;
+  }).join('');
+  const tot = M.ended ? `<tr class="tot"><td colspan="2">Total</td><td class="y">${fmtMW(sum(M.builds))}</td>${aOn ? `<td class="a">${fmtMW(sum(M.agentRun.builds))}</td>` : ''}</tr>` : '';
+  $('sheetPanel').innerHTML = `<h2>Scoresheet</h2><table class="sheetT"><thead><tr><th>Move</th><th></th><th class="y">You</th>${aOn ? '<th class="a">Agent</th>' : ''}</tr></thead><tbody>${rows}${tot}</tbody></table>
+    ${aOn ? '<p class="note small">The Flex Agent’s rule never changes. At year 0 it covers year-5 demand in 9 of 10 futures. Later, if last year’s demand used 100% or more of its capacity, it covers the next five years in 9 of 10 futures; above 90%, in 8 of 10; above 80%, in 7 of 10; otherwise it holds.</p>' : ''}`;
+}
+
+// ---------- rendering: overlay sheets ----------
+function introHTML() {
+  const agentP = !agentOn() ? '' : `<p>You play the same island against the <b class="ag">Flex Agent</b>. It follows one rule in every match: start with enough to cover year-5 demand in 9 of 10 futures, then top up whenever last year’s demand came close to its capacity. ${OPT.agent === 'live' ? 'You see its move after you commit yours.' : 'Its moves stay hidden until each match ends.'}</p>`;
+  const nP = OPT.practice ? 'First comes a practice match that does not count. ' : '';
+  const matchP = `<p>${nP}Then there ${NSCORED === 1 ? 'is one match' : `are ${word(NSCORED)} matches`}.${NSCORED > 1 ? (CHAIN ? ' Each changes one condition from the one before.' : ' Each sets different conditions.') : ''}${OPT.debrief ? ' After each one you’ll see how a single big plant, a flexible design and your own moves fared across ' + B.nFutures.toLocaleString('en-GB') + ' possible futures.' : ''}</p>`;
+  return `<h2>Twenty years, four moves</h2>
+  <p class="lead">You hold Mozcon Power’s 20-year concession to supply an island with solar power. The official forecast has demand growing about ${Math.round(B.growth * 100)}% a year, but nobody knows the path it will take. You decide how much capacity to build at years 0, 5, 10 and 15.</p>
+  <div class="rules">
+    <div class="rule"><b>£${B.price} per MWh</b><span>for every MWh of demand you serve</span></div>
+    <div class="rule"><b>£${B.penalty} per MWh short</b><span>for backup diesel when demand outruns your capacity, on top of the lost sale</span></div>
+    <div class="rule"><b>£0 for spare output</b><span>anything above demand is curtailed</span></div>
+    <div class="rule"><b>£${B.connection}m per build</b><span>each new plant needs its own grid connection and permits</span></div>
+  </div>
+  <p>Solar costs £${B.plantCost.toFixed(2)}m per MW today, the same per MW at any size, and in some matches it gets cheaper every year. Your score is NPV: cash flows discounted to today, plus the book value of your plants at year 20. You can commit up to £${B.envelope.toLocaleString('en-GB')}m of capital. The board shows demand as the solar capacity needed to serve it; 1 MW serves ${Math.round(E.E).toLocaleString('en-GB')} MWh a year.</p>
+  ${agentP}${matchP}
+  <div class="actions"><button type="button" class="btn primary" id="goStart">${OPT.practice ? 'Start the practice match' : 'Start match 1'}</button></div>`;
+}
+function briefHTML() {
+  const w = M.w, prev = prevScored(M.i);
+  const cards = KEYS.map(k => {
+    const L = level(k, w[k]), ch = prev && prev[k] !== w[k];
+    return `<div class="dc${ch ? ' changed' : ''}"><div class="n"><span>${DIALS[k].name}</span>${ch ? `<span class="tag">was ${level(k, prev[k]).label}</span>` : ''}</div><div class="v">${L.label}</div>${meter(L.idx)}<p>${dialLine(k, w)}</p></div>`;
+  }).join('');
+  let last = -1; for (let j = M.i - 1; j >= 0; j--) if (HISTORY[j]) { last = j; break; }
+  const look = last >= 0 ? `<button type="button" class="btn" id="lookBack" data-idx="${last}">Look back at ${labelText(last)}</button>` : '';
+  const kick = w.practice ? 'Practice match: this one does not count' : `Match ${scoredNo(M.i)} of ${NSCORED}`;
+  return `<p class="kick">${kick}</p><h2>${esc(w.title)}</h2><p class="lead">${esc(w.brief)}</p><div class="dialCards">${cards}</div>
+    <div class="actions">${look}<button type="button" class="btn primary" id="goBoard">Go to the board</button></div>`;
+}
+function balanceHTML() {
+  const w = M.w, vof = M.ev.vof, pj = prevScoredIdx(M.i), prev = pj >= 0 ? ORDER[pj] : null;
+  const keys = KEYS.slice();
+  const changed = prev ? keys.filter(k => prev[k] !== w[k]) : [];
+  keys.sort((a, b) => changed.includes(b) - changed.includes(a));
+  const flips = keys.filter(k => Math.sign(M.cf[k].vof) !== Math.sign(vof));
+  const rows = keys.map(k => {
+    const c = M.cf[k], L = level(k, c.value), fl = flips.includes(k);
+    const res = c.vof > 0 ? `flexible ahead by ${fmtM(c.vof)}` : `fixed ahead by ${fmtM(-c.vof)}`;
+    const extra = k === 'rate' ? ` (${Math.round(c.value * 100)}%)` : k === 'lr' ? ` (${Math.round(c.value * 100)}% a year)` : '';
+    return `<li class="${fl ? 'flip' : ''}"><span>If ${DIALS[k].name.toLowerCase()} were ${L.label}${extra}${fl ? '<span class="flipTag">verdict flips</span>' : ''}</span><b>${res}</b></li>`;
+  }).join('');
+  const intro = (changed.length ? `Changed since match ${scoredNo(pj)}: ${changed.map(k => DIALS[k].name.toLowerCase()).join(', ')}. ` : '')
+    + (flips.length ? `Switching ${listJoin(flips.map(k => DIALS[k].name.toLowerCase()))} on its own would flip the verdict.` : 'No single dial would flip this verdict.');
+  return `<p class="note">${intro}</p><ul class="balance">${rows}</ul>`;
+}
+function strategyText() {
+  const tot = sum(M.builds), up = M.builds[0], a = M.agentRun.builds, atot = sum(a);
+  const agentPart = ` ${agentOn() ? 'The Flex Agent' : 'The flexible design'} put ${pct(a[0] / atot)} up front (${a[0]} of ${atot} MW).`;
+  if (!tot) return `You built nothing, so every MWh of demand went unserved.${agentPart}`;
+  const sh = up / tot, later = M.builds.slice(1).filter(b => b > 0).length;
+  const kind = sh >= 0.85 ? 'close to a fixed design' : sh <= 0.6 ? 'a phased, flexible pattern' : 'between the two';
+  return `You built ${up} MW at year 0 and ${tot - up} MW later${later ? ` in ${word(later)} ${later === 1 ? 'move' : 'moves'}` : ''}: ${pct(sh)} up front, ${kind}. The fixed design puts all ${M.ev.fixedK} MW up front.${agentPart}`;
+}
+function debriefHTML() {
+  const ev = M.ev, vof = ev.vof, fw = ev.flexWinsShare, flexWon = vof > 0, nF = B.nFutures.toLocaleString('en-GB'), own = M.own;
+  const head = flexWon ? 'Flexibility paid in this world' : 'One big plant paid in this world';
+  const lead = flexWon
+    ? `Across ${nF} possible futures, the flexible design’s expected NPV beat the best single plant’s by ${fmtM(vof)}. It came out ahead in ${Math.round(fw * 100)} of 100 futures.`
+    : `Across ${nF} possible futures, the best single plant’s expected NPV beat the flexible design’s by ${fmtM(-vof)}. It came out ahead in ${100 - Math.round(fw * 100)} of 100 futures.`;
+  const row = (l, a, b, c) => `<tr><td>${l}</td><td>${fmtM(a)}</td><td>${fmtM(b)}</td><td class="y">${fmtM(c)}</td></tr>`;
+  const stats = `<table class="statT"><thead><tr><th></th><th class="fx">Fixed</th><th class="fl">Flexible</th><th class="y">Your plan</th></tr></thead><tbody>
+    ${row('Expected NPV', ev.fixed.mean, ev.agent.mean, own.mean)}${row('Downside, P10', ev.fixed.p10, ev.agent.p10, own.p10)}${row('Upside, P90', ev.fixed.p90, ev.agent.p90, own.p90)}
+    <tr class="tot"><td>Value of flexibility</td><td colspan="3">${fmtD(vof)}</td></tr>
+    <tr><td>Your plan against them</td><td colspan="3">${fmtD(own.mean - ev.fixed.mean)} vs fixed, ${fmtD(own.mean - ev.agent.mean)} vs flexible</td></tr></tbody></table>
+    <p class="note small">Fixed: one ${ev.fixedK} MW plant at year 0, the single size with the best expected NPV. Flexible: the Flex Agent’s rule. Your plan: your moves replayed as a rule in every future, with the same year-0 build, the same cushion of capacity over demand at the moves where you built, and holds where you held unless capacity fell below the cushion you had accepted.</p>`;
+  const onPath = `<dl class="facts"><dt><span class="dot you"></span>You</dt><dd>${fmtM(M.youFinal.npv)}</dd><dt><span class="dot agent"></span>${agentOn() ? 'Flex Agent' : 'Flexible design'}</dt><dd>${fmtM(M.agentRun.npv)}</dd><dt><span class="dot fixed"></span>Fixed design</dt><dd>${fmtM(M.fixedRun.npv)}</dd></dl>`;
+  const chart = OPT.curves ? `<div><svg id="curves" viewBox="0 0 640 400" role="img" aria-label="Target curves for the fixed design, the flexible design and your plan"></svg>
+    <div class="legend">${legendItem('fixedC', 'Fixed design')}${legendItem('flexC', 'Flexible design')}${legendItem('youC', 'Your plan')}${legendItem('dots', 'The future you played')}</div>
+    <p class="note small">Each curve shows the share of futures in which a plan’s NPV ends at or below a given value. Further right is better. Read across at 10% for the downside and at 90% for the upside.</p></div>` : '';
+  const back = M.reviewing ? `<button type="button" class="btn" id="goBack">${esc(RETURN ? RETURN.backLabel : 'Back')}</button>`
+                           : `<button type="button" class="btn primary" id="goNext">${nextLabel()}</button>`;
+  const kick = M.w.practice ? 'Practice match: this one does not count' : `Match ${scoredNo(M.i)} of ${NSCORED}: ${esc(M.w.title)}`;
+  return `<p class="kick">${kick}</p><h2>${head}</h2><p class="lead">${lead}</p>
+    <div class="debriefGrid${OPT.curves ? '' : ' one'}">${chart}<div>${stats}<h3>On the future you played</h3>${onPath}<h3>What moved the balance</h3>${balanceHTML()}<h3>Your strategy</h3><p>${strategyText()}</p></div></div>
+    <div class="actions"><button type="button" class="btn" id="boardBtn">Back to the board</button>${back}</div>`;
+}
+function niceStep(raw) { const p = Math.pow(10, Math.floor(Math.log10(raw))), q = raw / p; return (q < 1.5 ? 1 : q < 3.5 ? 2 : q < 7.5 ? 5 : 10) * p; }
+function drawCurves() {
+  const svg = $('curves'); if (!svg) return;
+  const W = 640, H = 400, m = { l: 52, r: 20, t: 20, b: 52 };
+  const F = M.ev.fixed.sorted, A = M.ev.agent.sorted, Yo = M.own.sorted, n = F.length;
+  const you = M.youFinal.npv, ag = M.agentRun.npv, fx = M.fixedRun.npv;
+  const qv = (arr, p) => arr[Math.min(arr.length - 1, Math.max(0, Math.round(p * (arr.length - 1))))];
+  let lo = Math.min(qv(F, 0.02), qv(A, 0.02), fx, ag), hi = Math.max(qv(F, 0.98), qv(A, 0.98), fx, ag);   // tails beyond 2%/98% sit on the axis edge
+  const span0 = hi - lo;
+  const ylo = qv(Yo, 0.02), yhi = qv(Yo, 0.98);
+  lo = Math.min(lo, Math.max(ylo, lo - 0.6 * span0)); hi = Math.max(hi, Math.min(yhi, hi + 0.6 * span0));   // your curve, within reason
+  lo = Math.min(lo, Math.max(you, lo - 0.6 * span0)); hi = Math.max(hi, Math.min(you, hi + 0.6 * span0));
+  const st = niceStep((hi - lo) / 5);
+  lo = Math.floor(lo / st) * st; hi = Math.ceil(hi / st) * st;
+  const X = v => m.l + (W - m.l - m.r) * (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo);
+  const Yp = p => H - m.b - (H - m.t - m.b) * p;
+  const f = v => v.toFixed(1);
+  let s = '';
+  [0, 0.25, 0.5, 0.75, 1].forEach(p => { s += `<line class="grid" x1="${m.l}" x2="${W - m.r}" y1="${f(Yp(p))}" y2="${f(Yp(p))}"/><text class="ax" x="${m.l - 8}" y="${f(Yp(p) + 4)}" text-anchor="end">${p * 100}%</text>`; });
+  [[0.1, 'P10, downside'], [0.9, 'P90, upside']].forEach(([p, t]) => { s += `<line class="pl" x1="${m.l}" x2="${W - m.r}" y1="${f(Yp(p))}" y2="${f(Yp(p))}"/><text class="pt" x="${W - m.r - 4}" y="${f(Yp(p) - 6)}" text-anchor="end">${t}</text>`; });
+  for (let v = lo; v <= hi + 1e-9; v += st) s += `<line class="tick" x1="${f(X(v))}" x2="${f(X(v))}" y1="${H - m.b}" y2="${H - m.b + 6}"/><text class="ax" x="${f(X(v))}" y="${H - m.b + 21}" text-anchor="middle">${v < 0 ? MINUS : ''}${Math.abs(Math.round(v))}</text>`;
+  s += `<text class="ax" x="${f((m.l + W - m.r) / 2)}" y="${H - 10}" text-anchor="middle">NPV over 20 years, £m</text>`;
+  const curve = (arr, cls) => { const k = arr.length; let p = ''; for (let i = 0; i < k; i += 4) p += (i ? 'L' : 'M') + f(X(arr[i])) + ',' + f(Yp((i + 1) / k)); return `<path class="${cls}" d="${p}L${f(X(arr[k - 1]))},${f(Yp(1))}"/>`; };
+  s += curve(F, 'cF') + curve(A, 'cA') + curve(Yo, 'cY');
+  const rank = (arr, v) => { let k = 0; while (k < arr.length && arr[k] <= v + 1e-9) k++; return k / arr.length; };
+  s += `<circle class="dF" cx="${f(X(fx))}" cy="${f(Yp(rank(F, fx)))}" r="5.5"/><circle class="dA" cx="${f(X(ag))}" cy="${f(Yp(rank(A, ag)))}" r="5.5"/>`;
+  const yx = X(you), yy = Yp(rank(Yo, you)), right = yx > W - m.r - 130;
+  s += `<circle class="dY" cx="${f(yx)}" cy="${f(yy)}" r="6"/><text class="lab lY" x="${f(right ? yx - 10 : yx + 10)}" y="${f(yy + 4)}" text-anchor="${right ? 'end' : 'start'}">You, this path ${fmtM(you, 0)}</text>`;
+  svg.innerHTML = s;
+}
+function summaryHTML() {
+  const recs = LOG.matches.filter(r => !r.practice), n = recs.length;
+  const flexN = recs.filter(r => r.benchmarks.vof > 0).length;
+  const head = !OPT.debrief ? 'Session complete' : flexN === n ? 'Flexibility paid in every world' : flexN === 0 ? 'One big plant paid in every world' : `Flexibility paid in ${word(flexN)} of ${word(n)} worlds`;
+  const lead = OPT.debrief ? 'Which design wins depends on the conditions, not on a rule that flexibility always pays. The practice match is left out.' : 'Thank you. Download the session data before closing this page.';
+  const th = `<tr><th>Match</th>${OPT.debrief ? '<th>Better design</th><th>Value of flexibility</th><th class="y">Your plan, expected</th><th>vs fixed</th><th>vs flexible</th>' : '<th class="y">Your NPV</th>'}<th>Built up front</th><th></th></tr>`;
+  const rows = recs.map((r, i) => {
+    const w = ORDER[r.orderIndex];
+    const cond = KEYS.map(k => `${DIALS[k].name}: ${level(k, w[k]).label}`).join('<br>');
+    const cells = OPT.debrief
+      ? `<td>${r.benchmarks.vof > 0 ? 'Flexible' : 'Fixed'}</td><td>${fmtD(r.benchmarks.vof)}</td><td class="y">${fmtM(r.you.plan.rule.mean)}</td><td>${fmtD(r.you.plan.rule.mean - r.benchmarks.enpvFixed)}</td><td>${fmtD(r.you.plan.rule.mean - r.benchmarks.enpvFlexible)}</td>`
+      : `<td class="y">${fmtM(r.you.npv)}</td>`;
+    return `<tr><td><b>${i + 1}</b>&nbsp; ${esc(w.title)}<div class="small muted">${cond}</div></td>${cells}<td>${r.you.upfrontShare === null ? '—' : pct(r.you.upfrontShare)}</td><td><button type="button" class="btn small" data-review="${r.orderIndex}">Review</button></td></tr>`;
+  }).join('');
+  return `<h2>${head}</h2><p class="lead">${lead}</p><div class="tableScroll"><table class="sumT"><thead>${th}</thead><tbody>${rows}</tbody></table></div>
+    <p class="note small">${OPT.debrief ? `Your plan, expected: your moves replayed as a rule across ${B.nFutures.toLocaleString('en-GB')} futures. Value of flexibility: the flexible design’s expected NPV minus the best single plant’s.` : 'NPVs are for the future each match actually played.'} Review reopens a match’s board, ledger and debrief.</p>
+    <div class="actions"><button type="button" class="btn" id="dlBtn">Download session data</button><button type="button" class="btn primary" id="againBtn">Play again</button></div>`;
+}
+
+window.addEventListener('resize', () => { clearTimeout(window.__recapRz); window.__recapRz = setTimeout(() => { if (M) drawBoard(); }, 120); });
+window.__RECAP__ = { get M() { return M; }, LOG: () => LOG, OPT, ORDER };
+boot();
+})();
+
+</script>
+</body>
+</html>
