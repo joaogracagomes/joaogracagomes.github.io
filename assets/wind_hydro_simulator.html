@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wind + Pump-Hydro Revenue Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0d12;--s1:#121720;--s2:#1a2030;--s3:#222940;--brd:#2a3348;
+  --txt:#e4e2dc;--dim:#7a8194;--acc:#3b82f6;--acc2:rgba(59,130,246,.12);
+  --wind:#60a5fa;--hydro:#4ecdc4;--price:#f5a623;--pump:#a78bfa;
+  --green:#34d399;--red:#ef4444;--r:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem}
+.hdr{text-align:center;margin-bottom:2rem;animation:fu .5s ease-out}
+.hdr .tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);background:var(--acc2);padding:.25rem .7rem;border-radius:100px;margin-bottom:.7rem}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:400;letter-spacing:-.02em}
+.hdr h1 span{color:var(--acc)}
+.hdr p{color:var(--dim);font-size:.85rem;margin-top:.4rem;max-width:620px;margin-left:auto;margin-right:auto}
+.hdr .credit{font-size:.72rem;color:var(--dim);opacity:.6;margin-top:.3rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;animation:fu .5s .1s ease-out both}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.pnl{background:var(--s1);border:1px solid var(--brd);border-radius:var(--r);padding:1.3rem}
+.pnl-t{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.pnl-t::before{content:'';width:7px;height:7px;border-radius:2px;background:var(--acc)}
+.cg{margin-bottom:1.2rem}
+.cg:last-child{margin-bottom:0}
+.cl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
+.cl span:first-child{font-size:.8rem;font-weight:500}
+.cv{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--acc);font-weight:500}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;background:var(--s2);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--acc);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--acc);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--acc);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--acc);cursor:pointer}
+.cs{width:100%;padding:.45rem .6rem;background:var(--s2);border:1px solid var(--brd);border-radius:6px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.8rem;outline:none;cursor:pointer}
+.cs:focus{border-color:var(--acc)}
+.cs option{background:var(--s1)}
+.full{grid-column:1/-1}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1rem}
+@media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.m{background:var(--s2);border-radius:8px;padding:.7rem .5rem;text-align:center}
+.m .ml{font-size:.5rem;font-family:'JetBrains Mono',monospace;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.m .mv{font-family:'JetBrains Mono',monospace;font-size:1.15rem;font-weight:600;margin-top:.15rem}
+.m .mu{font-size:.55rem;color:var(--dim)}
+/* Chart */
+.chart-wrap{position:relative;margin:.5rem 0}
+.chart-area{position:relative;height:180px;overflow:hidden}
+.chart-area canvas{width:100%!important;height:100%!important;border-radius:8px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:.3rem .8rem;margin-top:.4rem}
+.chart-legend span{font-size:.58rem;color:var(--dim);display:flex;align-items:center;gap:.25rem}
+.chart-legend .ld{width:14px;height:3px;border-radius:1px;flex-shrink:0}
+/* Revenue bars */
+.rev-compare{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-top:.5rem}
+.rev-card{background:var(--s2);border-radius:8px;padding:.8rem;text-align:center;border:1px solid var(--brd);transition:border-color .2s}
+.rev-card.best{border-color:var(--green)}
+.rev-card .rc-label{font-size:.55rem;font-family:'JetBrains Mono',monospace;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.rev-card .rc-val{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-top:.2rem}
+.rev-card .rc-sub{font-size:.55rem;color:var(--dim);margin-top:.1rem}
+.rev-card .rc-delta{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;margin-top:.3rem;padding:.15rem .4rem;border-radius:4px;display:inline-block}
+.note{font-size:.65rem;color:var(--dim);line-height:1.4;padding:.6rem;background:var(--s2);border-radius:6px;border-left:3px solid var(--acc);margin-top:.6rem}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--s1)}::-webkit-scrollbar-thumb{background:var(--brd);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hdr">
+    <div class="tag">Interactive Tool</div>
+    <h1>Wind + Pump-Hydro <span>Revenue</span> Simulator</h1>
+    <p>Simulate the revenue of a wind farm coupled with a pump-storage hydropower plant operating in the Iberian day-ahead electricity market (MIBEL).</p>
+    <div class="credit">Developed by J. Graça Gomes, J. Telhada, H. Xu, A. Sá da Costa, and C. Zhao. Published in IET Renewable Power Generation, 2021.</div>
+  </header>
+
+  <div class="grid">
+    <!-- LEFT: Configuration -->
+    <div class="pnl">
+      <div class="pnl-t">System Configuration</div>
+      <div class="cg">
+        <div class="cl"><span>Wind Farm Capacity</span><span class="cv" id="v-wind">10 MW</span></div>
+        <input type="range" id="s-wind" min="5" max="50" value="10" step="5">
+      </div>
+      <div class="cg">
+        <div class="cl"><span>Hydro Turbine/Pump Capacity</span><span class="cv" id="v-hydro">10 MW</span></div>
+        <input type="range" id="s-hydro" min="5" max="30" value="10" step="5">
+      </div>
+      <div class="cg">
+        <div class="cl"><span>Reservoir Volume</span><span class="cv" id="v-res">1.0 hm³</span></div>
+        <input type="range" id="s-res" min="0.4" max="2.0" value="1.0" step="0.2">
+      </div>
+      <div class="cg">
+        <div class="cl"><span>Turbine Efficiency (ηT)</span><span class="cv" id="v-nt">95%</span></div>
+        <input type="range" id="s-nt" min="80" max="98" value="95" step="1">
+      </div>
+      <div class="cg">
+        <div class="cl"><span>Pump Efficiency (ηP)</span><span class="cv" id="v-np">85%</span></div>
+        <input type="range" id="s-np" min="70" max="95" value="85" step="1">
+      </div>
+
+      <div class="pnl-t" style="margin-top:1.2rem">Market Parameters</div>
+      <div class="cg">
+        <div class="cl"><span>Avg Electricity Price</span><span class="cv" id="v-price">€48/MWh</span></div>
+        <input type="range" id="s-price" min="30" max="80" value="48" step="1">
+      </div>
+      <div class="cg">
+        <div class="cl"><span>Price Volatility</span><span class="cv" id="v-vol">Medium</span></div>
+        <input type="range" id="s-vol" min="1" max="5" value="3" step="1">
+      </div>
+      <div class="cg">
+        <div class="cl"><span>Operation Mode</span></div>
+        <select class="cs" id="s-mode">
+          <option value="WH">Wind-Hydro (Day-Ahead)</option>
+          <option value="WHG">Wind-Hydro-Grid (Arbitrage)</option>
+          <option value="BC">Bilateral Contract</option>
+        </select>
+      </div>
+      <div class="cg">
+        <div class="cl"><span>Wind O&M Cost</span><span class="cv" id="v-om">€17/MWh</span></div>
+        <input type="range" id="s-om" min="10" max="25" value="17" step="1">
+      </div>
+    </div>
+
+    <!-- RIGHT: Results -->
+    <div class="pnl">
+      <div class="pnl-t">Annual Revenue Results</div>
+      <div class="rev-compare" id="rev-cards"></div>
+      <div class="metrics" style="margin-top:.8rem">
+        <div class="m"><div class="ml">Wind Gen</div><div class="mv" id="m-gen" style="color:var(--wind)">—</div><div class="mu">GWh/yr</div></div>
+        <div class="m"><div class="ml">Hydro Stored</div><div class="mv" id="m-stored" style="color:var(--pump)">—</div><div class="mu">GWh/yr</div></div>
+        <div class="m"><div class="ml">Hydro Released</div><div class="mv" id="m-released" style="color:var(--hydro)">—</div><div class="mu">GWh/yr</div></div>
+        <div class="m"><div class="ml">Round-Trip Eff.</div><div class="mv" id="m-rte" style="color:var(--price)">—</div><div class="mu">%</div></div>
+      </div>
+    </div>
+
+    <!-- Full: 24h Operation Chart -->
+    <div class="pnl full">
+      <div class="pnl-t">Average Daily Operation Profile (24 Hours)</div>
+      <div class="chart-wrap">
+        <div class="chart-area"><canvas id="c-daily"></canvas></div>
+        <div class="chart-legend">
+          <span><div class="ld" style="background:var(--price)"></div>Day-Ahead Price (€/MWh)</span>
+          <span><div class="ld" style="background:var(--wind)"></div>Wind Generation (MW)</span>
+          <span><div class="ld" style="background:var(--pump)"></div>Energy Stored (MWh)</span>
+          <span><div class="ld" style="background:var(--hydro)"></div>Energy Released (MWh)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full: Weekly Reservoir -->
+    <div class="pnl full">
+      <div class="pnl-t">Representative Week — Reservoir Level &amp; Revenue</div>
+      <div class="chart-wrap">
+        <div class="chart-area" style="height:140px"><canvas id="c-week"></canvas></div>
+        <div class="chart-legend">
+          <span><div class="ld" style="background:var(--hydro)"></div>Reservoir Energy (MWh)</span>
+          <span><div class="ld" style="background:var(--price);opacity:.4"></div>Electricity Price (€/MWh)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ================================================================
+// WIND-HYDRO REVENUE MODEL
+// Based on Gomes et al., IET Renewable Power Generation, 2021
+// ================================================================
+
+// Hourly profiles (24h) from Figures 4 & 6 of the paper
+// Wind generation profile (fraction of capacity) — higher at night
+const WIND_PROFILE = [
+  0.32,0.33,0.34,0.33,0.32,0.30,0.28,0.25,
+  0.22,0.20,0.19,0.20,0.21,0.22,0.23,0.24,
+  0.26,0.28,0.30,0.31,0.32,0.33,0.33,0.33
+];
+
+// Day-ahead price profile (normalised to mean=1) — from Figure 4
+const PRICE_PROFILE = [
+  0.78,0.75,0.72,0.70,0.72,0.75,0.82,0.95,
+  1.05,1.10,1.12,1.10,1.05,1.00,0.98,1.00,
+  1.05,1.10,1.18,1.25,1.28,1.20,1.05,0.88
+];
+
+// Weekly variation (7 days, Mon-Sun) — weekdays higher
+const DAY_MULT = [1.05,1.05,1.03,1.02,1.00,0.90,0.85];
+
+// Seasonal variation (4 seasons) — winter more wind, lower prices
+const SEASONS = [
+  {name:'Winter', windMult:1.15, priceMult:0.88, weeks:13},
+  {name:'Spring', windMult:1.05, priceMult:0.95, weeks:13},
+  {name:'Summer',windMult:0.80, priceMult:1.10, weeks:13},
+  {name:'Autumn',windMult:1.00, priceMult:1.07, weeks:13}
+];
+
+function simulate(params) {
+  const {windMW, hydroMW, resHm3, etaT, etaP, avgPrice, volatility, mode, omCost} = params;
+
+  const resMWh = resHm3 * hydroMW * 2.5; // reservoir capacity in MWh (simplified)
+  const minRes = resMWh * 0.2; // minimum 20% (environmental constraint)
+  const maxRes = resMWh;
+  const volFactor = [0.4,0.6,1.0,1.4,1.8][volatility-1]; // price spread multiplier
+
+  // Annual simulation — 52 weeks × 7 days × 24 hours
+  let totalWindRev = 0, totalHydroRev = 0, totalWindOnlyRev = 0;
+  let totalWindGen = 0, totalStored = 0, totalReleased = 0;
+  let totalWindCost = 0, totalPumpCost = 0, totalGenCost = 0;
+  let resLevel = minRes + (maxRes - minRes) * 0.3; // start 30%
+
+  // For daily profile averages
+  const dailyStore = new Float64Array(24);
+  const dailyRelease = new Float64Array(24);
+  const dailyCount = new Float64Array(24);
+
+  // For weekly profile (representative — last winter week)
+  const weeklyRes = [];
+  const weeklyPrice = [];
+  let weekCounter = 0;
+
+  // BC parameters
+  const bcPrice = avgPrice * 1.2;
+  const bcPower = windMW * 0.2; // 20% of capacity as constant supply
+  const imbalanceCost = avgPrice * 0.5;
+
+  for (const season of SEASONS) {
+    for (let w = 0; w < season.weeks; w++) {
+      weekCounter++;
+      // Weekly average for heuristic
+      const weekAvgPrice = avgPrice * season.priceMult;
+
+      for (let day = 0; day < 7; day++) {
+        for (let h = 0; h < 24; h++) {
+          // Wind generation
+          const windNoise = 0.85 + Math.random() * 0.3;
+          const windGen = windMW * WIND_PROFILE[h] * season.windMult * windNoise;
+
+          // Electricity price
+          const priceNoise = 1 + (Math.random() - 0.5) * 0.15 * volFactor;
+          const price = avgPrice * PRICE_PROFILE[h] * season.priceMult * DAY_MULT[day] * priceNoise;
+
+          // Wind standalone revenue
+          const windOnlyRev = windGen * price; // €k → just track
+          const windOnlyCost = windGen * omCost;
+          totalWindOnlyRev += windOnlyRev - windOnlyCost;
+          totalWindGen += windGen;
+
+          // Heuristic decision (from paper Section 4)
+          const K1 = 0.85, K2 = 1.15;
+          let stored = 0, released = 0, hydroRev = 0;
+
+          if (mode === 'WH') {
+            // Wind-Hydro: pump with wind only
+            if (price < weekAvgPrice * K1 && resLevel + windGen * etaP/100 <= maxRes) {
+              // Pump: store wind energy — NO revenue this hour (wind not sold)
+              stored = windGen * etaP / 100;
+              resLevel += stored;
+              // Cost: pumping O&M + wind O&M
+              totalHydroRev -= windGen * omCost + windGen * 1.5;
+            } else if (price > weekAvgPrice * K2 && resLevel - hydroMW >= minRes) {
+              // Generate from hydro + sell wind directly
+              released = hydroMW * etaT / 100;
+              resLevel -= hydroMW;
+              const hydroGenCost = released * 1.0; // €1/MWh hydro gen cost
+              totalHydroRev += (windGen * price) - (windGen * omCost) + (released * price) - hydroGenCost;
+            } else {
+              // Sell wind directly — no hydro action
+              totalHydroRev += (windGen * price) - (windGen * omCost);
+            }
+
+          } else if (mode === 'WHG') {
+            // Wind-Hydro-Grid: hydro can also buy from grid
+            if (price < weekAvgPrice * K1 && resLevel + hydroMW * etaP/100 <= maxRes) {
+              // Pump at full capacity — buy deficit from grid
+              const pumpEnergy = hydroMW;
+              stored = pumpEnergy * etaP / 100;
+              resLevel += stored;
+              const gridBuy = Math.max(0, pumpEnergy - windGen);
+              const buyCost = gridBuy * price;
+              totalPumpCost += buyCost + pumpEnergy * 1.5;
+              // Sell remaining wind
+              const windSold = Math.max(0, windGen - pumpEnergy);
+              totalHydroRev += (windSold * price) - (windGen * omCost) - buyCost;
+            } else if (price > weekAvgPrice * K2 && resLevel - hydroMW >= minRes) {
+              released = hydroMW * etaT / 100;
+              resLevel -= hydroMW;
+              hydroRev = released * price;
+              totalHydroRev += (windGen * price) + hydroRev - (windGen * omCost) - (released * 1.0);
+            } else {
+              totalHydroRev += (windGen * price) - (windGen * omCost);
+            }
+
+          } else if (mode === 'BC') {
+            // Bilateral contract
+            const bcRequired = bcPower; // MW constant
+            if (windGen >= bcRequired) {
+              // Surplus: sell BC at contract price, store excess
+              totalHydroRev += bcRequired * bcPrice;
+              const surplus = windGen - bcRequired;
+              if (resLevel + surplus * etaP/100 <= maxRes) {
+                stored = surplus * etaP / 100;
+                resLevel += stored;
+              } else {
+                // Sell surplus on market
+                totalHydroRev += surplus * price;
+              }
+              totalHydroRev -= windGen * omCost;
+            } else {
+              // Deficit: use hydro to fill gap
+              const deficit = bcRequired - windGen;
+              if (resLevel - deficit / (etaT/100) >= minRes) {
+                resLevel -= deficit / (etaT/100);
+                released = deficit;
+                totalHydroRev += bcRequired * bcPrice - windGen * omCost - deficit * 1.0;
+              } else {
+                // Imbalance penalty
+                totalHydroRev += windGen * bcPrice - deficit * imbalanceCost - windGen * omCost;
+              }
+            }
+            // Wind-only BC baseline (no storage)
+            if (windGen >= bcRequired) {
+              // surplus sold on market already counted in windOnlyRev above, recalc for BC
+            }
+          }
+
+          totalStored += stored;
+          totalReleased += released;
+          dailyStore[h] += stored;
+          dailyRelease[h] += released;
+          dailyCount[h]++;
+
+          // Track weekly reservoir for last 2 weeks
+          if (weekCounter >= 50) {
+            weeklyRes.push(resLevel);
+            weeklyPrice.push(price);
+          }
+        }
+      }
+    }
+  }
+
+  // BC wind-only baseline
+  let windOnlyBC = 0;
+  if (mode === 'BC') {
+    // Recalculate wind-only BC revenue
+    windOnlyBC = 0;
+    for (const season of SEASONS) {
+      for (let w = 0; w < season.weeks; w++) {
+        for (let day = 0; day < 7; day++) {
+          for (let h = 0; h < 24; h++) {
+            const wg = windMW * WIND_PROFILE[h] * season.windMult * (0.85 + Math.random()*0.3);
+            const pr = avgPrice * PRICE_PROFILE[h] * season.priceMult * DAY_MULT[day];
+            const bc = bcPower;
+            if (wg >= bc) {
+              windOnlyBC += bc * bcPrice + (wg - bc) * pr - wg * omCost;
+            } else {
+              windOnlyBC += wg * bcPrice - (bc - wg) * imbalanceCost - wg * omCost;
+            }
+          }
+        }
+      }
+    }
+    totalWindOnlyRev = windOnlyBC;
+  }
+
+  // Averages for daily profile
+  const avgStore = Array.from(dailyStore).map((v,i) => dailyCount[i] > 0 ? v/dailyCount[i] : 0);
+  const avgRelease = Array.from(dailyRelease).map((v,i) => dailyCount[i] > 0 ? v/dailyCount[i] : 0);
+  const avgWindHourly = WIND_PROFILE.map(w => w * windMW);
+  const avgPriceHourly = PRICE_PROFILE.map(p => p * avgPrice);
+
+  // Theoretical maximum — paper shows max is ~4x heuristic delta for WH, ~2x for WHG
+  const theoryMult = mode === 'WH' ? 3.97 : mode === 'WHG' ? 2.0 : 1.5;
+  const theoreticalRev = totalWindOnlyRev + (totalHydroRev - totalWindOnlyRev) * theoryMult;
+
+  const roundTrip = totalStored > 0 ? (totalReleased / totalStored * 100) : 0;
+
+  return {
+    windOnlyRev: totalWindOnlyRev,
+    windHydroRev: totalHydroRev,
+    theoreticalRev: theoreticalRev,
+    windGen: totalWindGen / 1000, // GWh
+    stored: totalStored / 1000,
+    released: totalReleased / 1000,
+    roundTrip,
+    avgStore, avgRelease, avgWindHourly, avgPriceHourly,
+    weeklyRes: weeklyRes.slice(0, 168), // 1 week
+    weeklyPrice: weeklyPrice.slice(0, 168),
+    resMWh: maxRes
+  };
+}
+
+// ================================================================
+// CANVAS DRAWING
+// ================================================================
+
+function drawDaily(ctx, W, H, data) {
+  ctx.clearRect(0,0,W,H);
+  const pad = {l:38, r:12, t:12, b:22};
+  const pw = W-pad.l-pad.r, ph = H-pad.t-pad.b;
+
+  // Grid
+  ctx.strokeStyle='#2a3348'; ctx.lineWidth=0.5;
+  for(let i=0;i<=4;i++){
+    const y=pad.t+ph*i/4;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+  }
+
+  // X labels
+  ctx.fillStyle='#7a8194';ctx.font='8px JetBrains Mono';ctx.textAlign='center';
+  for(let h=0;h<24;h+=3){
+    const x=pad.l+pw*h/23;
+    ctx.fillText(h+'h',x,H-pad.b+12);
+  }
+
+  const maxPrice = Math.max(...data.avgPriceHourly)*1.1;
+  const maxWind = Math.max(...data.avgWindHourly)*1.3;
+  const maxEnergy = Math.max(...data.avgStore,...data.avgRelease)*1.5 || 1;
+
+  // Price line
+  ctx.strokeStyle='#f5a623';ctx.lineWidth=1.5;ctx.globalAlpha=0.7;
+  ctx.beginPath();
+  for(let h=0;h<24;h++){
+    const x=pad.l+pw*h/23;
+    const y=pad.t+ph*(1-data.avgPriceHourly[h]/maxPrice);
+    h===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();ctx.globalAlpha=1;
+
+  // Wind line
+  ctx.strokeStyle='#60a5fa';ctx.lineWidth=1.5;ctx.globalAlpha=0.8;
+  ctx.beginPath();
+  for(let h=0;h<24;h++){
+    const x=pad.l+pw*h/23;
+    const y=pad.t+ph*(1-data.avgWindHourly[h]/maxWind);
+    h===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();ctx.globalAlpha=1;
+
+  // Store bars (positive = purple)
+  const barW = pw/24*0.6;
+  for(let h=0;h<24;h++){
+    if(data.avgStore[h]>0){
+      const x=pad.l+pw*h/23-barW/2;
+      const bh=data.avgStore[h]/maxEnergy*ph*0.4;
+      ctx.fillStyle='rgba(167,139,250,0.5)';
+      ctx.fillRect(x,pad.t+ph-bh,barW,bh);
+    }
+    if(data.avgRelease[h]>0){
+      const x=pad.l+pw*h/23-barW/2;
+      const bh=data.avgRelease[h]/maxEnergy*ph*0.4;
+      ctx.fillStyle='rgba(78,205,196,0.5)';
+      ctx.fillRect(x,pad.t+ph-bh,barW,bh);
+    }
+  }
+
+  // Y labels
+  ctx.textAlign='right';ctx.fillStyle='#7a8194';ctx.font='8px JetBrains Mono';
+  ctx.fillText('€'+maxPrice.toFixed(0),pad.l-3,pad.t+6);
+  ctx.fillText('€0',pad.l-3,pad.t+ph+3);
+}
+
+function drawWeekly(ctx, W, H, data) {
+  ctx.clearRect(0,0,W,H);
+  if(!data.weeklyRes.length) return;
+  const pad={l:38,r:12,t:8,b:20};
+  const pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
+  const n=Math.min(data.weeklyRes.length,168);
+
+  const maxR=data.resMWh*1.1;
+  const maxP=Math.max(...data.weeklyPrice.slice(0,n))*1.1;
+
+  // Price fill
+  ctx.fillStyle='rgba(245,166,35,0.06)';
+  ctx.beginPath();ctx.moveTo(pad.l,pad.t+ph);
+  for(let i=0;i<n;i++){
+    const x=pad.l+pw*i/(n-1);
+    const y=pad.t+ph*(1-data.weeklyPrice[i]/maxP);
+    ctx.lineTo(x,y);
+  }
+  ctx.lineTo(pad.l+pw,pad.t+ph);ctx.closePath();ctx.fill();
+
+  // Reservoir line
+  ctx.strokeStyle='#4ecdc4';ctx.lineWidth=1.5;
+  ctx.beginPath();
+  for(let i=0;i<n;i++){
+    const x=pad.l+pw*i/(n-1);
+    const y=pad.t+ph*(1-data.weeklyRes[i]/maxR);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Day separators
+  ctx.strokeStyle='#2a3348';ctx.lineWidth=0.5;ctx.setLineDash([3,3]);
+  ctx.fillStyle='#7a8194';ctx.font='8px JetBrains Mono';ctx.textAlign='center';
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  for(let d=0;d<7;d++){
+    const x=pad.l+pw*d*24/(n-1);
+    ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,pad.t+ph);ctx.stroke();
+    ctx.fillText(days[d],x+pw/14,H-pad.b+12);
+  }
+  ctx.setLineDash([]);
+
+  ctx.textAlign='right';
+  ctx.fillText(maxR.toFixed(0)+' MWh',pad.l-3,pad.t+8);
+}
+
+// ================================================================
+// UI UPDATE
+// ================================================================
+
+function getParams() {
+  return {
+    windMW: +document.getElementById('s-wind').value,
+    hydroMW: +document.getElementById('s-hydro').value,
+    resHm3: +document.getElementById('s-res').value,
+    etaT: +document.getElementById('s-nt').value,
+    etaP: +document.getElementById('s-np').value,
+    avgPrice: +document.getElementById('s-price').value,
+    volatility: +document.getElementById('s-vol').value,
+    mode: document.getElementById('s-mode').value,
+    omCost: +document.getElementById('s-om').value
+  };
+}
+
+function updateUI() {
+  const p = getParams();
+
+  // Labels
+  document.getElementById('v-wind').textContent = p.windMW+' MW';
+  document.getElementById('v-hydro').textContent = p.hydroMW+' MW';
+  document.getElementById('v-res').textContent = p.resHm3.toFixed(1)+' hm³';
+  document.getElementById('v-nt').textContent = p.etaT+'%';
+  document.getElementById('v-np').textContent = p.etaP+'%';
+  document.getElementById('v-price').textContent = '€'+p.avgPrice+'/MWh';
+  document.getElementById('v-vol').textContent = ['Very Low','Low','Medium','High','Very High'][p.volatility-1];
+  document.getElementById('v-om').textContent = '€'+p.omCost+'/MWh';
+
+  const r = simulate(p);
+
+  // Revenue cards
+  const delta = r.windOnlyRev > 0 ? ((r.windHydroRev - r.windOnlyRev) / Math.abs(r.windOnlyRev) * 100) : 0;
+  const deltaT = r.windOnlyRev > 0 ? ((r.theoreticalRev - r.windOnlyRev) / Math.abs(r.windOnlyRev) * 100) : 0;
+
+  const fmtK = v => v >= 0 ? '€'+(v/1000).toFixed(0)+'k' : '-€'+(Math.abs(v)/1000).toFixed(0)+'k';
+  const fmtFull = v => '€'+Math.round(v).toLocaleString();
+  const deltaEur = r.windHydroRev - r.windOnlyRev;
+  const deltaTEur = r.theoreticalRev - r.windOnlyRev;
+  document.getElementById('rev-cards').innerHTML = `
+    <div class="rev-card"><div class="rc-label">Wind Standalone</div>
+      <div class="rc-val" style="color:var(--dim)">${fmtK(r.windOnlyRev)}</div>
+      <div class="rc-sub">${fmtFull(r.windOnlyRev)}</div></div>
+    <div class="rev-card best"><div class="rc-label">Wind + Hydro</div>
+      <div class="rc-val" style="color:var(--hydro)">${fmtK(r.windHydroRev)}</div>
+      <div class="rc-sub">${fmtFull(r.windHydroRev)}</div>
+      <div class="rc-delta" style="background:${delta>=0?'rgba(52,211,153,.15);color:var(--green)':'rgba(239,68,68,.15);color:var(--red)'}">${delta>=0?'+':''}${delta.toFixed(1)}% · ${deltaEur>=0?'+':''}€${Math.abs(Math.round(deltaEur)).toLocaleString()}</div></div>
+    <div class="rev-card"><div class="rc-label">Theoretical Max</div>
+      <div class="rc-val" style="color:var(--price)">${fmtK(r.theoreticalRev)}</div>
+      <div class="rc-sub">${fmtFull(r.theoreticalRev)}</div>
+      <div class="rc-delta" style="background:rgba(245,166,35,.12);color:var(--price)">+${deltaT.toFixed(1)}% · +€${Math.round(deltaTEur).toLocaleString()}</div></div>`;
+
+  // Metrics
+  document.getElementById('m-gen').textContent = r.windGen.toFixed(1);
+  document.getElementById('m-stored').textContent = r.stored.toFixed(1);
+  document.getElementById('m-released').textContent = r.released.toFixed(1);
+  document.getElementById('m-rte').textContent = r.roundTrip.toFixed(0);
+
+  // Charts
+  drawCanvas('c-daily', (ctx,W,H) => drawDaily(ctx,W,H,r));
+  drawCanvas('c-week', (ctx,W,H) => drawWeekly(ctx,W,H,r));
+
+}
+
+function drawCanvas(id, fn) {
+  const canvas = document.getElementById(id);
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  canvas.style.width = rect.width + 'px';
+  canvas.style.height = rect.height + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  fn(ctx, rect.width, rect.height);
+}
+
+// Bind
+document.querySelectorAll('input[type=range],select').forEach(el => el.addEventListener('input', updateUI));
+window.addEventListener('resize', updateUI);
+updateUI();
+</script>
+</body>
+</html>

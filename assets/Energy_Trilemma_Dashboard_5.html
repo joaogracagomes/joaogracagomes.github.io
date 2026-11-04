@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy Trilemma Dashboard | João Graça Gomes</title>
+<meta name="description" content="Interactive Energy Trilemma Dashboard based on the World Energy Council framework. Explore energy security, equity, and sustainability across 70+ nations.">
+<meta property="og:title" content="Energy Trilemma Dashboard">
+<meta property="og:description" content="Balancing security, equity, and sustainability across 70+ nations. Built by João Graça Gomes, Imperial College London.">
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace; background: linear-gradient(145deg, #0B1120 0%, #0F172A 50%, #1A0F2E 100%); color: #E2E8F0; min-height: 100vh; }
+#root { min-height: 100vh; }
+input[type="range"] { -webkit-appearance: none; appearance: none; height: 6px; background: transparent; border-radius: 3px; outline: none; width: 100%; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #E2E8F0; cursor: pointer; border: 2px solid #0F172A; box-shadow: 0 0 4px rgba(0,0,0,0.3); }
+input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #E2E8F0; cursor: pointer; border: 2px solid #0F172A; }
+input[type="range"]::-moz-range-track { height: 6px; background: transparent; border-radius: 3px; }
+select { outline: none; }
+button { outline: none; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Paste the full component code here — identical to the .jsx but wrapped for browser
+const { useState, useEffect, useMemo, useCallback } = React;
+
+// Official data: World Energy Council Trilemma Index 2024
+// Source: https://trilemma.worldenergy.org
+const COUNTRIES = {
+  "Denmark": { security: 72.2, equity: 95.8, sustainability: 83.5, rank: 1, region: "Europe", grade: "AAA", score: 83.2 },
+  "Sweden": { security: 73.4, equity: 93.4, sustainability: 85.0, rank: 1, region: "Europe", grade: "AAA", score: 83.1 },
+  "Finland": { security: 75.9, equity: 92.3, sustainability: 80.8, rank: 2, region: "Europe", grade: "AAA", score: 82.7 },
+  "Switzerland": { security: 64.5, equity: 98.1, sustainability: 85.7, rank: 3, region: "Europe", grade: "AAA", score: 82.1 },
+  "Canada": { security: 76.6, equity: 96.2, sustainability: 72.8, rank: 4, region: "North America", grade: "AAB", score: 81.0 },
+  "Austria": { security: 71.8, equity: 95.3, sustainability: 78.6, rank: 5, region: "Europe", grade: "AAA", score: 80.9 },
+  "France": { security: 69.4, equity: 93.7, sustainability: 83.2, rank: 6, region: "Europe", grade: "AAA", score: 80.6 },
+  "Estonia": { security: 69.9, equity: 94.8, sustainability: 78.5, rank: 7, region: "Europe", grade: "ABA", score: 80.2 },
+  "Germany": { security: 72.9, equity: 94.4, sustainability: 76.6, rank: 7, region: "Europe", grade: "AAA", score: 80.2 },
+  "United Kingdom": { security: 67.7, equity: 95.7, sustainability: 79.2, rank: 8, region: "Europe", grade: "AAA", score: 80.0 },
+  "Norway": { security: 62.7, equity: 94.4, sustainability: 84.3, rank: 8, region: "Europe", grade: "BAA", score: 79.9 },
+  "New Zealand": { security: 68.2, equity: 95.4, sustainability: 76.4, rank: 9, region: "Asia", grade: "AAA", score: 79.6 },
+  "United States": { security: 72.7, equity: 97.3, sustainability: 69.0, rank: 10, region: "North America", grade: "AAB", score: 78.9 },
+  "Slovenia": { security: 69.1, equity: 93.8, sustainability: 77.0, rank: 11, region: "Europe", grade: "ABA", score: 78.4 },
+  "Czech Republic": { security: 73.0, equity: 93.2, sustainability: 71.6, rank: 12, region: "Europe", grade: "ABB", score: 78.0 },
+  "Spain": { security: 67.3, equity: 91.4, sustainability: 79.9, rank: 13, region: "Europe", grade: "ABA", score: 77.8 },
+  "Netherlands": { security: 64.4, equity: 95.2, sustainability: 74.6, rank: 14, region: "Europe", grade: "ADA", score: 77.6 },
+  "Hungary": { security: 72.7, equity: 90.2, sustainability: 73.1, rank: 15, region: "Europe", grade: "ABB", score: 77.3 },
+  "Luxembourg": { security: 52.5, equity: 98.2, sustainability: 79.2, rank: 15, region: "Europe", grade: "CAA", score: 77.3 },
+  "Belgium": { security: 61.7, equity: 95.2, sustainability: 76.8, rank: 16, region: "Europe", grade: "BAA", score: 77.1 },
+  "Portugal": { security: 65.4, equity: 88.2, sustainability: 81.2, rank: 17, region: "Europe", grade: "ABA", score: 76.7 },
+  "Slovakia": { security: 72.3, equity: 87.4, sustainability: 75.8, rank: 18, region: "Europe", grade: "ABA", score: 76.6 },
+  "Ireland": { security: 54.2, equity: 98.7, sustainability: 76.8, rank: 19, region: "Europe", grade: "CAA", score: 76.3 },
+  "Latvia": { security: 72.1, equity: 86.5, sustainability: 74.8, rank: 19, region: "Europe", grade: "ABA", score: 76.3 },
+  "Iceland": { security: 55.7, equity: 99.2, sustainability: 74.8, rank: 20, region: "Europe", grade: "CAA", score: 76.1 },
+  "Croatia": { security: 68.4, equity: 90.9, sustainability: 75.5, rank: 20, region: "Europe", grade: "ABA", score: 76.0 },
+  "Uruguay": { security: 63.9, equity: 88.1, sustainability: 80.1, rank: 21, region: "Latin America", grade: "BBA", score: 75.9 },
+  "Australia": { security: 66.6, equity: 96.7, sustainability: 64.4, rank: 22, region: "Asia", grade: "AAC", score: 75.7 },
+  "Romania": { security: 73.7, equity: 82.8, sustainability: 75.1, rank: 23, region: "Europe", grade: "ABA", score: 75.1 },
+  "Japan": { security: 61.1, equity: 94.0, sustainability: 71.4, rank: 23, region: "Asia", grade: "BAB", score: 75.0 },
+  "Lithuania": { security: 63.4, equity: 89.6, sustainability: 74.6, rank: 24, region: "Europe", grade: "BBA", score: 75.0 },
+  "Italy": { security: 66.4, equity: 89.3, sustainability: 73.6, rank: 25, region: "Europe", grade: "ABA", score: 74.3 },
+  "Israel": { security: 59.1, equity: 98.0, sustainability: 67.7, rank: 26, region: "Middle East", grade: "BAB", score: 74.1 },
+  "Korea (Rep.)": { security: 62.2, equity: 95.9, sustainability: 63.9, rank: 27, region: "Asia", grade: "BBC", score: 73.1 },
+  "Poland": { security: 65.1, equity: 85.5, sustainability: 65.3, rank: 28, region: "Europe", grade: "ABC", score: 70.7 },
+  "Greece": { security: 53.6, equity: 88.7, sustainability: 75.4, rank: 29, region: "Europe", grade: "CBA", score: 70.5 },
+  "UAE": { security: 58.1, equity: 99.9, sustainability: 53.4, rank: 30, region: "Middle East", grade: "BAD", score: 70.3 },
+  "Chile": { security: 61.1, equity: 82.6, sustainability: 69.4, rank: 31, region: "Latin America", grade: "BBB", score: 70.2 },
+  "Singapore": { security: 38.9, equity: 98.4, sustainability: 68.4, rank: 31, region: "Asia", grade: "DAB", score: 70.1 },
+  "Argentina": { security: 66.4, equity: 85.3, sustainability: 69.3, rank: 32, region: "Latin America", grade: "ABB", score: 70.0 },
+  "Costa Rica": { security: 55.6, equity: 75.3, sustainability: 82.8, rank: 33, region: "Latin America", grade: "CBA", score: 69.7 },
+  "Bulgaria": { security: 72.6, equity: 67.1, sustainability: 73.2, rank: 34, region: "Europe", grade: "ABB", score: 69.2 },
+  "Malaysia": { security: 66.5, equity: 79.3, sustainability: 63.1, rank: 35, region: "Asia", grade: "ADC", score: 69.0 },
+  "Brazil": { security: 73.1, equity: 62.8, sustainability: 76.8, rank: 36, region: "Latin America", grade: "ACA", score: 68.3 },
+  "Ecuador": { security: 63.4, equity: 71.9, sustainability: 75.9, rank: 37, region: "Latin America", grade: "BCA", score: 67.7 },
+  "Panama": { security: 51.8, equity: 74.9, sustainability: 79.2, rank: 38, region: "Latin America", grade: "CCA", score: 67.0 },
+  "Saudi Arabia": { security: 59.0, equity: 97.7, sustainability: 46.2, rank: 38, region: "Middle East", grade: "BAD", score: 66.9 },
+  "Russia": { security: 69.6, equity: 77.6, sustainability: 58.6, rank: 39, region: "Europe", grade: "ABC", score: 66.1 },
+  "Qatar": { security: 58.2, equity: 99.9, sustainability: 39.2, rank: 40, region: "Middle East", grade: "BAD", score: 65.9 },
+  "Kuwait": { security: 59.8, equity: 99.9, sustainability: 40.4, rank: 41, region: "Middle East", grade: "BAD", score: 65.8 },
+  "Peru": { security: 68.7, equity: 58.8, sustainability: 75.2, rank: 41, region: "Latin America", grade: "ACA", score: 65.8 },
+  "Colombia": { security: 63.4, equity: 60.5, sustainability: 78.4, rank: 42, region: "Latin America", grade: "BCA", score: 65.7 },
+  "Azerbaijan": { security: 62.7, equity: 81.2, sustainability: 59.2, rank: 42, region: "Asia", grade: "BBC", score: 65.6 },
+  "Bahrain": { security: 60.8, equity: 99.6, sustainability: 39.5, rank: 43, region: "Middle East", grade: "BAD", score: 65.4 },
+  "Oman": { security: 53.1, equity: 99.7, sustainability: 45.6, rank: 44, region: "Middle East", grade: "CAD", score: 65.0 },
+  "Turkey": { security: 57.3, equity: 76.1, sustainability: 68.2, rank: 46, region: "Europe", grade: "BBB", score: 64.6 },
+  "China": { security: 66.3, equity: 73.0, sustainability: 56.4, rank: 47, region: "Asia", grade: "ABD", score: 64.4 },
+  "Albania": { security: 47.3, equity: 66.7, sustainability: 83.4, rank: 48, region: "Europe", grade: "DCA", score: 63.8 },
+  "Mexico": { security: 53.4, equity: 70.7, sustainability: 71.8, rank: 49, region: "Latin America", grade: "CBB", score: 63.6 },
+  "Kazakhstan": { security: 62.4, equity: 79.8, sustainability: 52.5, rank: 51, region: "Asia", grade: "BBD", score: 63.4 },
+  "Egypt": { security: 60.3, equity: 77.2, sustainability: 57.2, rank: 54, region: "Africa", grade: "BBD", score: 62.2 },
+  "Algeria": { security: 55.9, equity: 81.4, sustainability: 55.6, rank: 55, region: "Africa", grade: "CBD", score: 62.0 },
+  "Vietnam": { security: 61.9, equity: 70.5, sustainability: 57.7, rank: 56, region: "Asia", grade: "BCD", score: 61.9 },
+  "Indonesia": { security: 66.4, equity: 57.0, sustainability: 60.6, rank: 58, region: "Asia", grade: "ACC", score: 60.5 },
+  "Thailand": { security: 55.9, equity: 71.9, sustainability: 55.2, rank: 60, region: "Asia", grade: "CCD", score: 60.1 },
+  "Iran": { security: 59.8, equity: 81.1, sustainability: 47.7, rank: 61, region: "Middle East", grade: "BBD", score: 59.8 },
+  "Morocco": { security: 49.0, equity: 70.8, sustainability: 61.5, rank: 62, region: "Africa", grade: "DCC", score: 59.6 },
+  "South Africa": { security: 54.5, equity: 61.4, sustainability: 58.4, rank: 69, region: "Africa", grade: "CCC", score: 57.6 },
+  "Philippines": { security: 59.3, equity: 49.4, sustainability: 64.4, rank: 72, region: "Asia", grade: "BDC", score: 56.9 },
+  "India": { security: 61.7, equity: 49.5, sustainability: 56.5, rank: 74, region: "Asia", grade: "BDD", score: 55.6 },
+  "Kenya": { security: 63.4, equity: 24.7, sustainability: 70.7, rank: 77, region: "Africa", grade: "BDB", score: 52.4 },
+  "Bangladesh": { security: 40.2, equity: 43.0, sustainability: 57.8, rank: 83, region: "Asia", grade: "DDD", score: 46.2 },
+  "Pakistan": { security: 43.8, equity: 35.4, sustainability: 59.5, rank: 84, region: "Asia", grade: "DDC", score: 45.5 },
+  "Ethiopia": { security: 41.5, equity: 28.7, sustainability: 63.9, rank: 86, region: "Africa", grade: "DDC", score: 44.2 },
+  "Nigeria": { security: 46.0, equity: 25.6, sustainability: 48.2, rank: 94, region: "Africa", grade: "DDD", score: 39.2 },
+  "Congo (DR)": { security: 36.2, equity: 7.3, sustainability: 60.5, rank: 98, region: "Africa", grade: "DDC", score: 33.5 },
+  "Niger": { security: 33.0, equity: 7.2, sustainability: 38.8, rank: 99, region: "Africa", grade: "DDD", score: 27.7 },
+};
+
+const REGIONS = ["All", "Europe", "North America", "Asia", "Latin America", "Middle East", "Africa"];
+const DIMENSION_INFO = {
+  security: { label: "Energy security", color: "#3B82F6", icon: "🛡️", desc: "Capacity to meet current and future energy demand reliably and withstand system shocks", indicators: ["Diversity of supply", "Import dependence", "Energy storage", "System reliability"] },
+  equity: { label: "Energy equity", color: "#F59E0B", icon: "⚖️", desc: "Accessibility and affordability of energy across the population", indicators: ["Electricity access rate", "Energy affordability", "Household spending ratio", "Quality of supply"] },
+  sustainability: { label: "Environmental sustainability", color: "#10B981", icon: "🌿", desc: "Transition towards clean and low-carbon energy sources", indicators: ["CO₂ per capita", "Renewable share", "Energy intensity", "Emissions trajectory"] },
+};
+
+const TriangleViz = ({ countries, selected, onSelect }) => {
+  const w = 320, h = 265;
+  const cx = w / 2, cy = 125;
+  const r = 90;
+  const corners = [
+    { x: cx, y: cy - r, dim: "security" },
+    { x: cx - r * 0.866, y: cy + r * 0.5, dim: "equity" },
+    { x: cx + r * 0.866, y: cy + r * 0.5, dim: "sustainability" },
+  ];
+  const getPoint = (d) => {
+    const s = (d.security || 0) / 100, e = (d.equity || 0) / 100, u = (d.sustainability || 0) / 100;
+    const total = s + e + u || 1;
+    return { x: (s * corners[0].x + e * corners[1].x + u * corners[2].x) / total, y: (s * corners[0].y + e * corners[1].y + u * corners[2].y) / total };
+  };
+  return (
+    <svg width="100%" viewBox={`0 0 ${w} ${h}`} style={{ maxWidth: 360 }}>
+      <polygon points={corners.map(c => `${c.x},${c.y}`).join(" ")} fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+      {[0.33, 0.66].map(f => <polygon key={f} points={corners.map(c => `${cx + (c.x - cx) * f},${cy + (c.y - cy) * f}`).join(" ")} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />)}
+      {corners.map((c, i) => { const d = DIMENSION_INFO[c.dim]; const offY = i === 0 ? -12 : 16; if (c.dim === "sustainability") { return <g key={i}><text x={c.x} y={c.y + offY} textAnchor="middle" fill={d.color} fontSize="10" fontWeight="600" fontFamily="inherit">{d.icon} Environmental</text><text x={c.x} y={c.y + offY + 13} textAnchor="middle" fill={d.color} fontSize="10" fontWeight="600" fontFamily="inherit">sustainability</text></g>; } return <text key={i} x={c.x} y={c.y + offY} textAnchor="middle" fill={d.color} fontSize="10" fontWeight="600" fontFamily="inherit">{d.icon} {d.label}</text>; })}
+      {Object.entries(countries).map(([name, d]) => { const p = getPoint(d); const isSel = selected === name; return (<g key={name} onClick={() => onSelect(name)} style={{ cursor: "pointer" }}><circle cx={p.x} cy={p.y} r={isSel ? 6 : 3.5} fill={isSel ? "#F59E0B" : "rgba(255,255,255,0.35)"} stroke={isSel ? "#FCD34D" : "none"} strokeWidth={isSel ? 2 : 0} opacity={isSel ? 1 : 0.7} />{isSel && <text x={p.x} y={p.y - 10} textAnchor="middle" fill="#FCD34D" fontSize="9" fontWeight="600" fontFamily="inherit">{name}</text>}</g>); })}
+    </svg>
+  );
+};
+
+const RadarChart = ({ data, size = 200 }) => {
+  const dims = ["security", "equity", "sustainability"];
+  const cx = size / 2, cy = size / 2, r = size * 0.35;
+  const angles = dims.map((_, i) => (i * 2 * Math.PI) / 3 - Math.PI / 2);
+  const getXY = (angle, val) => ({ x: cx + r * (val / 100) * Math.cos(angle), y: cy + r * (val / 100) * Math.sin(angle) });
+  const points = dims.map((d, i) => getXY(angles[i], data[d]));
+  const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + "Z";
+  return (
+    <svg width="100%" viewBox={`0 0 ${size} ${size}`} style={{ maxWidth: 220 }}>
+      {[25, 50, 75, 100].map(v => <polygon key={v} points={angles.map(a => { const p = getXY(a, v); return `${p.x},${p.y}`; }).join(" ")} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />)}
+      {dims.map((d, i) => { const end = getXY(angles[i], 105); const info = DIMENSION_INFO[d]; return (<g key={d}><line x1={cx} y1={cy} x2={end.x} y2={end.y} stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" /><text x={getXY(angles[i], 118).x} y={getXY(angles[i], 118).y} textAnchor="middle" dominantBaseline="central" fill={info.color} fontSize="9" fontWeight="600" fontFamily="inherit">{info.icon}</text></g>); })}
+      <path d={path} fill="rgba(245,158,11,0.15)" stroke="#F59E0B" strokeWidth="1.5" />
+      {points.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={DIMENSION_INFO[dims[i]].color} />)}
+    </svg>
+  );
+};
+
+const PolicySlider = ({ label, value, onChange, color, icon, min = 0, max = 100 }) => (
+  <div style={{ marginBottom: 14 }}>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+      <span style={{ fontSize: 11, color: "#94A3B8" }}>{icon} {label}</span>
+      <span style={{ fontSize: 12, fontWeight: 700, color }}>{value}</span>
+    </div>
+    <div style={{ position: "relative", height: 20 }}>
+      <div style={{ position: "absolute", top: 7, left: 0, width: "100%", height: 6, background: "#1E293B", borderRadius: 3 }} />
+      <div style={{ position: "absolute", top: 7, left: 0, width: `${((value - min) / (max - min)) * 100}%`, height: 6, background: color, borderRadius: 3, transition: "width 0.15s ease", opacity: 0.8, pointerEvents: "none" }} />
+      <input type="range" min={min} max={max} value={value} onChange={e => onChange(+e.target.value)} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", margin: 0, background: "transparent", accentColor: color, cursor: "pointer" }} />
+    </div>
+  </div>
+);
+
+const GradeBox = ({ grade }) => {
+  const colors = { A: "#10B981", B: "#3B82F6", C: "#F59E0B", D: "#EF4444" };
+  return <span style={{ display: "inline-block", width: 22, height: 22, lineHeight: "22px", textAlign: "center", borderRadius: 4, fontSize: 11, fontWeight: 700, background: (colors[grade] || "#64748B") + "20", color: colors[grade] || "#64748B", marginRight: 3 }}>{grade}</span>;
+};
+
+const Tabs = ({ tabs, active, onChange }) => (
+  <div style={{ display: "flex", gap: 4, marginBottom: 16, flexWrap: "wrap" }}>
+    {tabs.map(t => <button key={t.id} onClick={() => onChange(t.id)} style={{ padding: "8px 14px", borderRadius: 6, border: active === t.id ? "1px solid rgba(245,158,11,0.4)" : "1px solid rgba(255,255,255,0.06)", background: active === t.id ? "rgba(245,158,11,0.1)" : "rgba(255,255,255,0.02)", color: active === t.id ? "#FCD34D" : "#94A3B8", fontSize: 11, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", letterSpacing: 0.5 }}>{t.icon} {t.label}</button>)}
+  </div>
+);
+
+const MiniBar = ({ value, max, color, label, unit }) => (
+  <div style={{ marginBottom: 8 }}>
+    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#94A3B8", marginBottom: 3 }}>
+      <span>{label}</span><span style={{ color, fontWeight: 600 }}>{value}{unit}</span>
+    </div>
+    <div style={{ height: 6, background: "#1E293B", borderRadius: 3, overflow: "hidden" }}>
+      <div style={{ height: "100%", width: `${Math.min(100, (value / max) * 100)}%`, background: color, borderRadius: 3, transition: "width 0.6s ease" }} />
+    </div>
+  </div>
+);
+
+function App() {
+  const [tab, setTab] = useState("explore");
+  const [selected, setSelected] = useState("Portugal");
+  const [regionFilter, setRegionFilter] = useState("All");
+  const [simState, setSimState] = useState({ renewableInvest: 50, carbonPrice: 50, subsidyLevel: 50, gridInvest: 50, importDiv: 50, efficiency: 50 });
+  const [simCountry, setSimCountry] = useState("Portugal");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiResponse, setAiResponse] = useState("");
+  const [apiKey, setApiKey] = useState(() => { try { return localStorage.getItem("trilemma_api_key") || ""; } catch(e) { return ""; } });
+  const [keyInput, setKeyInput] = useState("");
+  const [keyError, setKeyError] = useState("");
+  const [compareA, setCompareA] = useState("Portugal");
+  const [compareB, setCompareB] = useState("Sweden");
+
+  const filtered = useMemo(() => {
+    if (regionFilter === "All") return COUNTRIES;
+    return Object.fromEntries(Object.entries(COUNTRIES).filter(([_, d]) => d.region === regionFilter));
+  }, [regionFilter]);
+
+  const simBase = COUNTRIES[simCountry];
+  const simResults = useMemo(() => {
+    const base = COUNTRIES[simCountry];
+    if (!base) return base;
+    const { renewableInvest, carbonPrice, subsidyLevel, gridInvest, importDiv, efficiency } = simState;
+    const secDelta = (gridInvest - 50) * 0.2 + (importDiv - 50) * 0.15 - (renewableInvest - 50) * 0.05;
+    const eqDelta = (subsidyLevel - 50) * 0.25 + (efficiency - 50) * 0.12 - (carbonPrice - 50) * 0.08;
+    const susDelta = (renewableInvest - 50) * 0.3 + (carbonPrice - 50) * 0.15 + (efficiency - 50) * 0.15;
+    return {
+      security: Math.max(10, Math.min(100, Math.round((base.security + secDelta) * 10) / 10)),
+      equity: Math.max(10, Math.min(100, Math.round((base.equity + eqDelta) * 10) / 10)),
+      sustainability: Math.max(10, Math.min(100, Math.round((base.sustainability + susDelta) * 10) / 10)),
+    };
+  }, [simState, simCountry]);
+
+  const saveKey = useCallback(() => {
+    const k = keyInput.trim();
+    if (!k.startsWith("sk-ant-")) { setKeyError("Key should start with sk-ant-"); return; }
+    setApiKey(k);
+    setKeyError("");
+    try { localStorage.setItem("trilemma_api_key", k); } catch(e) {}
+  }, [keyInput]);
+
+  const clearKey = useCallback(() => {
+    setApiKey("");
+    setKeyInput("");
+    setAiResponse("");
+    try { localStorage.removeItem("trilemma_api_key"); } catch(e) {}
+  }, []);
+
+  const runAI = useCallback(async (prompt) => {
+    if (!apiKey) return;
+    setAiLoading(true);
+    setAiResponse("");
+    try {
+      const base = COUNTRIES[simCountry];
+      const resp = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST", headers: { "Content-Type": "application/json", "x-api-key": apiKey, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+        body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system: "You are an energy policy expert from the World Energy Council. Analyse the Energy Trilemma trade-offs. Be concise (150 words max). Use data provided. No markdown headings.", messages: [{ role: "user", content: `Country: ${simCountry}. Trilemma score: ${base.score}. Current dimension scores: Security=${base.security}, Equity=${base.equity}, Sustainability=${base.sustainability}. Grade: ${base.grade}. Rank: #${base.rank} of 99 countries.\nPolicy scenario (0-100 scale, 50=neutral): Renewable investment=${simState.renewableInvest}, Carbon pricing=${simState.carbonPrice}, Subsidy level=${simState.subsidyLevel}, Grid investment=${simState.gridInvest}, Import diversification=${simState.importDiv}, Efficiency programmes=${simState.efficiency}.\nSimulated outcomes: Security=${simResults.security}, Equity=${simResults.equity}, Sustainability=${simResults.sustainability}.\n${prompt}` }] })
+      });
+      if (resp.status === 401) { setAiResponse("Invalid API key. Please check your key and try again."); setAiLoading(false); return; }
+      if (!resp.ok) { const err = await resp.json().catch(() => ({})); setAiResponse(`API error (${resp.status}): ${err.error?.message || "Unknown error"}`); setAiLoading(false); return; }
+      const data = await resp.json();
+      setAiResponse(data.content?.map(b => b.text || "").join("\n") || "Analysis unavailable.");
+    } catch (e) { setAiResponse("Connection error. Please check your internet connection and try again."); }
+    setAiLoading(false);
+  }, [apiKey, simCountry, simState, simResults]);
+
+  const sel = COUNTRIES[selected];
+  const cA = COUNTRIES[compareA], cB = COUNTRIES[compareB];
+
+  const TABS = [
+    { id: "explore", label: "Trilemma explorer", icon: "🌍" },
+    { id: "simulate", label: "Policy simulator", icon: "⚙️" },
+    { id: "compare", label: "Compare countries", icon: "📊" },
+    { id: "insights", label: "AI insights", icon: "🤖" },
+  ];
+
+  return (
+    <div style={{ padding: 16, maxWidth: 900, margin: "0 auto" }}>
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: 20 }}>
+        <div style={{ fontSize: 10, letterSpacing: 5, color: "#F59E0B", textTransform: "uppercase", marginBottom: 6 }}>World Energy Council Framework</div>
+        <h1 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 4px", background: "linear-gradient(135deg, #3B82F6, #F59E0B, #10B981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Energy Trilemma Dashboard</h1>
+        <div style={{ fontSize: 11, color: "#64748B" }}>Balancing security, equity, and sustainability across 70+ nations</div>
+        <div style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)", borderRadius: 8, padding: "10px 16px", marginTop: 12, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>
+          <div style={{ fontSize: 9, color: "#94A3B8", lineHeight: 1.7, textAlign: "left" }}>
+            <span style={{ color: "#EF4444", fontWeight: 600 }}>Disclaimer:</span> This tool was developed by J. Graça Gomes. All mistakes found are the full responsibility of the author. Interpretations of the data are personal interpretations and do not represent the World Energy Council's vision or interpretation. For a well-grounded analysis, please consult the official data at <a href="https://trilemma.worldenergy.org" target="_blank" rel="noopener" style={{ color: "#60A5FA" }}>trilemma.worldenergy.org</a>
+          </div>
+        </div>
+      </div>
+
+      <Tabs tabs={TABS} active={tab} onChange={setTab} />
+
+      {/* EXPLORE TAB */}
+      {tab === "explore" && (<div>
+        <div style={{ display: "flex", gap: 4, marginBottom: 12, flexWrap: "wrap" }}>
+          {REGIONS.map(r => <button key={r} onClick={() => setRegionFilter(r)} style={{ padding: "5px 10px", borderRadius: 4, fontSize: 10, border: regionFilter === r ? "1px solid rgba(59,130,246,0.4)" : "1px solid rgba(255,255,255,0.06)", background: regionFilter === r ? "rgba(59,130,246,0.1)" : "transparent", color: regionFilter === r ? "#60A5FA" : "#64748B", cursor: "pointer", fontFamily: "inherit" }}>{r}</button>)}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 16, textAlign: "center" }}>
+            <div style={{ fontSize: 10, color: "#64748B", letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>Trilemma balance triangle</div>
+            <TriangleViz countries={filtered} selected={selected} onSelect={setSelected} />
+            <div style={{ fontSize: 9, color: "#475569", marginTop: 4 }}>Click any dot to inspect a country</div>
+          </div>
+          <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 16 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <div><div style={{ fontSize: 16, fontWeight: 700 }}>{selected}</div><div style={{ fontSize: 10, color: "#64748B" }}>Rank #{sel?.rank} · {sel?.region}</div></div>
+              <div>{sel?.grade.split("").map((g, i) => <GradeBox key={i} grade={g} />)}</div>
+            </div>
+            <RadarChart data={sel} />
+            <div style={{ marginTop: 12 }}>
+              {Object.entries(DIMENSION_INFO).map(([key, info]) => (
+                <div key={key} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 14 }}>{info.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11 }}><span style={{ color: "#94A3B8" }}>{info.label}</span><span style={{ color: info.color, fontWeight: 700 }}>{sel?.[key]}/100</span></div>
+                    <div style={{ height: 4, background: "#1E293B", borderRadius: 2, marginTop: 3 }}><div style={{ height: "100%", width: `${sel?.[key]}%`, background: info.color, borderRadius: 2, transition: "width 0.5s" }} /></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 12 }}>
+              {[
+                { l: "Trilemma score", v: sel?.score, c: "#F59E0B" },
+                { l: "Global rank", v: `#${sel?.rank} / 99`, c: "#3B82F6" },
+                { l: "Percentile", v: (() => { const r = sel?.rank; if (!r) return "—"; if (r <= 25) return "Top 25%"; if (r <= 50) return "Top 50%"; if (r <= 75) return "Bottom 50%"; return "Bottom 25%"; })(), c: (() => { const r = sel?.rank; if (!r) return "#64748B"; if (r <= 25) return "#10B981"; if (r <= 50) return "#3B82F6"; if (r <= 75) return "#F59E0B"; return "#EF4444"; })() },
+                { l: "Region", v: sel?.region, c: "#8B5CF6" },
+              ].map((m, i) => (<div key={i} style={{ background: "rgba(255,255,255,0.02)", borderRadius: 6, padding: "8px 10px" }}><div style={{ fontSize: 9, color: "#64748B" }}>{m.l}</div><div style={{ fontSize: 14, fontWeight: 700, color: m.c }}>{m.v}</div></div>))}
+            </div>
+          </div>
+        </div>
+        {/* Ranking table */}
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 16, marginTop: 12 }}>
+          <div style={{ fontSize: 10, color: "#64748B", letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>Country rankings</div>
+          <div style={{ fontSize: 10, display: "grid", gridTemplateColumns: "22px 1fr 42px 42px 42px 78px", gap: "6px 8px", color: "#64748B", marginBottom: 6, paddingBottom: 6, borderBottom: "1px solid rgba(255,255,255,0.05)" }}><span>#</span><span>Country</span><span>🛡️</span><span>⚖️</span><span>🌿</span><span>Grade</span></div>
+          <div style={{ maxHeight: 260, overflowY: "auto" }}>
+            {Object.entries(filtered).sort((a, b) => a[1].rank - b[1].rank).map(([name, d]) => (
+              <div key={name} onClick={() => setSelected(name)} style={{ display: "grid", gridTemplateColumns: "22px 1fr 42px 42px 42px 78px", gap: "6px 8px", padding: "6px 0", fontSize: 11, cursor: "pointer", borderBottom: "1px solid rgba(255,255,255,0.02)", background: selected === name ? "rgba(245,158,11,0.05)" : "transparent", borderRadius: 4, color: selected === name ? "#FCD34D" : "#CBD5E1" }}>
+                <span style={{ color: "#64748B" }}>{d.rank}</span><span style={{ fontWeight: selected === name ? 600 : 400 }}>{name}</span><span style={{ color: "#3B82F6" }}>{d.security}</span><span style={{ color: "#F59E0B" }}>{d.equity}</span><span style={{ color: "#10B981" }}>{d.sustainability}</span><span>{d.grade.split("").map((g, i) => <GradeBox key={i} grade={g} />)}</span>
+              </div>))}
+          </div>
+        </div>
+      </div>)}
+
+      {/* SIMULATE TAB */}
+      {tab === "simulate" && (<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 16 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div style={{ fontSize: 10, color: "#64748B", letterSpacing: 2, textTransform: "uppercase" }}>Policy levers</div>
+            <select value={simCountry} onChange={e => setSimCountry(e.target.value)} style={{ background: "#1E293B", color: "#E2E8F0", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 4, padding: "4px 8px", fontSize: 10, fontFamily: "inherit" }}>{Object.keys(COUNTRIES).map(c => <option key={c}>{c}</option>)}</select>
+          </div>
+          <PolicySlider label="Renewable energy investment" value={simState.renewableInvest} onChange={v => setSimState(s => ({ ...s, renewableInvest: v }))} color="#10B981" icon="☀️" />
+          <PolicySlider label="Carbon pricing intensity" value={simState.carbonPrice} onChange={v => setSimState(s => ({ ...s, carbonPrice: v }))} color="#EF4444" icon="🏭" />
+          <PolicySlider label="Energy subsidy level" value={simState.subsidyLevel} onChange={v => setSimState(s => ({ ...s, subsidyLevel: v }))} color="#F59E0B" icon="💰" />
+          <PolicySlider label="Grid infrastructure investment" value={simState.gridInvest} onChange={v => setSimState(s => ({ ...s, gridInvest: v }))} color="#3B82F6" icon="🔌" />
+          <PolicySlider label="Import diversification" value={simState.importDiv} onChange={v => setSimState(s => ({ ...s, importDiv: v }))} color="#8B5CF6" icon="🚢" />
+          <PolicySlider label="Efficiency programmes" value={simState.efficiency} onChange={v => setSimState(s => ({ ...s, efficiency: v }))} color="#06B6D4" icon="⚡" />
+          <button onClick={() => setSimState({ renewableInvest: 50, carbonPrice: 50, subsidyLevel: 50, gridInvest: 50, importDiv: 50, efficiency: 50 })} style={{ marginTop: 8, fontSize: 10, color: "#64748B", background: "none", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 4, padding: "6px 12px", cursor: "pointer", fontFamily: "inherit" }}>Reset to baseline</button>
+        </div>
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 16 }}>
+          <div style={{ fontSize: 10, color: "#64748B", letterSpacing: 2, textTransform: "uppercase", marginBottom: 12 }}>Simulated outcomes — {simCountry}</div>
+          <RadarChart data={simResults} />
+          <div style={{ marginTop: 12 }}>
+            {Object.entries(DIMENSION_INFO).map(([key, info]) => {
+              const base = Math.round((simBase?.[key] || 0) * 10) / 10;
+              const sim = Math.round((simResults?.[key] || 0) * 10) / 10;
+              const delta = Math.round((sim - base) * 10) / 10;
+              return (<div key={key} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                <span style={{ fontSize: 14 }}>{info.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11 }}>
+                    <span style={{ color: "#94A3B8" }}>{info.label}</span>
+                    <span><span style={{ color: "#64748B" }}>{base}</span><span style={{ color: "#475569", margin: "0 4px" }}>→</span><span style={{ color: info.color, fontWeight: 700 }}>{sim}</span><span style={{ color: delta > 0 ? "#10B981" : delta < 0 ? "#EF4444" : "#64748B", fontSize: 10, marginLeft: 4 }}>{delta > 0 ? `+${delta}` : delta}</span></span>
+                  </div>
+                  <div style={{ height: 4, background: "#1E293B", borderRadius: 2, marginTop: 3, position: "relative" }}>
+                    <div style={{ position: "absolute", height: "100%", width: `${base}%`, background: "rgba(255,255,255,0.08)", borderRadius: 2 }} />
+                    <div style={{ position: "absolute", height: "100%", width: `${sim}%`, background: info.color, borderRadius: 2, transition: "width 0.5s", opacity: 0.8 }} />
+                  </div>
+                </div>
+              </div>);
+            })}
+          </div>
+          <div style={{ background: "rgba(245,158,11,0.05)", border: "1px solid rgba(245,158,11,0.15)", borderRadius: 8, padding: 12, marginTop: 12 }}>
+            <div style={{ fontSize: 10, color: "#F59E0B", fontWeight: 600, marginBottom: 6 }}>Trade-off analysis</div>
+            <div style={{ fontSize: 11, color: "#94A3B8", lineHeight: 1.6 }}>
+              {simResults.sustainability > simBase.sustainability + 5 && simResults.security < simBase.security - 3 && "Aggressive renewable push improves sustainability but may compromise short-term security through intermittency risk. Consider pairing with grid investment. "}
+              {simResults.equity < simBase.equity - 5 && "High carbon pricing is reducing equity scores — energy costs may become unaffordable for vulnerable populations. Consider offsetting with targeted subsidies. "}
+              {simResults.security > simBase.security + 5 && simResults.sustainability < simBase.sustainability && "Security-focused strategy risks locking in fossil dependencies. Balance with long-term decarbonisation pathways. "}
+              {Math.abs(simResults.security - simBase.security) <= 3 && Math.abs(simResults.equity - simBase.equity) <= 3 && Math.abs(simResults.sustainability - simBase.sustainability) <= 3 && "Current policy settings maintain balance across all dimensions. Consider bolder moves to accelerate the transition. "}
+              {simResults.sustainability > simBase.sustainability + 3 && simResults.equity > simBase.equity + 3 && "Strong synergy detected — renewable investment combined with subsidies improves both sustainability and equity simultaneously. "}
+            </div>
+          </div>
+        </div>
+      </div>)}
+
+      {/* COMPARE TAB */}
+      {tab === "compare" && (<div>
+        <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
+          <select value={compareA} onChange={e => setCompareA(e.target.value)} style={{ flex: 1, background: "#1E293B", color: "#E2E8F0", border: "1px solid rgba(59,130,246,0.3)", borderRadius: 6, padding: "8px 12px", fontSize: 12, fontFamily: "inherit" }}>{Object.keys(COUNTRIES).map(c => <option key={c}>{c}</option>)}</select>
+          <span style={{ color: "#64748B", alignSelf: "center", fontSize: 12 }}>vs</span>
+          <select value={compareB} onChange={e => setCompareB(e.target.value)} style={{ flex: 1, background: "#1E293B", color: "#E2E8F0", border: "1px solid rgba(245,158,11,0.3)", borderRadius: 6, padding: "8px 12px", fontSize: 12, fontFamily: "inherit" }}>{Object.keys(COUNTRIES).map(c => <option key={c}>{c}</option>)}</select>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          {[{ name: compareA, data: cA, color: "#3B82F6" }, { name: compareB, data: cB, color: "#F59E0B" }].map(({ name, data, color }) => (
+            <div key={name} style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${color}20`, borderRadius: 10, padding: 16 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color, marginBottom: 4 }}>{name}</div>
+              <div style={{ fontSize: 10, color: "#64748B", marginBottom: 12 }}>Rank #{data?.rank} · Grade: {data?.grade}</div>
+              <RadarChart data={data} />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginTop: 12 }}>
+                {[{ l: "Security", v: data?.security, c: "#3B82F6" }, { l: "Equity", v: data?.equity, c: "#F59E0B" }, { l: "Sustainability", v: data?.sustainability, c: "#10B981" }, { l: "Trilemma score", v: data?.score, c: "#8B5CF6" }].map((m, i) => (
+                  <div key={i} style={{ background: "rgba(255,255,255,0.02)", borderRadius: 4, padding: "6px 8px" }}><div style={{ fontSize: 9, color: "#64748B" }}>{m.l}</div><div style={{ fontSize: 13, fontWeight: 700, color: m.c }}>{m.v}</div></div>))}
+              </div>
+            </div>))}
+        </div>
+        {/* Grouped bar chart */}
+        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 16, marginTop: 12 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div style={{ fontSize: 10, color: "#64748B", letterSpacing: 2, textTransform: "uppercase" }}>Head-to-head comparison</div>
+            <div style={{ display: "flex", gap: 16, fontSize: 10 }}>
+              <span style={{ display: "flex", alignItems: "center", gap: 4 }}><span style={{ width: 12, height: 4, background: "#3B82F6", borderRadius: 2, display: "inline-block" }} /><span style={{ color: "#3B82F6" }}>{compareA}</span></span>
+              <span style={{ display: "flex", alignItems: "center", gap: 4 }}><span style={{ width: 12, height: 4, background: "#F59E0B", borderRadius: 2, display: "inline-block" }} /><span style={{ color: "#F59E0B" }}>{compareB}</span></span>
+            </div>
+          </div>
+          <svg width="100%" viewBox="0 0 520 200">
+            {(() => {
+              const dims = [{ key: "security", ...DIMENSION_INFO.security }, { key: "equity", ...DIMENSION_INFO.equity }, { key: "sustainability", ...DIMENSION_INFO.sustainability }, { key: "score", label: "Trilemma score", color: "#8B5CF6", icon: "📊" }];
+              const barW = 28, gap = 6, groupGap = 50;
+              const chartH = 140, baseY = 160;
+              const totalW = dims.length * (barW * 2 + gap) + (dims.length - 1) * groupGap;
+              const startX = (520 - totalW) / 2;
+              return dims.map((dim, gi) => {
+                const gx = startX + gi * (barW * 2 + gap + groupGap);
+                const aVal = cA?.[dim.key] || 0, bVal = cB?.[dim.key] || 0;
+                const aH = (aVal / 100) * chartH, bH = (bVal / 100) * chartH;
+                return (<g key={dim.key}>
+                  {gi === 0 && [0, 25, 50, 75, 100].map(v => (<g key={v}><line x1={startX - 10} y1={baseY - (v / 100) * chartH} x2={startX + totalW + 10} y2={baseY - (v / 100) * chartH} stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" /><text x={startX - 16} y={baseY - (v / 100) * chartH} textAnchor="end" dominantBaseline="central" fill="#475569" fontSize="8" fontFamily="inherit">{v}</text></g>))}
+                  <rect x={gx} y={baseY - aH} width={barW} height={aH} rx="3" fill="#3B82F6" opacity="0.8" />
+                  <text x={gx + barW / 2} y={baseY - aH - 6} textAnchor="middle" fill="#3B82F6" fontSize="9" fontWeight="700" fontFamily="inherit">{aVal}</text>
+                  <rect x={gx + barW + gap} y={baseY - bH} width={barW} height={bH} rx="3" fill="#F59E0B" opacity="0.8" />
+                  <text x={gx + barW + gap + barW / 2} y={baseY - bH - 6} textAnchor="middle" fill="#F59E0B" fontSize="9" fontWeight="700" fontFamily="inherit">{bVal}</text>
+                  <text x={gx + barW + gap / 2} y={baseY + 14} textAnchor="middle" fill={dim.color} fontSize="9" fontWeight="600" fontFamily="inherit">{dim.icon}</text>
+                  <text x={gx + barW + gap / 2} y={baseY + 26} textAnchor="middle" fill="#94A3B8" fontSize="8" fontFamily="inherit">{dim.label}</text>
+                  {aVal !== bVal && <text x={gx + barW + gap / 2} y={baseY + 38} textAnchor="middle" fill={aVal > bVal ? "#3B82F6" : "#F59E0B"} fontSize="8" fontWeight="600" fontFamily="inherit">+{Math.round(Math.abs(aVal - bVal) * 10) / 10}</text>}
+                </g>);
+              });
+            })()}
+          </svg>
+        </div>
+      </div>)}
+
+      {/* AI INSIGHTS TAB */}
+      {tab === "insights" && (<div>
+        {!apiKey ? (
+          <div style={{ maxWidth: 480, margin: "0 auto" }}>
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 24, textAlign: "center" }}>
+              <div style={{ fontSize: 32, marginBottom: 12 }}>🤖</div>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 6 }}>AI-powered policy analysis</div>
+              <div style={{ fontSize: 11, color: "#94A3B8", lineHeight: 1.7, marginBottom: 20 }}>
+                Get instant AI analysis of any country's energy trilemma — trade-offs, decarbonisation pathways, investment priorities, and more. Powered by Claude (Anthropic).
+              </div>
+              <div style={{ background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.15)", borderRadius: 8, padding: 16, textAlign: "left", marginBottom: 20 }}>
+                <div style={{ fontSize: 10, color: "#60A5FA", fontWeight: 600, marginBottom: 8 }}>How it works</div>
+                <div style={{ fontSize: 10, color: "#94A3B8", lineHeight: 1.8 }}>
+                  1. Get a free API key at <a href="https://console.anthropic.com" target="_blank" rel="noopener" style={{ color: "#60A5FA" }}>console.anthropic.com</a><br/>
+                  2. Enter your key below — it stays in your browser only<br/>
+                  3. Each analysis costs ~$0.003 (less than 1 cent)<br/>
+                  4. Your key is never sent to any server except Anthropic's API
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+                <input type="password" value={keyInput} onChange={e => { setKeyInput(e.target.value); setKeyError(""); }} placeholder="sk-ant-api03-..." style={{ flex: 1, background: "#1E293B", color: "#E2E8F0", border: keyError ? "1px solid rgba(239,68,68,0.5)" : "1px solid rgba(255,255,255,0.1)", borderRadius: 6, padding: "10px 12px", fontSize: 11, fontFamily: "inherit", outline: "none" }} onKeyDown={e => e.key === "Enter" && saveKey()} />
+                <button onClick={saveKey} style={{ background: "linear-gradient(135deg, #3B82F6, #2563EB)", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>Connect</button>
+              </div>
+              {keyError && <div style={{ fontSize: 10, color: "#EF4444", textAlign: "left" }}>{keyError}</div>}
+              <div style={{ fontSize: 9, color: "#475569", marginTop: 12, lineHeight: 1.6 }}>
+                Your API key is stored locally in your browser (localStorage) and is only sent directly to Anthropic's API. It is never transmitted to any other server. You can disconnect at any time.
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                <select value={simCountry} onChange={e => setSimCountry(e.target.value)} style={{ background: "#1E293B", color: "#E2E8F0", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 6, padding: "8px 12px", fontSize: 12, fontFamily: "inherit" }}>{Object.keys(COUNTRIES).map(c => <option key={c}>{c}</option>)}</select>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: 9, color: "#10B981" }}>● Connected</span>
+                <button onClick={clearKey} style={{ fontSize: 9, color: "#64748B", background: "none", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 4, padding: "4px 10px", cursor: "pointer", fontFamily: "inherit" }}>Disconnect</button>
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
+              {[
+                { label: "Analyse trilemma balance", prompt: "Analyse this country's trilemma balance. What are the key trade-offs and which dimension needs the most attention? What specific policies would you recommend?" },
+                { label: "Decarbonisation pathway", prompt: "What is the optimal decarbonisation pathway for this country that maintains energy security and equity?" },
+                { label: "Compare to best practice", prompt: "Compare this country's performance to the top trilemma performers (Sweden, Denmark, Switzerland). What can it learn?" },
+                { label: "Investment priorities", prompt: "Given this country's trilemma profile, what should be the top 3 investment priorities for the next decade?" },
+                { label: "Resilience assessment", prompt: "Assess this country's energy system resilience to external shocks (geopolitical, climate, market). What are the key vulnerabilities?" },
+                { label: "Equity deep-dive", prompt: "Analyse the energy equity dimension for this country. Who is most affected by energy poverty? What targeted interventions would improve access?" },
+              ].map((q, i) => <button key={i} onClick={() => runAI(q.prompt)} disabled={aiLoading} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 8, padding: "12px", color: "#CBD5E1", fontSize: 10, cursor: aiLoading ? "wait" : "pointer", fontFamily: "inherit", textAlign: "left", lineHeight: 1.5 }}>{q.label}</button>)}
+            </div>
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 10, padding: 20, minHeight: 200 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}><span style={{ fontSize: 16 }}>🤖</span><span style={{ fontSize: 10, color: "#64748B", letterSpacing: 2, textTransform: "uppercase" }}>AI policy analysis — {simCountry}</span></div>
+              {aiLoading && <div style={{ color: "#F59E0B", fontSize: 12 }}>Analysing trilemma dimensions...</div>}
+              {!aiLoading && !aiResponse && <div style={{ color: "#475569", fontSize: 12, lineHeight: 1.8 }}>Select an analysis type above to generate AI-powered policy insights for {simCountry}.</div>}
+              {!aiLoading && aiResponse && <div style={{ color: "#CBD5E1", fontSize: 12, lineHeight: 1.8, whiteSpace: "pre-wrap" }}>{aiResponse}</div>}
+            </div>
+          </div>
+        )}
+      </div>)}
+
+      {/* Footer */}
+      <div style={{ textAlign: "center", marginTop: 20, padding: "12px 0", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+        <div style={{ fontSize: 9, color: "#475569", lineHeight: 1.6 }}>
+          Official data from WEC Trilemma Index 2024 (<a href="https://trilemma.worldenergy.org" target="_blank" rel="noopener" style={{ color: "#60A5FA" }}>trilemma.worldenergy.org</a>)<br />
+          João Graça Gomes · Imperial College London · Dyson School of Design Engineering
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+</body>
+</html>
