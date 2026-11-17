@@ -6,6 +6,7 @@ Below you can find a curated list of my **journal articles**, **conference paper
 This list is regularly updated. A full and up-to-date record is also available on  
 👉 [Google Scholar](https://scholar.google.com/citations?user=9rfu638AAAAJ&hl=en)
 A PhD study prototype is available at: 👉 [RECAP](assets/RECAP_last.html) and an improved version at: [RECAPv2](/assets/RECAP_v2_1.html)
+Flaw of Averages version: [RECAPv3](/assets/flaw-of-averages.html)
 
 ---
 
