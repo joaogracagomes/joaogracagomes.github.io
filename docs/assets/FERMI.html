@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FERMI: Fusion Energy Readiness and Milestone Initiative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Clean white simulator: headline metrics first, then the policy question. Blue marks taxpayer money, aqua private capital, orange the buyer premium, violet only the controls. */
+  --bg: #ffffff;
+  --soft: #f5f7fa;
+  --line: #e3e7ee;
+  --text: #141821;
+  --muted: #5d6677;
+  --accent: #5b4fd1;
+  --data: #2a78d6;
+  --good: #1f8a4c;
+  --bad: #c43a31;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.55; }
+a { color: var(--accent); }
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 600; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* header */
+.top { padding: 48px 0 32px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+.top h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.08; font-weight: 700; margin: 10px 0 12px; letter-spacing: -0.01em; }
+.lede { color: var(--muted); max-width: 60ch; font-size: 17px; margin: 0; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.tile { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.tile .k { font-size: 13px; color: var(--muted); }
+.tile .v { font-family: var(--font-mono); font-size: 26px; font-weight: 500; margin: 2px 0 0; font-variant-numeric: tabular-nums; }
+.tile .s { font-size: 12.5px; color: var(--muted); }
+
+/* sticky assumptions bar */
+.bar { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(6px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding-top: 9px; padding-bottom: 9px; }
+.bar nav { display: flex; gap: 2px; margin-right: auto; flex-wrap: wrap; }
+.bar nav a { color: var(--muted); text-decoration: none; font-size: 13.5px; padding: 4px 6px; border-radius: 6px; }
+.bar nav a:hover, .bar nav a:focus-visible { color: var(--text); background: var(--soft); outline: none; }
+.ctl { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); }
+.ctl output { font-family: var(--font-mono); color: var(--text); min-width: 60px; }
+input[type=range] { accent-color: var(--accent); width: 104px; }
+input[type=range]:disabled { opacity: 0.35; }
+button { font-family: var(--font-body); font-size: 13px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+button:disabled { opacity: 0.4; cursor: default; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* questions */
+section.q { padding: 52px 0 36px; border-top: 1px solid var(--line); scroll-margin-top: 58px; }
+section.q:first-of-type { border-top: 0; }
+.q-no { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+.q h2 { font-size: 27px; line-height: 1.2; margin: 4px 0 10px; }
+.answer { font-size: 18px; max-width: 64ch; margin: 0; }
+.answer b { font-family: var(--font-mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+.chart { margin-top: 20px; border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 6px; }
+.chart h3 { font-size: 15px; }
+.read { font-size: 13px; color: var(--muted); margin: 2px 0 0; }
+.plot { width: 100%; height: 380px; }
+
+/* policy */
+.policy { display: grid; grid-template-columns: minmax(0, 330px) minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 20px; }
+.card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; border-left: 4px solid var(--line); }
+.card.on { border-left-color: var(--accent); }
+.card header { display: flex; align-items: center; gap: 9px; }
+.card header label { font-weight: 600; font-size: 15px; cursor: pointer; }
+.card input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+.card p { margin: 4px 0 0 25px; font-size: 13px; color: var(--muted); }
+.card .param { display: flex; align-items: center; gap: 8px; margin: 8px 0 0 25px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.card .param output { font-family: var(--font-mono); color: var(--text); }
+.results .status-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pill { display: inline-block; font-size: 13.5px; font-weight: 600; padding: 4px 12px; border-radius: 999px; }
+.pill.ok { color: var(--good); background: rgba(31, 138, 76, 0.10); }
+.pill.no { color: var(--bad); background: rgba(196, 58, 49, 0.09); }
+.note { font-size: 12.5px; color: var(--muted); }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 12px 0 0; }
+.metric { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.metric .k { font-size: 12.5px; color: var(--muted); line-height: 1.3; }
+.metric .v { font-family: var(--font-mono); font-size: 21px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.results .chart { margin-top: 12px; }
+.pos { color: var(--good); } .neg { color: var(--bad); }
+
+footer { border-top: 1px solid var(--line); padding: 26px 0 60px; font-size: 13px; color: var(--muted); }
+footer h3 { font-size: 14px; color: var(--text); margin: 0 0 6px; }
+footer ul { margin: 0 0 16px; padding-left: 18px; }
+footer li { margin: 3px 0; max-width: 100ch; }
+
+
+/* FERMI */
+.top h1.brandh { display: flex; align-items: center; gap: 14px; letter-spacing: 0.05em; }
+.top h1.brandh svg { width: 0.95em; height: 0.95em; flex: none; }
+.tiles.five { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
+.tiles.five .tile.major { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; }
+.tiles.five .tile.major .v { font-size: 64px; }
+.mhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex: none; }
+.seg button { border: 0; border-radius: 0; padding: 4px 10px; font-size: 12.5px; color: var(--muted); background: var(--bg); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button.on { background: var(--accent); color: #fff; }
+.scen { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 18px; }
+.scen .lab { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.scen button { border-radius: 999px; padding: 5px 12px; font-size: 13px; }
+.scen button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.gauge .gbar { position: relative; height: 14px; border-radius: 7px; background: var(--soft); border: 1px solid var(--line); }
+.gauge .gfill { height: 100%; border-radius: 7px 0 0 7px; background: var(--bad); }
+.gauge .gfill.ok { background: var(--good); }
+.gauge .gmark { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--text); }
+.gauge .glab { display: flex; justify-content: space-between; gap: 10px; margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+.gauge .glab b { font-family: var(--font-mono); color: var(--text); }
+.tile.major { border-color: #cfc9f5; background: #fbfaff; }
+.tile.major .v { font-size: 44px; line-height: 1.1; color: var(--accent); }
+.tile .v.none { color: var(--muted); }
+.split { display: flex; gap: 2px; height: 22px; margin: 8px 0 6px; border-radius: 5px; overflow: hidden; }
+.split:empty { display: none; }
+.split div { display: flex; align-items: center; padding: 0 7px; color: #fff; font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; white-space: nowrap; overflow: hidden; min-width: 3px; }
+#policy .status-row { margin-top: 2px; }
+#policy .answer { margin-top: 10px; }
+.mgrid { margin-top: 14px; transition: opacity .15s; }
+.mlabel { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 12px 0 0; }
+.metrics { margin-top: 6px; }
+.metric .s { font-size: 11.5px; color: var(--muted); line-height: 1.3; }
+.grp { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: 14.5px; margin: 0 0 8px; }
+.grp span { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: #ece9fd; padding: 2px 8px; border-radius: 999px; }
+.grp.s2 { margin-top: 16px; }
+.thr { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 9px; font-size: 13px; color: var(--muted); margin: 0 0 10px; }
+.thr output { font-family: var(--font-mono); color: var(--text); }
+.card { padding: 9px 12px; margin-bottom: 8px; }
+.card p { margin-top: 2px; }
+.card.dis { opacity: .5; }
+.card .param { margin-top: 6px; }
+.card select { font-family: var(--font-body); font-size: 13px; border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; background: #fff; color: var(--text); }
+.side { position: sticky; top: 62px; transition: opacity .15s; }
+.side .chart { margin-top: 0; }
+.busy { opacity: .55; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tbl th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.tbl td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl .r { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tbl tr.tot td { font-weight: 600; border-top: 1.5px solid var(--text); }
+.tblwrap { overflow-x: auto; margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; padding: 4px 8px; transition: opacity .15s; }
+.stages td:first-child { color: var(--muted); width: 20%; }
+.stages th:nth-child(2), .stages th:nth-child(3) { width: 40%; }
+.live { font-family: var(--font-mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+footer details { border-bottom: 1px solid var(--line); padding: 10px 0; }
+footer details[open] { padding-bottom: 14px; }
+footer summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text); }
+footer details > *:not(summary) { margin-top: 10px; }
+footer h4 { font-size: 13px; color: var(--text); margin: 12px 0 4px; }
+footer .tbl { font-size: 13px; color: var(--text); max-width: 720px; }
+footer ol { margin: 0; padding-left: 20px; }
+footer ol li { margin: 3px 0; max-width: 100ch; }
+.eq { font-family: var(--font-mono); font-size: 12.5px; background: var(--soft); color: var(--text); border-radius: 8px; padding: 8px 12px; max-width: 720px; }
+.fline { margin: 14px 0 0; }
+.credit { margin: 14px 0 0; font-size: 14px; color: var(--text); }
+.svgchart { width: 100%; margin-top: 8px; }
+.svgchart svg { display: block; overflow: visible; }
+.svgchart rect { cursor: default; }
+.tip { position: fixed; z-index: 50; pointer-events: none; display: none; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 9px; font-size: 12.5px; box-shadow: 0 2px 10px rgba(20, 24, 33, 0.10); }
+
+@media (max-width: 820px) {
+  .tiles, .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tiles.five { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .tiles.five .tile.major { grid-column: 1 / -1; grid-row: auto; }
+  .tiles.five .tile.major .v { font-size: 46px; }
+  .side { position: static; }
+  .policy { grid-template-columns: minmax(0, 1fr); }
+}
+
+.mini { display: none; }
+@media (max-width: 820px) {
+  .bar { position: static; }
+  .bar nav { display: none; }
+  .bar .wrap { gap: 6px 14px; }
+  .ctl { flex: 1 1 260px; }
+  .ctl label { min-width: 96px; }
+  .ctl input[type=range] { flex: 1; width: auto; }
+  #g-reset { margin-left: auto; }
+  .policy { display: flex; flex-direction: column; align-items: stretch; gap: 16px; }
+  .side { order: -1; position: static; }
+  .mini { display: flex; position: fixed; top: 0; left: 0; right: 0; z-index: 30; align-items: center; gap: 8px; padding: 8px 16px; background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 2px 8px rgba(20, 24, 33, 0.06); transform: translateY(-110%); transition: transform .2s ease; }
+  .mini.show { transform: none; }
+  .mini .mv { font-family: var(--font-mono); font-weight: 600; font-size: 21px; color: var(--accent); }
+  .mini .mk { font-size: 12px; color: var(--muted); margin-right: auto; line-height: 1.2; }
+  .mini .ms { font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .mini .ms.ok { color: var(--good); background: rgba(31, 138, 76, 0.10); }
+  .mini .ms.no { color: var(--bad); background: rgba(196, 58, 49, 0.09); }
+}
+@media (max-width: 600px) {
+  .top { padding: 28px 0 22px; }
+  .lede { font-size: 16px; }
+  .tiles.five { gap: 10px; margin-top: 14px; }
+  .scen button { padding: 5px 10px; font-size: 12.5px; }
+  .tile.major { grid-column: 1 / -1; }
+  .tile { padding: 12px 14px; }
+  .tiles .tile .v { font-size: 20px; }
+  .tiles.five .tile.major .v { font-size: 42px; }
+  section.q { padding: 34px 0 24px; }
+  .q h2 { font-size: 24px; }
+  .answer { font-size: 16.5px; }
+  .metrics { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+  .metric { padding: 8px 10px; }
+  .metric .v { font-size: 18px; }
+  .card input[type=checkbox] { width: 20px; height: 20px; }
+  .card p, .card .param { margin-left: 29px; }
+  .card .param input[type=range] { flex: 1; width: auto; }
+  .thr input[type=range] { flex: 1; width: auto; }
+  .chart { padding: 12px 10px 4px; }
+  .plot { height: 330px; }
+  .tblwrap { padding: 0 12px; }
+  .stages tr:first-child { display: none; }
+  .stages tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .stages tr:last-child { border-bottom: 0; }
+  .stages td { display: block; border: 0; padding: 2px 0; width: auto !important; }
+  .stages td:first-child { color: var(--text); font-weight: 600; margin-bottom: 2px; }
+  .stages td[data-l] { display: flex; gap: 8px; }
+  .stages td[data-l]::before { content: attr(data-l); flex: none; width: 60px; padding-top: 3px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); }
+  footer { padding-bottom: 40px; }
+}
+@media (max-width: 340px) { .tiles.five, .metrics { grid-template-columns: minmax(0, 1fr); } }
+
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <div class="eyebrow">MIT Policy Hackathon 2026 · Fusion Finance Challenge · Team VTJ²</div>
+    <h1 class="brandh"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" aria-hidden="true"><path d="M40.5,10.4 A26,26 0 0 1 60.4,44.9" stroke="#392268" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M55.9,52.7 A26,26 0 0 1 16.1,52.7" stroke="#7a5cc4" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M11.6,44.9 A26,26 0 0 1 31.5,10.4" stroke="#c85a30" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="36" cy="36" r="8" fill="#2f7d4f"/></svg>FERMI</h1>
+    <p class="lede">Bridging fusion's valley of death: a policy techno-economic simulator for the first fusion power plant.</p>
+    <div class="scen" id="scen" role="group" aria-label="Scenarios"><span class="lab">Scenarios</span><button type="button" data-s="none">No policy</button><button type="button" data-s="bill">Bill as proposed</button><button type="button" data-s="fermi" class="on">FERMI</button><button type="button" data-s="fermi400">FERMI + $400 buyers</button></div>
+    <div class="tiles five">
+      <div class="tile major">
+        <div class="mhead"><div class="k" id="t-ratio-k">Private $ per taxpayer $, prototype to first commercial plant</div>
+          <div class="seg" id="view" role="group" aria-label="Expected or worst case"><button type="button" data-v="exp" class="on" aria-pressed="true">Expected</button><button type="button" data-v="worst" aria-pressed="false">Worst case</button></div></div>
+        <div class="v" id="t-ratio">…</div><div class="split" id="h-bar"></div><div class="gauge" id="h-gauge" hidden></div><div class="s" id="t-ratio-s"></div>
+      </div>
+      <div class="tile"><div class="k">Chance a commercial plant is built</div><div class="v" id="t-built">…</div><div class="s" id="t-built-s"></div></div>
+      <div class="tile"><div class="k">Public money lost on unfinished plants</div><div class="v" id="t-strand">…</div><div class="s" id="t-strand-s"></div></div>
+      <div class="tile"><div class="k">Ratepayer dollars at risk</div><div class="v">$0</div><div class="s">nothing on power bills; buyers pay by contract</div></div>
+      <div class="tile"><div class="k">Break-even price without policy</div><div class="v" id="t-be">…</div><div class="s" id="t-be-s"></div></div>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <nav aria-label="Sections"><a href="#top">Metrics</a><a href="#policy">1 Policies</a><a href="#stages">2 Stages</a><a href="#numbers">Numbers</a></nav>
+    <div class="ctl"><label for="g-price">Power price</label><input id="g-price" type="range" min="40" max="1000" step="5" value="75"><output id="o-price">$75/MWh</output></div>
+    <div class="ctl"><label for="g-rate">Discount rate</label><input id="g-rate" type="range" min="3" max="12" step="0.5" value="7"><output id="o-rate">7.0%</output></div>
+    <button id="g-reset" type="button">Reset</button>
+  </div>
+</div>
+
+<div class="mini" id="mini" aria-hidden="true"><span class="mv" id="mini-v">…</span><span class="mk" id="mini-k">private $ per<br>taxpayer $</span><span class="ms" id="mini-s1">Stage 1</span><span class="ms" id="mini-s2">Stage 2</span></div>
+<main class="wrap">
+  <section class="q" id="policy">
+    <div class="q-no">01</div>
+    <h2>Which policies make it investable?</h2>
+    <div class="status-row"><span id="pill1" class="pill no">…</span><span id="pill2" class="pill no">…</span></div>
+    <div class="mgrid" id="mgrid">
+      <div class="mlabel">Stage 1 · demo plant</div>
+      <div class="metrics" id="m1"></div>
+      <div class="mlabel">Stage 2 · first commercial plant</div>
+      <div class="metrics" id="m2"></div>
+    </div>
+    <div class="policy">
+      <div id="cards"></div>
+      <div class="side" id="side">
+        <div class="chart">
+          <h3 id="c4t">How the policies close the gap</h3>
+          <p class="read">Developer's expected value in $B. Each bar is one policy's average contribution; the auction is held at its clearing price.</p>
+          <div id="c4" class="svgchart"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="q" id="stages">
+    <div class="q-no">02</div>
+    <h2>Stage 1 and stage 2</h2>
+    <div class="tblwrap" id="stages-box"><table class="tbl stages" id="stab" aria-label="FERMI stage 1 and stage 2"></table></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <details id="numbers">
+      <summary>How the numbers are made</summary>
+      <ul>
+        <li>Engine: Step 5 of <span class="num">Nuclear_Fusion_TEA_baseline.ipynb</span>, run in the browser. Pre-tax NPV in real 2024 dollars, triangular inputs, 20,000 futures: half set the developer's stop rules, half report results.</li>
+        <li>Plant: 350 MWe, $16,342–44,360/kW, about 30% availability, O&amp;M $35–182/MWh, 30-year life (Araiinejad &amp; Shirvan 2025, via the brief).</li>
+        <li>Stage 1: the team's demo-plant model (4,000 builds × 139 scenarios), fixed at FERMI's settings. The bar at the top changes stage 2 only.</li>
+        <li>Check: with the full credit and a $250 buyers' price, stage 2 costs $4.47B and brings $0.34 per taxpayer dollar, as in the notebook.</li>
+      </ul>
+      <h4>Key assumptions</h4>
+      <ul id="ka"></ul>
+      <h4>Headline ratio</h4>
+      <table class="tbl" id="b1" aria-label="Full-path calculation"></table>
+      <p class="eq" id="b1eq"></p>
+    </details>
+    <details id="sources">
+      <summary>Sources</summary>
+      <ol>
+        <li>MODULE12 (2026). <em>Financing fusion's first power plant</em>: challenge brief and sponsor deck, MIT Policy Hackathon 2026.</li>
+        <li>Team VTJ² (2026). Demonstration-plant milestone model, with a 15-project dataset.</li>
+        <li>Team VTJ² (2026). Nuclear_Fusion_TEA_baseline notebook, Steps 1 to 5.</li>
+        <li>Araiinejad, L. and Shirvan, K. (2025). Bottom-up cost analysis of a D-T magnetic-confinement fusion plant. <em>Applied Energy</em>.</li>
+        <li>Cardin, M.-A. et al. (2012). <em>Nuclear Engineering and Design</em> 243, 120–134.</li>
+        <li>US Congress (2026). <a href="https://www.congress.gov/bill/119th-congress/house-bill/10574/text">H.R. 10574, American Leadership in Fusion Act</a>.</li>
+        <li>US Department of Energy (2023). <a href="https://content.govdelivery.com/accounts/USDOEOS/bulletins/35d8483">$46 million for commercial fusion energy development</a>.</li>
+        <li>US Department of Energy (2024). <a href="https://www.energy.gov/sites/default/files/2024-11/FOAK%20Financing%20and%20Development%20Approaches_112024_vf.pdf">Financing and Development Approaches from Recent First-of-a-Kind Projects</a>.</li>
+        <li>NASA (2014). <a href="https://www.nasa.gov/sites/default/files/files/SP-2014-617.pdf">Commercial Orbital Transportation Services</a>.</li>
+        <li>Frontier (2022). <a href="https://frontierclimate.com/writing/launch">An advance market commitment to accelerate carbon removal</a>.</li>
+        <li>Commonwealth Fusion Systems (2025). <a href="https://cfs.energy/news-and-media/google-and-commonwealth-fusion-systems-sign-strategic-partnership/">Google and Commonwealth Fusion Systems sign strategic partnership</a>.</li>
+        <li>Eni (2025). <a href="https://www.eni.com/en-IT/media/press-release/2025/09/pr-eni-commonwealth-fusion-systems-1-billion-power-production-energy.html">Eni and Commonwealth Fusion Systems power purchase agreement</a>.</li>
+        <li>Internal Revenue Service (2025). <a href="https://www.irs.gov/pub/irs-drop/rp-25-14.pdf">Revenue Procedure 2025-14</a>.</li>
+        <li>Norton Rose Fulbright (2025). <a href="https://www.projectfinance.law/publications/effects-of-one-big-beautiful-bill-on-projects">Effects of "One Big Beautiful Bill" on projects</a>.</li>
+        <li>UK National Audit Office (2017). <a href="https://www.nao.org.uk/wp-content/uploads/2017/03/Review-of-the-Thames-Tideway-Tunnel.pdf">Review of the Thames Tideway Tunnel</a>.</li>
+        <li>US Office of Management and Budget (2023). <a href="https://www.whitehouse.gov/wp-content/uploads/2023/11/CircularA-94AppendixD.pdf">Circular A-94, Appendix D: discount rates</a>.</li>
+      </ol>
+    </details>
+    <p class="fline">For more information, see the FERMI policy memo.</p>
+    <p class="fline">AI disclosure: the team used Claude and Perplexity to summarize sources, draft text and write code, including this simulator.</p>
+    <p class="credit">Developed by <strong>Valentina, Thomas, Joseph and João</strong> · Team VTJ² · MIT Policy Hackathon 2026</p>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<script>
+// ===== FERMI engine =====
+// Port of Nuclear_Fusion_TEA_baseline.ipynb (Steps 1-5): pre-tax project NPV in real 2024 dollars at the
+// investment decision, triangular inputs, Gaussian copula build cost <-> build time, continuous discounting.
+// Step 5 adds technology failure, the learning-premium auction, the federal refinancing credit cost and the
+// buyer price. Here the Step 5 "cfd_edf" instrument is split into its two parts: the buyers' availability
+// floor ("cfd") and federal refinancing at start-up ("edf"). With both on, the result is the notebook's.
+const ENGINE = (() => {
+  const FOAK = { MW: 350, OCC: [16342, 26925, 44360], build: [5.0, 7.0, 10.0], CF: [0.20, 0.30, 0.50], R: 0, rf: 1.0,
+    FOM: [0, 0, 0], om: [35, 80, 182], VOM: [0, 0, 0], DEC: 1000, life: 30 };
+  const MATURE = { MW: 350, OCC: [8171, 13462, 22180], build: [4.0, 5.0, 7.0], CF: [0.60, 0.70, 0.80], R: 0, rf: 1.0,
+    FOM: [0, 0, 0], om: [35, 80, 182], VOM: [0, 0, 0], DEC: 1000, life: 30 };
+  const SET = {
+    RHO: 0.6, N_FOLLOW: 3, LAG: 1.0, STAGGER: 1.0, LR: [0.05, 0.10, 0.15], SIG_F: 0.10, GATE_FRAC: 0.40, SIG_G: 0.10,
+    GATE_K: [0.0, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.75, 2.0, Infinity],
+    PRE_K: [0.0, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, Infinity],
+    MILESTONE: { G_pub: 0.4e9, G_priv: 0.4e9, sigma: 0.20 },
+    BACKSTOP: { T: 1.25, CAP: 1.75, share: 0.50, put: 0.50, debt: 0.65, salvage: 0.10 },
+    AVAIL: { floor: 0.40, years: 5 }, EDF_RATE: 0.05, EDF_CREDIT: { pd: 0.20, lgd: 0.90 },
+    PUBLIC_RATE: 0.02, PRICE: [50, 75, 115], ITC_FULL: 0.30, TOL: -0.01e9,
+  };
+
+  // ---------- maths ----------
+  function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function makeRng(seed) {
+    const u = mulberry32(seed); let spare = null;
+    return { u: () => u(), n: () => { if (spare !== null) { const s = spare; spare = null; return s; } let a, b, s; do { a = 2 * u() - 1; b = 2 * u() - 1; s = a * a + b * b; } while (s >= 1 || s === 0); const m = Math.sqrt(-2 * Math.log(s) / s); spare = b * m; return a * m; } };
+  }
+  function normCdf(z) { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989422804014327 * Math.exp(-z * z / 2); const p = d * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429)))); return z > 0 ? 1 - p : p; }
+  function triPpf(u, a, c, b) { if (b === a) return a; const fc = (c - a) / (b - a); return u < fc ? a + Math.sqrt(u * (b - a) * (c - a)) : b - Math.sqrt((1 - u) * (b - a) * (b - c)); }
+  const triQ = (q, t) => triPpf(q, t[0], t[1], t[2]);
+  function Phi(a, b, d) { return (Math.exp(-d * a) - Math.exp(-d * b)) / d; }
+  function pct(sorted, q) { const i = (sorted.length - 1) * q, lo = Math.floor(i), hi = Math.ceil(i); return sorted[lo] + (sorted[hi] - sorted[lo]) * (i - lo); }
+
+  // ---------- one plant: levelised cost (used by the market chart) ----------
+  function sampleDraws(p, n, seed, priceTri) {
+    const g = makeRng(seed), out = new Array(n), rho = SET.RHO, s = Math.sqrt(1 - rho * rho);
+    for (let i = 0; i < n; i++) {
+      const z1 = g.n(), z2 = rho * z1 + s * g.n();
+      out[i] = { MW: p.MW, OCC: triQ(normCdf(z1), p.OCC), build: triQ(normCdf(z2), p.build), CF: triQ(g.u(), p.CF), FOM: triQ(g.u(), p.FOM),
+        om: triQ(g.u(), p.om), VOM: triQ(g.u(), p.VOM), DEC: p.DEC, life: p.life, R: p.R, rf: p.rf, price: triQ(g.u(), priceTri) };
+    }
+    return out;
+  }
+  function lcoe(d, r) {
+    const dl = Math.log(1 + r), K = d.MW * 1e3, Tb = d.build, L = d.life, R = d.R, capex = d.OCC * K;
+    const pvCapex = capex / Tb * Phi(0, Tb, dl);
+    const pvE = 8.76 * K * d.CF * (d.rf * Phi(Tb, Tb + R, dl) + Phi(Tb + R, Tb + L, dl));
+    const pvCost = pvCapex + d.FOM * K * Phi(Tb, Tb + L, dl) + (d.om + d.VOM) * pvE + d.DEC * K * Math.exp(-dl * (Tb + L));
+    return pvCost / pvE;
+  }
+  function breakEvenCurve(which, n, seed, r) {
+    const p = which === "mature" ? MATURE : FOAK;
+    const draws = sampleDraws(p, n, seed, SET.PRICE), out = new Float64Array(n);
+    for (let i = 0; i < n; i++) out[i] = lcoe(draws[i], r);
+    return out.sort();
+  }
+
+  // ---------- the commercial plant and its follow-ons ----------
+  // opts: { n, seed, priceScale, techPre, techPost }
+  function simulate(opts) {
+    const n = opts.n, priceTri = SET.PRICE.map(v => v * (opts.priceScale || 1));
+    const x = sampleDraws(FOAK, n, opts.seed + 101, priceTri), g = makeRng(opts.seed + 202), gt = makeRng(opts.seed + 303);
+    const lrMode = SET.LR[1], fol = new Array(n);
+    const sGate = new Float64Array(n), sPre = new Float64Array(n), failGate = new Uint8Array(n), caught = new Uint8Array(n);
+    const pPre = opts.techPre != null ? opts.techPre : 0.30, pPost = opts.techPost != null ? opts.techPost : 0.10;
+    for (let i = 0; i < n; i++) {
+      const LR = triQ(g.u(), SET.LR), CFM = triQ(g.u(), MATURE.CF), f = [];
+      for (let j = 0; j < SET.N_FOLLOW; j++) {
+        const k = j + 2, w = 1 - Math.pow(0.5, k - 1), eps = Math.exp(SET.SIG_F * g.n() - SET.SIG_F * SET.SIG_F / 2);
+        f.push({ start: x[i].build + SET.LAG + j * SET.STAGGER, occT: x[i].OCC * Math.pow(k, Math.log2(1 - LR)) * eps, occH: x[i].OCC * Math.pow(k, Math.log2(1 - lrMode)),
+          cfT: x[i].CF + (CFM - x[i].CF) * w, cfH: x[i].CF + (MATURE.CF[1] - x[i].CF) * w });
+      }
+      fol[i] = f;
+      sGate[i] = x[i].OCC * Math.exp(SET.SIG_G * g.n() - SET.SIG_G * SET.SIG_G / 2);
+      sPre[i] = x[i].OCC * Math.exp(SET.MILESTONE.sigma * g.n() - SET.MILESTONE.sigma ** 2 / 2);
+      const u = gt.u();
+      failGate[i] = u < pPre ? 1 : 0;                       // the technology never works
+      caught[i] = (u < pPre && u >= pPost) ? 1 : 0;          // ...and an integrated demo would show it before construction
+      if (caught[i]) sPre[i] = Infinity;
+    }
+    return { n, x, fol, sGate, sPre, failGate, caught, budget: FOAK.OCC[1], occHi: FOAK.OCC[2], pPre, pPost };
+  }
+
+  function unitParts(x, CF, d, price) {
+    const K = x.MW * 1e3, L = x.life, R = x.R;
+    const E = 8.76 * K * CF * (x.rf * Phi(0, R, d) + Phi(R, L, d));
+    const m = price - x.om - x.VOM;
+    return [m * E - x.FOM * K * Phi(0, L, d) - x.DEC * K * Math.exp(-d * L), E];
+  }
+
+  // flags: { gate, itc, auction, backstop, buyer, cfd, edf }  pol: { itcRate, strike, r }
+  function prepare(D, flags, pol, lim) {
+    const n = D.n, nUse = lim || n, dP = Math.log(1 + pol.r), dG = Math.log(1 + SET.PUBLIC_RATE), dE = Math.log(1 + SET.EDF_RATE), B = SET.BACKSTOP;
+    const A = {};
+    for (const k of ["K", "C", "ITCadv", "ITCcod", "CE", "recov", "opF", "cfd", "offF", "LPmax", "vFol", "capFol", "fFullP", "fGateP", "fLateP",
+      "fFullG", "fGateG", "fLateG", "eTbP", "eTbG", "egTP", "egTG"]) A[k] = new Float64Array(n);
+    A.expand = new Uint8Array(n); A.forced = new Uint8Array(n); A.refi = new Uint8Array(n);
+    const itc = flags.itc ? pol.itcRate : 0;
+    for (let i = 0; i < nUse; i++) {
+      const x = D.x[i], K = x.MW * 1e3, Tb = x.build, P = x.price, gT = SET.GATE_FRAC * Tb, C = x.OCC * K, Bd = D.budget * K, X = C / Bd;
+      const PF = flags.buyer ? pol.strike : P;
+      const [opP, EF] = unitParts(x, x.CF, dP, PF);
+      let opF = opP;
+      if (flags.edf && opP > 0) opF = unitParts(x, x.CF, dE, PF)[0];
+      const cfd = flags.cfd ? PF * Math.max(SET.AVAIL.floor - x.CF, 0) * 8.76 * K * Phi(0, SET.AVAIL.years, dP) : 0;
+      const offF = flags.buyer ? (PF - P) * EF : 0;
+      const ITCadv = itc * C, ITCcod = 0;                     // the credit is claimed during construction
+      const CE = flags.backstop ? B.share * Math.max(Math.min(X, B.CAP) - B.T, 0) * Bd : 0;
+      let vHat = 0, vFol = 0, capFol = 0;
+      for (const f of D.fol[i]) {                             // follow-on plants: market price, no tax credit
+        for (let w = 0; w < 2; w++) {
+          const occ = w === 0 ? f.occH : f.occT, cf = w === 0 ? f.cfH : f.cfT;
+          let op = unitParts(x, cf, dP, P)[0];
+          if (flags.edf && op > 0) op = unitParts(x, cf, dE, P)[0];
+          const capex = occ * K * Phi(0, Tb, dP) / Tb, v = Math.exp(-dP * f.start) * (-capex + Math.exp(-dP * Tb) * op);
+          if (w === 0) vHat += v; else { vFol += v; capFol += Math.exp(-dP * f.start) * capex; }
+        }
+      }
+      A.K[i] = K; A.C[i] = C; A.ITCadv[i] = ITCadv; A.ITCcod[i] = ITCcod; A.CE[i] = CE; A.recov[i] = (CE / C) * Math.max(opF, 0);
+      A.opF[i] = opF; A.cfd[i] = cfd; A.offF[i] = offF; A.LPmax[i] = C - ITCadv - ITCcod - CE; A.vFol[i] = vFol; A.capFol[i] = capFol;
+      A.fFullP[i] = Phi(0, Tb, dP) / Tb; A.fGateP[i] = Phi(0, gT, dP) / Tb; A.fLateP[i] = Phi(Tb / 2, Tb, dP) / (Tb / 2);
+      A.fFullG[i] = Phi(0, Tb, dG) / Tb; A.fGateG[i] = Phi(0, gT, dG) / Tb; A.fLateG[i] = Phi(Tb / 2, Tb, dG) / (Tb / 2);
+      A.eTbP[i] = Math.exp(-dP * Tb); A.eTbG[i] = Math.exp(-dG * Tb); A.egTP[i] = Math.exp(-dP * gT); A.egTG[i] = Math.exp(-dG * gT);
+      A.expand[i] = vHat > 0 ? 1 : 0; A.refi[i] = opP > 0 ? 1 : 0;
+      A.forced[i] = ((flags.backstop && D.sGate[i] > B.CAP * D.budget) || D.failGate[i]) ? 1 : 0;
+    }
+    return { D, flags, pol, A, lim: nUse, G_pub: flags.gate ? SET.MILESTONE.G_pub : 0, G_priv: flags.gate ? SET.MILESTONE.G_priv : 0 };
+  }
+
+  // Values of the three paths for every draw at one auction premium lam ($/kW). Buffers are reused.
+  function atLambda(P, lam) {
+    const { A, flags } = P, n = P.D.n, nUse = P.lim || n, B = SET.BACKSTOP;
+    if (!P.V) { P.V = {}; for (const k of ["LP", "Vc", "Pc", "Cc", "Oc", "Vv", "Cv", "Vf", "Pf", "Cf", "edf", "put"]) P.V[k] = new Float64Array(n); }
+    const out = P.V;
+    for (let i = 0; i < nUse; i++) {
+      const C = A.C[i], LP = flags.auction ? Math.max(Math.min(lam * A.K[i], A.LPmax[i]), 0) : 0, net = C - LP - A.ITCadv[i];
+      const privCapex = net * A.fFullP[i] - A.CE[i] * A.fLateP[i];
+      const VF = -privCapex + A.eTbP[i] * (A.ITCcod[i] + A.opF[i] - A.recov[i] + A.cfd[i]);
+      const pubF = (LP + A.ITCadv[i]) * A.fFullG[i] + A.CE[i] * A.fLateG[i] + A.eTbG[i] * (A.ITCcod[i] - A.recov[i]);
+      const put = flags.backstop ? B.put * B.debt * (1 - B.salvage) * net * SET.GATE_FRAC : 0;
+      out.LP[i] = LP; out.put[i] = put;
+      out.Vc[i] = VF + (A.expand[i] ? A.vFol[i] : 0); out.Pc[i] = pubF; out.Cc[i] = privCapex + (A.expand[i] ? A.capFol[i] : 0);
+      out.Oc[i] = A.eTbP[i] * (A.cfd[i] + A.offF[i]);
+      out.Vv[i] = -C * A.fGateP[i]; out.Cv[i] = C * A.fGateP[i];
+      out.Vf[i] = -net * A.fGateP[i] + put * A.egTP[i]; out.Pf[i] = (LP + A.ITCadv[i]) * A.fGateG[i] + put * A.egTG[i]; out.Cf[i] = net * A.fGateP[i];
+      out.edf[i] = flags.edf ? SET.EDF_CREDIT.pd * SET.EDF_CREDIT.lgd * B.debt * Math.max(net, 0) * A.refi[i] * A.eTbG[i] : 0;
+    }
+    return out;
+  }
+
+  // 0 = no investment decision, 1 = built, 2 = forced stop, 3 = walked away
+  function path(P, i, kp, kg) {
+    const D = P.D;
+    if (P.flags.gate && !(D.sPre[i] <= kp * D.budget)) return 0;
+    if (!P.A.forced[i] && D.sGate[i] <= kg * D.budget) return 1;
+    return P.A.forced[i] ? 2 : 3;
+  }
+  // The developer's best stop rules (demo threshold kp, construction-gate threshold kg), chosen on the training half.
+  // Same search as the notebook, done with prefix sums over draws sorted by the demo cost signal.
+  function rulePrep(P) {
+    const D = P.D, half = D.n >> 1, pre = P.flags.gate ? SET.PRE_K : [Infinity];
+    const order = Array.from({ length: half }, (_, i) => i).sort((a, b) => D.sPre[a] - D.sPre[b]);
+    const cut = pre.map(kp => { let c = 0; while (c < half && D.sPre[order[c]] <= kp * D.budget) c++; return c; });
+    const gateOk = SET.GATE_K.map(kg => { const a = new Uint8Array(half); for (let i = 0; i < half; i++) a[i] = (!P.A.forced[i] && D.sGate[i] <= kg * D.budget) ? 1 : 0; return a; });
+    return { half, pre, order, cut, gateOk };
+  }
+  function bestRules(P, V) {
+    if (!P.R) P.R = rulePrep(P);
+    const R = P.R, half = R.half, F = P.A.forced;
+    let best = null, bv = -Infinity;
+    for (let g = 0; g < SET.GATE_K.length; g++) {
+      const ok = R.gateOk[g];
+      let s = 0, c = 0;
+      for (let j = 0; j < R.pre.length; j++) {
+        const stop = R.cut[j];
+        for (; c < stop; c++) { const i = R.order[c]; s += ok[i] ? V.Vc[i] : F[i] ? V.Vf[i] : V.Vv[i]; }
+        if (s > bv) { bv = s; best = [R.pre[j], SET.GATE_K[g]]; }
+      }
+    }
+    return { kp: best[0], kg: best[1], enpv: bv / half - P.G_priv };
+  }
+
+  // Solve one package: the auction clears at the lowest premium that lets the developer break even.
+  function solve(D, flags, pol, iters) {
+    const P = prepare(D, flags, pol), it = iters || 26;
+    const enpv = lam => { const V = atLambda(P, lam); return { V, r: bestRules(P, V) }; };
+    let lam = 0, res = enpv(0);
+    if (flags.auction && res.r.enpv < 0) {
+      let lo = 0, hi = D.occHi; const top = enpv(hi);
+      if (top.r.enpv >= SET.TOL) {
+        for (let k = 0; k < it; k++) { const mid = (lo + hi) / 2; if (enpv(mid).r.enpv < 0) lo = mid; else hi = mid; }
+      }
+      lam = hi; res = enpv(lam);
+    }
+    return summarize(P, res.V, res.r, lam);
+  }
+
+  function summarize(P, V, r, lam) {
+    const D = P.D, n = D.n, half = n >> 1, m = n - half, investable = r.enpv >= SET.TOL;
+    const pub = new Float64Array(m);
+    let sP = 0, sC = 0, sO = 0, sDone = 0, sFid = 0, sStr = 0, lossFid = 0, nFid = 0;
+    const lane = { auction: 0, itc: 0, demo: 0, edf: 0, backstop: 0 };
+    let passN = 0, passP = 0, passC = 0, passO = 0, passDone = 0;
+    const tP = [], tC = [], tO = [];
+    for (let i = half; i < n; i++) {
+      const w = path(P, i, r.kp, r.kg), A = P.A;
+      let p = P.G_pub, c = P.G_priv, o = 0, v = -P.G_priv;
+      if (w === 1) { p += V.Pc[i] + V.edf[i]; c += V.Cc[i]; o = V.Oc[i]; v += V.Vc[i]; }
+      else if (w === 2) { p += V.Pf[i]; c += V.Cf[i]; v += V.Vf[i]; }
+      else if (w === 3) { c += V.Cv[i]; v += V.Vv[i]; }
+      pub[i - half] = p / 1e9; sP += p; sC += c; sO += o;
+      if (w === 1) sDone++; if (w >= 1) { sFid++; nFid++; if (v < 0) lossFid++; }
+      if (w !== 1) sStr += p;
+      if (w === 1) { lane.auction += V.LP[i] * A.fFullG[i]; lane.itc += A.ITCadv[i] * A.fFullG[i] + A.eTbG[i] * A.ITCcod[i];
+        lane.backstop += A.CE[i] * A.fLateG[i] - A.eTbG[i] * A.recov[i]; lane.edf += V.edf[i]; }
+      else if (w === 2) { lane.auction += V.LP[i] * A.fGateG[i]; lane.itc += A.ITCadv[i] * A.fGateG[i]; lane.backstop += V.put[i] * A.egTG[i]; }
+      lane.demo += P.G_pub;
+      if (!P.flags.gate || !D.caught[i]) { passN++; passP += p - P.G_pub; passC += c - P.G_priv; passO += o; if (w === 1) passDone++; tP.push(p - P.G_pub); tC.push(c - P.G_priv); tO.push(o); }
+    }
+    const z = investable ? 1 : 0, B9 = 1e9, sorted = Float64Array.from(pub).sort();
+    // worst 5% of the futures that pass the demo, ranked by taxpayer cost: average public, private and buyer money in them
+    const idx = tP.map((_, k) => k).sort((a, b) => tP[b] - tP[a]), kTail = Math.max(1, Math.ceil(0.05 * idx.length));
+    let wP = 0, wC = 0, wO = 0; for (let k = 0; k < kTail; k++) { wP += tP[idx[k]]; wC += tC[idx[k]]; wO += tO[idx[k]]; }
+    for (const k in lane) lane[k] = z * lane[k] / m / B9;
+    const E = z * sP / m / B9, pDone = z * sDone / m;
+    return {
+      investable, enpvTrain: r.enpv / B9, lam, lamNominal: lam * 350e3 / B9, kp: r.kp, kg: r.kg,
+      pub: E, p95: z * pct(sorted, 0.95), cap: z * sC / m / B9, off: z * sO / m / B9, pDone, perPlant: pDone > 0 ? E / pDone : NaN,
+      stranded: z * sStr / m / B9, pLoseFid: z * (nFid ? lossFid / nFid : 0), lane,
+      pass: { share: passN / m, pub: z * passP / Math.max(passN, 1) / B9, cap: z * passC / Math.max(passN, 1) / B9, off: z * passO / Math.max(passN, 1) / B9, pDone: z * passDone / Math.max(passN, 1),
+        worst: { pub: z * wP / kTail / B9, cap: z * wC / kTail / B9, off: z * wO / kTail / B9 } },
+      demoPub: P.G_pub / B9, demoPriv: P.G_priv / B9,
+    };
+  }
+
+  // What each selected policy adds to the developer's expected value ($B, training half), averaged over every order in
+  // which the policies could be added (Shapley values). The auctioned premium is held at lam. A generator: it yields
+  // after each group so the page stays responsive; the return value is { ids, phi, base, full }.
+  function* shapleySteps(D, flags, pol, lam) {
+    const ALL = ["gate", "itc", "auction", "backstop", "buyer", "cfd", "edf"], ids = ALL.filter(k => flags[k]), m = ids.length, half = D.n >> 1;
+    const v = new Float64Array(1 << m), inner = ids.filter(k => k !== "gate" && k !== "auction"), outer = ids.filter(k => k === "gate" || k === "auction");
+    for (let pm = 0; pm < (1 << inner.length); pm++) {
+      const f = { gate: false, itc: false, auction: false, backstop: false, buyer: false, cfd: false, edf: false };
+      inner.forEach((k, j) => { if ((pm >> j) & 1) f[k] = true; });
+      const P = prepare(D, f, pol, half), rules = {};
+      for (let om = 0; om < (1 << outer.length); om++) {
+        outer.forEach((k, j) => { f[k] = !!((om >> j) & 1); });
+        P.G_pub = f.gate ? SET.MILESTONE.G_pub : 0; P.G_priv = f.gate ? SET.MILESTONE.G_priv : 0;
+        const g = f.gate ? 1 : 0;
+        if (!rules[g]) { P.R = null; rules[g] = rulePrep(P); }
+        P.R = rules[g];
+        let mask = 0; ids.forEach((k, i) => { if (f[k]) mask |= 1 << i; });
+        v[mask] = bestRules(P, atLambda(P, f.auction ? lam : 0)).enpv / 1e9;
+      }
+      yield pm;
+    }
+    const fact = k => (k <= 1 ? 1 : k * fact(k - 1)), bits = x => { let c = 0; while (x) { c += x & 1; x >>= 1; } return c; };
+    const phi = ids.map((k, i) => { let s = 0; for (let mask = 0; mask < (1 << m); mask++) { if ((mask >> i) & 1) continue; const c = bits(mask); s += fact(c) * fact(m - c - 1) / fact(m) * (v[mask | (1 << i)] - v[mask]); } return s; });
+    return { ids, phi, base: v[0], full: v[(1 << m) - 1] };
+  }
+
+  return { FOAK, MATURE, SET, makeRng, simulate, solve, shapleySteps, breakEvenCurve, pct };
+})();
+
+
+</script>
+<script>
+// ===== UI layer: FERMI policy techno-economic simulator =====
+const $ = id => document.getElementById(id);
+const INK = "#141821", MUTED = "#5d6677", GRID = "#edf0f4", AXIS = "#c9cfda";
+const BLUE = "#2a78d6", ORANGE = "#eb6834", GREEN = "#1f8a4c", RED = "#c43a31", TOTAL = "#a3abb9", AQUA = "#1baf7a";
+const N = 20000, SEED = 42, STRIKES = [150, 200, 250, 300, 350, 400, 450, 500];
+function fresh() {
+  return { price: 75, r: 0.07, thr: 0.30, s1: { mil: true, res: true, roy: true },
+    on: { gate: true, itc: true, auction: true, backstop: true, buyer: true, cfd: true, edf: true }, start: "y2035", strike: 250, view: "exp", scen: "fermi" };
+}
+let S = fresh(), D = null, R = null, SH = null, CROSS, STRALT, job = 0, needSim = true, BE = null;
+// One-click scenarios for the pitch. Assumptions (power price, discount rate) are left as they are.
+const ALL_ON = { gate: true, itc: true, auction: true, backstop: true, buyer: true, cfd: true, edf: true };
+const ALL_OFF = { gate: false, itc: false, auction: false, backstop: false, buyer: false, cfd: false, edf: false };
+const SCEN = {
+  none: { s1: { mil: false, res: false, roy: false }, on: { ...ALL_OFF }, strike: 250, start: "y2035" },
+  bill: { s1: { mil: true, res: false, roy: false }, on: { ...ALL_OFF, itc: true, edf: true }, strike: 250, start: "y2035" },
+  fermi: { s1: { mil: true, res: true, roy: true }, on: { ...ALL_ON }, strike: 250, start: "y2035" },
+  fermi400: { s1: { mil: true, res: true, roy: true }, on: { ...ALL_ON }, strike: 400, start: "y2035" },
+};
+function applyScenario(k) {
+  const sc = SCEN[k]; S.s1 = { ...sc.s1 }; S.on = { ...sc.on }; S.strike = sc.strike; S.start = sc.start; S.scen = k;
+  renderCards(); markScen(); schedule();
+}
+function markScen() { document.querySelectorAll("#scen button").forEach(b => b.classList.toggle("on", b.dataset.s === S.scen)); }
+const custom = () => { S.scen = null; markScen(); };
+const ok = v => v != null && isFinite(v);
+const B = v => (ok(v) ? (v < -0.0049 ? "−" : "") + "$" + Math.abs(v).toFixed(2) + "B" : "–");
+const Bs = v => (ok(v) ? (Math.abs(v) < 0.005 ? "$0.00B" : (v < 0 ? "−" : "+") + "$" + Math.abs(v).toFixed(2) + "B") : "–");
+const B1 = v => (ok(v) ? "$" + v.toFixed(1) + "B" : "–");
+const USD = v => "$" + Math.round(v).toLocaleString("en-US");
+const PCT = v => (ok(v) ? Math.round(100 * v) + "%" : "–");
+const R2 = v => (ok(v) ? v.toFixed(2) : "–");
+const RX = v => (ok(v) ? (v >= 2 ? v.toFixed(1) : v.toFixed(2)) : "–");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+const tick = () => new Promise(r => setTimeout(r, 0));
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+function niceStep(span) { const raw = span / 5, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p; return (f < 1.5 ? 1 : f < 3.5 ? 2 : f < 7.5 ? 5 : 10) * p; }
+const TIP = () => $("tip");
+function showTip(e, html) { const t = TIP(); t.innerHTML = html; t.style.display = "block"; const w = t.offsetWidth, h = t.offsetHeight; let x = e.clientX + 12, y = e.clientY - h - 10; if (x + w > window.innerWidth - 6) x = e.clientX - w - 12; if (y < 6) y = e.clientY + 14; t.style.left = x + "px"; t.style.top = y + "px"; }
+const hideTip = () => { TIP().style.display = "none"; };
+
+// ---------- the policies ----------
+const START = {
+  y2033: { label: "Start by 2033: full credit", share: 1, short: "full", ka: "Construction starts by 2033: full 48E credit" },
+  y2034: { label: "Start in 2034: 75%", share: 0.75, short: "75%", ka: "Construction starts in 2034: 75% of the 48E credit" },
+  y2035: { label: "Start in 2035: half (base case)", share: 0.5, short: "half", ka: "Construction starts in 2035: half the 48E credit" },
+  later: { label: "Start in 2036+: none", share: 0, short: "none", ka: "Construction starts after 2035: no 48E credit" },
+};
+// Stage 1: outputs of the team's demo-plant model at FERMI's settings (4,000 builds for each of 139 scenarios).
+const S1D = { none: { p: 0.14 }, bill: { p: 0.28 }, fermi: { p: 0.34, pub: 0.39, pubNoRoy: 0.48, priv: 2.49, max: 0.90 } };
+const CARDS1 = [
+  { id: "mil", name: "Milestone payments", text: "20% of each milestone, paid after certification" },
+  { id: "res", name: "Capped overrun reserve", text: "30% of overruns above a 10% deductible, up to 10% of cost" },
+  { id: "roy", name: "Royalty", text: "2–3% of revenue until taxpayers get 1.5× back" },
+];
+const CARDS2 = [
+  { id: "gate", name: "Demo gate", text: "Build money only after certified first electricity" },
+  { id: "itc", name: "Section 48E tax credit", text: "30% of build cost, less for later starts" },
+  { id: "auction", name: "Auctioned premium", text: "Lowest bid per kW wins, paid in build tranches" },
+  { id: "backstop", name: "Completion backstop", text: "Public shares overruns from 1.25× to 1.75× budget" },
+  { id: "buyer", name: "Buyers' price", text: "Fixed price paid by large buyers" },
+  { id: "cfd", name: "Availability floor", text: "Buyers pay for 40% output for 5 years" },
+  { id: "edf", name: "Federal refinancing", text: "Debt refinanced at 5% real at start-up" },
+];
+const SHORT = { gate: "Demo gate", itc: "48E credit", auction: "Auctioned premium", backstop: "Backstop", buyer: "Buyers' price", cfd: "Availability floor", edf: "Refinancing" };
+const pol = () => ({ itcRate: ENGINE.SET.ITC_FULL * START[S.start].share, strike: S.strike, r: S.r });
+
+function stage1() {
+  const key = !S.s1.mil ? "none" : S.s1.res ? "fermi" : "bill", o = S1D[key], financed = o.p >= S.thr, costed = key === "fermi";
+  return { key, p: o.p, financed, costed, pub: costed ? (S.s1.roy ? o.pub : o.pubNoRoy) : null, priv: costed ? o.priv : null, max: costed ? o.max : null };
+}
+// Headline: stage 1 every time, then stage 2 only in the futures where the demo works (joins two models).
+function fullPath() {
+  const a = stage1(), r = R;
+  if (!a.financed) return { state: "s1no", a };
+  if (!a.costed) return { state: "s1nc", a };
+  if (!r || !r.investable) return { state: "s2no", a, pub: a.pub, priv: a.priv, buy: 0 };
+  if (S.on.gate) { const ps = r.pass; return { state: "ok", a, pub: a.pub + a.p * ps.pub, priv: a.priv + a.p * ps.cap, buy: a.p * ps.off, pBuilt: a.p * ps.pDone }; }
+  return { state: "nogate", a, pub: a.pub + r.pub, priv: a.priv + r.cap, buy: r.off, pBuilt: r.pDone };
+}
+
+// ---------- cards ----------
+function cardHTML(c, on, param, dis) {
+  return `<div class="card ${on ? "on" : ""}${dis ? " dis" : ""}" id="card-${c.id}"><header><input type="checkbox" id="k-${c.id}" ${on ? "checked" : ""} ${dis ? "disabled" : ""}><label for="k-${c.id}">${esc(c.name)}</label></header><p>${esc(c.text)}</p>${param || ""}</div>`;
+}
+function renderCards() {
+  const p2 = {
+    itc: `<div class="param"><select id="s-start" aria-label="Construction start">${Object.entries(START).map(([k, v]) => `<option value="${k}" ${S.start === k ? "selected" : ""}>${esc(v.label)}</option>`).join("")}</select></div>`,
+    auction: `<div class="param">Clears at <output id="o-lam">…</output></div>`,
+    buyer: `<div class="param"><input id="s-strike" type="range" min="150" max="500" step="10" value="${S.strike}" aria-label="Buyers' price"><output id="o-strike">$${S.strike}/MWh</output></div>`,
+  };
+  $("cards").innerHTML =
+    `<div class="grp"><span>Stage 1</span>Demo plant, $3B</div>` +
+    CARDS1.map(c => cardHTML(c, S.s1[c.id], "", c.id !== "mil" && !S.s1.mil)).join("") +
+    `<div class="grp s2"><span>Stage 2</span>First commercial plant, 350 MW</div>` +
+    CARDS2.map(c => cardHTML(c, S.on[c.id], p2[c.id], false)).join("");
+  CARDS1.forEach(c => $("k-" + c.id).addEventListener("change", e => { S.s1[c.id] = e.target.checked; custom(); renderCards(); renderAll(); }));
+  CARDS2.forEach(c => $("k-" + c.id).addEventListener("change", e => { S.on[c.id] = e.target.checked; custom(); $("card-" + c.id).classList.toggle("on", e.target.checked); schedule(); }));
+  $("s-start").addEventListener("change", e => { S.start = e.target.value; custom(); schedule(); });
+  $("s-strike").addEventListener("input", e => { S.strike = +e.target.value; custom(); $("o-strike").textContent = `$${S.strike}/MWh`; scheduleSoon(); });
+  if (R) renderLam();
+}
+function renderLam() {
+  const o = $("o-lam"); if (!o) return;
+  o.textContent = !S.on.auction ? "off" : R.investable ? `${USD(R.lam)}/kW` : "no premium is enough";
+}
+
+// ---------- compute ----------
+function busy(on) { for (const id of ["mgrid", "side", "stages-box"]) $(id).classList.toggle("busy", on); }
+function schedule(resim) {
+  if (resim === true) needSim = true;
+  const my = ++job; busy(true);
+  setTimeout(() => {
+    if (my !== job) return;
+    if (needSim || !D) { D = ENGINE.simulate({ n: N, seed: SEED, priceScale: S.price / 75, techPre: 0.30, techPost: 0.10 }); needSim = false; }
+    R = ENGINE.solve(D, S.on, pol());
+    SH = null; CROSS = undefined; STRALT = undefined;
+    busy(false); renderAll(); background(my);
+  }, 30);
+}
+const scheduleSoon = debounce(schedule, 220);
+async function background(my) {
+  await tick(); if (my !== job) return;
+  if (R.investable) { const alt = ENGINE.solve(D, { ...S.on, gate: !S.on.gate }, pol(), 18); STRALT = alt.investable ? alt.stranded : null; renderStrand(); }
+  const it = ENGINE.shapleySteps(D, S.on, pol(), R.lam || 0); let st;
+  while (!(st = it.next()).done) { await tick(); if (my !== job) return; }
+  SH = st.value; drawShapley();
+  if (!S.on.buyer) return;
+  const pts = [];
+  for (const s of STRIKES) {
+    await tick(); if (my !== job) return;
+    const r = ENGINE.solve(D, S.on, { ...pol(), strike: s }, 16);
+    pts.push([s, r.investable && r.pub > 0 ? (r.cap + r.off) / r.pub : null]);
+  }
+  CROSS = null;
+  for (let i = 0; i < pts.length - 1; i++) { const [x0, y0] = pts[i], [x1, y1] = pts[i + 1]; if (ok(y0) && ok(y1) && y0 < 1 && y1 >= 1) CROSS = Math.round((x0 + (1 - y0) * (x1 - x0) / (y1 - y0)) / 10) * 10; }
+  if (CROSS === null && ok(pts[0][1]) && pts[0][1] >= 1) CROSS = 0;
+  renderStages();
+}
+
+// ---------- header tiles ----------
+function splitBar(parts) {
+  const el = $("h-bar"); el.textContent = "";
+  const tot = parts.reduce((s, p) => s + Math.max(p.v, 0), 0), w = el.clientWidth || 420;
+  for (const p of parts) {
+    const share = tot > 0 ? Math.max(p.v, 0) / tot : 0; if (share <= 0) continue;
+    const d = document.createElement("div"); d.style.flex = String(share); d.style.background = p.color;
+    d.title = `${p.name}: ${B(p.v)}, ${PCT(share)} of the total`;
+    const label = `${p.name} ${B(p.v)}`; if (share * w > label.length * 7.2 + 14) d.textContent = label; else if (share * w > 58) d.textContent = B(p.v);
+    el.appendChild(d);
+  }
+}
+// Worst case for taxpayers: the demo plant at its cap, and the commercial plant in its costliest 5% of futures.
+function worstPath(f) {
+  if (!(f.state === "ok" || f.state === "nogate")) return f;
+  const w = R.pass.worst, a = f.a;
+  return { ...f, pub: a.max + w.pub, priv: (3.0 - a.max) + w.cap, buy: w.off };
+}
+function renderTiles() {
+  const f0 = fullPath(), worst = S.view === "worst", f = worst ? worstPath(f0) : f0, a = f.a, good = f.state === "ok" || f.state === "nogate";
+  const ratio = ok(f.pub) && f.pub > 0 ? f.priv / f.pub : null, ratioB = ok(f.pub) && f.pub > 0 ? (f.priv + f.buy) / f.pub : null;
+  $("t-ratio-k").textContent = worst ? "Private $ per taxpayer $ at risk, worst case" : "Private $ per taxpayer $, prototype to first commercial plant";
+  $("t-ratio").textContent = good ? RX(ratio) : "None"; $("t-ratio").classList.toggle("none", !good);
+  const gz = $("h-gauge"), sc = v => Math.min(100, v / 0.5 * 100);
+  if (f.state === "s1no" || f.state === "s1nc") {
+    gz.hidden = false;
+    gz.innerHTML = `<div class="gbar"><div class="gfill${a.financed ? " ok" : ""}" style="width:${sc(a.p)}%"></div><div class="gmark" style="left:${sc(S.thr)}%"></div></div><div class="glab"><span><b>${PCT(a.p)}</b> chance the demo makes electricity</span><span>investors need <b>${PCT(S.thr)}</b></span></div>`;
+  } else { gz.hidden = true; gz.textContent = ""; }
+  const short = !R.investable ? B(-R.enpvTrain) : null;
+  $("t-ratio-s").textContent = {
+    ok: worst ? `${RX(ratioB)} with the buyer premium · demo at its ${B(a.max)} cap, commercial plant in its costliest 5% of futures` : `${RX(ratioB)} with the buyer premium · joins the stage 1 and stage 2 models`,
+    nogate: `${RX(ratioB)} with the buyer premium · no gate: built whatever the demo shows`,
+    s1no: `No private money comes in: investors do not finance the demo.${short ? ` The commercial plant would also be ${short} short of breaking even.` : ""}`,
+    s1nc: "Stage 1 financed but not costed in the team's model",
+    s2no: `No commercial plant: it is ${short} short of breaking even. The demo alone brings ${RX(ratio)} private $ per taxpayer $.`,
+  }[f.state];
+  splitBar(good ? [{ name: "Public", v: f.pub, color: BLUE }, { name: "Private", v: f.priv, color: AQUA }, { name: "Buyers", v: f.buy, color: ORANGE }]
+    : f.state === "s2no" ? [{ name: "Public", v: f.pub, color: BLUE }, { name: "Private", v: f.priv, color: AQUA }] : []);
+  $("mini-v").textContent = good ? RX(ratio) : "None"; $("mini-k").innerHTML = worst ? "private $ per taxpayer<br>$ at risk, worst case" : "private $ per<br>taxpayer $";
+  $("mini-s1").className = "ms " + (a.financed ? "ok" : "no"); $("mini-s1").textContent = "Stage 1 " + (a.financed ? "✓" : "✗");
+  $("mini-s2").className = "ms " + (R.investable ? "ok" : "no"); $("mini-s2").textContent = "Stage 2 " + (R.investable ? "✓" : "✗");
+  renderStrand();
+  $("t-built").textContent = good ? PCT(f.pBuilt) : "0%";
+  $("t-built-s").textContent = f.state === "ok" ? `${PCT(a.p)} demo × ${PCT(R.pass.pDone)} build` : f.state === "nogate" ? "no demo required" : "path stops before the plant";
+}
+function renderStrand() {
+  const r = R; if (!r) return;
+  if (!r.investable) { $("t-strand").textContent = "$0.00B"; $("t-strand-s").textContent = "nothing is built"; return; }
+  $("t-strand").textContent = B(r.stranded);
+  $("t-strand-s").textContent = STRALT === undefined ? "…" : STRALT === null ? "" : `${B(STRALT)} ${S.on.gate ? "without" : "with"} the demo gate`;
+}
+function renderBE() {
+  const med = ENGINE.pct(BE, 0.5);
+  $("t-be").textContent = USD(med) + "/MWh"; $("t-be-s").textContent = `first plant, median · ${Math.round(med / S.price)}× today's $${S.price}`;
+}
+
+// ---------- 01: which policies make it investable ----------
+const metric = (k, v, s) => `<div class="metric"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="s">${esc(s || "")}</div></div>`;
+function renderPolicy() {
+  const a = stage1(), r = R, fin = a.financed && a.costed;
+  $("pill1").className = "pill " + (a.financed ? "ok" : "no"); $("pill1").textContent = a.financed ? "Stage 1 financed" : "Stage 1 not financed";
+  $("pill2").className = "pill " + (r.investable ? "ok" : "no"); $("pill2").textContent = r.investable ? "Stage 2 investable" : "Stage 2 not investable";
+  $("m1").innerHTML = metric("Chance of first electricity", PCT(a.p), a.financed ? "" : `investors need ${PCT(S.thr)}`) +
+    metric("Taxpayer cost", fin ? B(a.pub) : a.financed ? "not costed" : "$0", fin ? `per plant · max ${B(a.max)}` : a.financed ? "" : "not financed") +
+    metric("Private capital", fin ? B(a.priv) : "$0", "") +
+    metric("Private $ per taxpayer $", fin ? RX(a.priv / a.pub) : "None", fin ? "at least 2.3" : "");
+  $("m2").innerHTML = r.investable
+    ? metric("Taxpayer cost", B(r.pub), `worst 5%: ${B1(r.p95)}`) +
+      metric("Private capital", B(r.cap), r.off > 0.005 ? `+${B(r.off)} from buyers` : "") +
+      metric("Private $ per taxpayer $", R2((r.cap + r.off) / r.pub), `capital only ${R2(r.cap / r.pub)}`) +
+      metric("Chance it gets built", PCT(r.pDone), S.on.gate ? `${PCT(r.pass.pDone)} after a working demo` : "")
+    : metric("Taxpayer cost", "$0", "nothing built") + metric("Private capital", "$0", "") + metric("Private $ per taxpayer $", "None", "") +
+      metric("Chance it gets built", "0%", `${B(-r.enpvTrain)} short of breaking even`);
+  renderLam();
+}
+function drawShapley() {
+  if (!SH || !R) return;
+  const host = $("c4"), W = Math.max(280, host.clientWidth || 520), narrow = W < 480;
+  const order = SH.ids.map((k, i) => ({ k, d: SH.phi[i] })).sort((a, b) => b.d - a.d);
+  const rows = [{ name: "No policy", from: 0, to: SH.base, kind: "base" }];
+  let run = SH.base;
+  for (const o of order) { rows.push({ name: SHORT[o.k], from: run, to: run + o.d, d: o.d, kind: "delta" }); run += o.d; }
+  rows.push({ name: "Your package", from: 0, to: SH.full, kind: "end" });
+  let lo = 0, hi = 0; for (const r of rows) { lo = Math.min(lo, r.from, r.to); hi = Math.max(hi, r.from, r.to); }
+  const span = hi - lo || 1; lo -= 0.03 * span; hi += (narrow ? 0.40 : 0.26) * span;
+  const m = { l: narrow ? 108 : 134, r: 10, t: 22, b: 44 }, band = narrow ? 31 : 35, H = m.t + m.b + band * rows.length;
+  const X = v => m.l + (v - lo) / (hi - lo) * (W - m.l - m.r), fs = narrow ? 11.5 : 12.5;
+  host.textContent = "";
+  const svg = el("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "How each stage 2 policy changes the developer's expected value" }, host);
+  const step = niceStep(hi - lo);
+  for (let t = Math.ceil(lo / step) * step; t <= hi + 1e-9; t += step) {
+    el("line", { x1: X(t), x2: X(t), y1: m.t - 4, y2: H - m.b, stroke: GRID, "stroke-width": 1 }, svg);
+    el("text", { x: X(t), y: H - m.b + 16, "text-anchor": "middle", "font-size": 11, fill: MUTED, "font-family": "IBM Plex Mono, ui-monospace, monospace" }, svg, (t < -1e-9 ? "−" : "") + Math.abs(t).toFixed(step < 1 ? 1 : 0));
+  }
+  el("text", { x: (m.l + W - m.r) / 2, y: H - 8, "text-anchor": "middle", "font-size": 12, fill: MUTED }, svg, "Developer's expected value ($B)");
+  el("line", { x1: X(0), x2: X(0), y1: m.t - 8, y2: H - m.b, stroke: INK, "stroke-width": 1.2 }, svg);
+  el("text", { x: X(0) + 5, y: m.t - 9, "font-size": 11, fill: MUTED }, svg, "investable →");
+  rows.forEach((r, i) => {
+    const y = m.t + i * band, h = Math.round(band * 0.6), yb = y + (band - h) / 2, a = Math.min(r.from, r.to), b = Math.max(r.from, r.to);
+    const x0 = X(a), x1 = X(b), wbar = Math.max(2, x1 - x0);
+    const col = r.kind === "base" ? TOTAL : r.kind === "end" ? (R.investable ? GREEN : TOTAL) : r.d >= 0 ? GREEN : RED;
+    el("text", { x: m.l - 8, y: y + band / 2 + 4, "text-anchor": "end", "font-size": fs, fill: INK, "font-weight": r.kind === "delta" ? 400 : 600 }, svg, r.name);
+    const rect = el("rect", { x: x0, y: yb, width: wbar, height: h, rx: 3, fill: col, opacity: 0.92 }, svg);
+    const val = r.kind === "delta" ? Bs(r.d) : B(r.to), tipTxt = r.kind === "delta" ? `<b>${esc(r.name)}</b><br>adds ${esc(val)}` : `<b>${esc(r.name)}</b><br>${esc(val)}`;
+    rect.addEventListener("pointerenter", e => showTip(e, tipTxt)); rect.addEventListener("pointermove", e => showTip(e, tipTxt)); rect.addEventListener("pointerleave", hideTip);
+    const inside = r.kind === "base" && wbar > 70;
+    el("text", { x: inside ? (x0 + x1) / 2 : (r.to >= r.from || r.kind === "end" ? x1 + 5 : x0 - 5), y: y + band / 2 + 4, "text-anchor": inside ? "middle" : (r.to >= r.from || r.kind === "end" ? "start" : "end"),
+      "font-size": 11.5, "font-weight": 600, fill: inside ? "#fff" : INK, "font-family": "IBM Plex Mono, ui-monospace, monospace",
+      ...(inside ? {} : { stroke: "#fff", "stroke-width": 3, "paint-order": "stroke", "stroke-linejoin": "round" }) }, svg, val);
+    if (i < rows.length - 2) el("line", { x1: X(r.to), x2: X(r.to), y1: yb + h, y2: yb + band, stroke: MUTED, "stroke-width": 1, "stroke-dasharray": "2 2" }, svg);
+  });
+  $("c4t").textContent = SH.base >= 0 ? "What each stage 2 policy adds" : R.investable ? `How the policies close the ${B1(-SH.base)} gap` : `These policies leave ${B1(-SH.full)} of the ${B1(-SH.base)} gap open`;
+}
+
+// ---------- 02: stage 1 and stage 2 ----------
+function renderStages() {
+  const a = stage1(), r = R, fin = a.financed && a.costed, on = S.on;
+  const s1pol = S.s1.mil ? ["milestone payments (20%)", S.s1.res && "capped reserve", S.s1.roy && "royalty to 1.5×"].filter(Boolean).join(", ") : "none";
+  const s2pol = [on.gate && "demo gate", on.itc && `48E credit (${START[S.start].short})`, on.auction && "auctioned premium", on.backstop && "backstop",
+    on.buyer && `buyers' price $${S.strike}/MWh`, on.cfd && "availability floor", on.edf && "refinancing"].filter(Boolean).join(", ") || "none";
+  const cross = !on.buyer || CROSS === undefined ? "" : CROSS === null ? " · below 1 up to $500/MWh" : CROSS === 0 ? "" : ` · reaches 1 near $${CROSS}/MWh`;
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const rows = [
+    ["Goal", "Prototype → demo that makes electricity", "Working demo → first commercial plant"],
+    ["Milestones", "Design → safety review → first plasma → first electricity (gate)", "Award → demo passed → 40% built → start-up"],
+    ["Policies", esc(cap(s1pol)), esc(cap(s2pol))],
+    ["Risk shifted", "Overruns that make backers walk", "Revenue too low to repay the build"],
+    ["Taxpayer cost", fin ? `<span class="live">${B(a.pub)}</span> per plant · max <span class="live">${B(a.max)}</span>` : a.financed ? "Not costed" : "Nothing spent: not financed",
+      r.investable ? `<span class="live">${B(r.pub)}</span> expected · worst 5% <span class="live">${B1(r.p95)}</span>` : "Nothing spent: not investable"],
+    ["Private $ per taxpayer $", fin ? `<span class="live">${RX(a.priv / a.pub)}</span> · at least 2.3` : "None: not financed", r.investable ? `<span class="live">${R2((r.cap + r.off) / r.pub)}</span>${cross}` : "None: not investable"],
+    ["Chance of success", `<span class="live">${PCT(a.p)}</span> reach first electricity${a.financed ? "" : ` · investors need ${PCT(S.thr)}`}`, r.investable ? `<span class="live">${PCT(r.pDone)}</span> built${on.gate ? ` · ${PCT(r.pass.pDone)} after a working demo` : ""}` : `<span class="live">0%</span> built · <span class="live">${B(-r.enpvTrain)}</span> short of breaking even`],
+  ];
+  $("stab").innerHTML = `<tr><th></th><th>Stage 1 · demo plant</th><th>Stage 2 · first commercial plant</th></tr>` + rows.map(([k, x, y]) => `<tr><td>${k}</td><td data-l="Stage 1"><div>${x}</div></td><td data-l="Stage 2"><div>${y}</div></td></tr>`).join("");
+}
+
+// ---------- numbers ----------
+function renderB1() {
+  const f = fullPath(), a = f.a, r = R;
+  if (f.state !== "ok") {
+    $("b1").innerHTML = `<tr><td>${f.state === "nogate" ? "Demo gate off: stage 1 plus the commercial plant in all futures." : "Needs a financed stage 1 and an investable stage 2 with the demo gate on."}</td></tr>`;
+    $("b1eq").textContent = f.state === "nogate" ? `${B(f.priv)} ÷ ${B(f.pub)} = ${R2(f.priv / f.pub)}` : "";
+    return;
+  }
+  const ps = r.pass;
+  $("b1").innerHTML = `<tr><th>Step</th><th class="r">Public</th><th class="r">Private</th></tr>
+  <tr><td>Stage 1 demo plant</td><td class="r">${B(a.pub)}</td><td class="r">${B(a.priv)}</td></tr>
+  <tr><td>Stage 2, all futures</td><td class="r">${B(r.pub)}</td><td class="r">${B(r.cap)}</td></tr>
+  <tr><td>Minus the stage 2 model's own demo</td><td class="r">− ${B(r.demoPub)}</td><td class="r">− ${B(r.demoPriv)}</td></tr>
+  <tr><td>Divide by ${R2(ps.share)}, futures where the demo passes</td><td class="r">${B(ps.pub)}</td><td class="r">${B(ps.cap)}</td></tr>
+  <tr><td>Weight by ${PCT(a.p)}, chance the stage 1 demo works</td><td class="r">${B(a.p * ps.pub)}</td><td class="r">${B(a.p * ps.cap)}</td></tr>
+  <tr class="tot"><td>Full path</td><td class="r">${B(f.pub)}</td><td class="r">${B(f.priv)}</td></tr>`;
+  $("b1eq").innerHTML = `${B(f.priv)} ÷ ${B(f.pub)} = <b>${R2(f.priv / f.pub)}</b> · with the buyer premium (${B(f.buy)}): <b>${R2((f.priv + f.buy) / f.pub)}</b> · chance built: ${PCT(a.p)} × ${PCT(ps.pDone)} = <b>${PCT(f.pBuilt)}</b>`;
+}
+function renderAssumptions() {
+  const li = [
+    `Investors back a demo at ≥ ${PCT(S.thr)} chance of success`,
+    S.on.buyer ? `Buyers pay $${S.strike}/MWh${S.on.cfd ? ", for at least 40% output over 5 years" : ""}` : "No buyers' price (base case $250/MWh)",
+    "Technology fails in 30% of futures; a working demo catches two-thirds",
+    `Private capital ${(S.r * 100).toFixed(1).replace(/\.0$/, "")}% real; taxpayer money 2% real`,
+    S.on.itc ? START[S.start].ka : "No Section 48E credit",
+    "Demo plant $3B, four milestones, 5–20% technical failure each",
+  ];
+  $("ka").innerHTML = li.map(x => `<li>${esc(x)}</li>`).join("");
+}
+function renderAll() { if (!R) return; renderTiles(); renderPolicy(); renderStages(); renderB1(); renderAssumptions(); if (SH) drawShapley(); }
+
+// ---------- wiring ----------
+function setControls() { $("g-price").value = S.price; $("o-price").textContent = `$${S.price}/MWh`; $("g-rate").value = S.r * 100; $("o-rate").textContent = (S.r * 100).toFixed(1) + "%"; }
+const onRate = debounce(() => { BE = ENGINE.breakEvenCurve("foak", 5000, SEED, S.r); renderBE(); }, 200);
+function init() {
+  $("g-price").addEventListener("input", e => { S.price = +e.target.value; $("o-price").textContent = `$${S.price}/MWh`; needSim = true; if (BE) renderBE(); scheduleSoon(); });
+  $("g-rate").addEventListener("input", e => { S.r = +e.target.value / 100; $("o-rate").textContent = (+e.target.value).toFixed(1) + "%"; onRate(); scheduleSoon(); });
+  $("g-reset").addEventListener("click", () => { const v = S.view; S = fresh(); S.view = v; needSim = true; setControls(); renderCards(); markScen(); BE = ENGINE.breakEvenCurve("foak", 5000, SEED, S.r); renderBE(); schedule(); });
+  document.querySelectorAll('a[href="#numbers"]').forEach(x => x.addEventListener("click", () => { $("numbers").open = true; }));
+  document.querySelectorAll("#view button").forEach(b => b.addEventListener("click", () => { S.view = b.dataset.v; document.querySelectorAll("#view button").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); }); if (R) renderTiles(); }));
+  document.querySelectorAll("#scen button").forEach(b => b.addEventListener("click", () => applyScenario(b.dataset.s)));
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => { for (const e of es) $("mini").classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0); }).observe(document.querySelector(".tiles"));
+  window.addEventListener("resize", debounce(() => { if (SH) drawShapley(); }, 150));
+  window.addEventListener("scroll", hideTip, { passive: true });
+  setControls(); renderCards();
+  setTimeout(() => { BE = ENGINE.breakEvenCurve("foak", 5000, SEED, S.r); renderBE(); schedule(); }, 0);
+}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+
+</script>
+</body>
+</html>
