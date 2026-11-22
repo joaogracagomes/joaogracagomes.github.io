@@ -8,6 +8,8 @@ This list is regularly updated. A full and up-to-date record is also available o
 A PhD study prototype is available at: 👉 [RECAP](assets/RECAP_last.html) and an improved version at: [RECAPv2](/assets/RECAP_v2_1.html)
 Flaw of Averages version: [RECAPv3](/assets/flaw-of-averages.html)
 
+Prototype Hackathon - [FERMI](/assets/FERMI.html)
+
 ---
 
 ## 📘 Journal Papers
