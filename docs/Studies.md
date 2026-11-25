@@ -10,6 +10,8 @@ Flaw of Averages version: [RECAPv3](/assets/flaw-of-averages.html)
 
 Prototype Hackathon - [FERMI](/assets/FERMI.html)
 
+Ordem - [Ordem](/assets/FERMI.html)
+
 ---
 
 ## 📘 Journal Papers
